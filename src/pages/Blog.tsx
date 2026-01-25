@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, User, Clock } from "lucide-react";
@@ -69,6 +70,12 @@ const blogPosts = [
 const categories = ["All", "Web Development", "UI/UX Design", "Digital Marketing", "Mobile Development", "Business Growth"];
 
 const Blog = () => {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredPosts = blogPosts.filter(
+    (post) => activeCategory === "All" || post.category === activeCategory
+  );
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -111,101 +118,110 @@ const Blog = () => {
             {categories.map((category, index) => (
               <button
                 key={category}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  index === 0
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
-                }`}
+                onClick={() => setActiveCategory(category)}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === category
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
               >
                 {category}
               </button>
             ))}
           </motion.div>
 
-          {/* Featured Post */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mb-16"
-          >
-            <Link to={`/blog/${blogPosts[0].id}`} className="block group">
-              <div className="grid lg:grid-cols-2 gap-8 rounded-3xl overflow-hidden bg-card border border-border hover:border-primary/30 transition-all duration-300">
-                <div className="aspect-[16/10] lg:aspect-auto overflow-hidden">
-                  <img
-                    src={blogPosts[0].image}
-                    alt={blogPosts[0].title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-8 flex flex-col justify-center">
-                  <span className="text-primary text-sm font-medium">
-                    {blogPosts[0].category}
-                  </span>
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground mt-2 mb-4 group-hover:text-primary transition-colors">
-                    {blogPosts[0].title}
-                  </h2>
-                  <p className="text-muted-foreground mb-6">
-                    {blogPosts[0].excerpt}
-                  </p>
-                  <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-2">
-                      <User className="w-4 h-4" />
-                      {blogPosts[0].author}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      {blogPosts[0].date}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      {blogPosts[0].readTime}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </motion.div>
-
-          {/* Post Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.slice(1).map((post, index) => (
+          {filteredPosts.length > 0 ? (
+            <>
+              {/* Featured Post */}
               <motion.div
-                key={post.id}
+                key={filteredPosts[0].id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mb-16"
               >
-                <Link to={`/blog/${post.id}`} className="block group h-full">
-                  <div className="h-full rounded-2xl overflow-hidden bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                    <div className="aspect-video overflow-hidden">
+                <Link to={`/blog/${filteredPosts[0].id}`} className="block group">
+                  <div className="grid lg:grid-cols-2 gap-8 rounded-3xl overflow-hidden bg-card border border-border hover:border-primary/30 transition-all duration-300">
+                    <div className="aspect-[16/10] lg:aspect-auto overflow-hidden">
                       <img
-                        src={post.image}
-                        alt={post.title}
+                        src={filteredPosts[0].image}
+                        alt={filteredPosts[0].title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
-                    <div className="p-6">
+                    <div className="p-8 flex flex-col justify-center">
                       <span className="text-primary text-sm font-medium">
-                        {post.category}
+                        {filteredPosts[0].category}
                       </span>
-                      <h3 className="text-lg font-semibold text-foreground mt-2 mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                        {post.excerpt}
+                      <h2 className="text-2xl md:text-3xl font-bold text-foreground mt-2 mb-4 group-hover:text-primary transition-colors">
+                        {filteredPosts[0].title}
+                      </h2>
+                      <p className="text-muted-foreground mb-6">
+                        {filteredPosts[0].excerpt}
                       </p>
-                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                        <span>{post.author}</span>
-                        <span>•</span>
-                        <span>{post.readTime}</span>
+                      <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                        <span className="flex items-center gap-2">
+                          <User className="w-4 h-4" />
+                          {filteredPosts[0].author}
+                        </span>
+                        <span className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          {filteredPosts[0].date}
+                        </span>
+                        <span className="flex items-center gap-2">
+                          <Clock className="w-4 h-4" />
+                          {filteredPosts[0].readTime}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </Link>
               </motion.div>
-            ))}
-          </div>
+
+              {/* Post Grid */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredPosts.slice(1).map((post, index) => (
+                  <motion.div
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                  >
+                    <Link to={`/blog/${post.id}`} className="block group h-full">
+                      <div className="h-full rounded-2xl overflow-hidden bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                        <div className="aspect-video overflow-hidden">
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <span className="text-primary text-sm font-medium">
+                            {post.category}
+                          </span>
+                          <h3 className="text-lg font-semibold text-foreground mt-2 mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                            {post.title}
+                          </h3>
+                          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                            {post.excerpt}
+                          </p>
+                          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                            <span>{post.author}</span>
+                            <span>•</span>
+                            <span>{post.readTime}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-xl text-muted-foreground">No posts found in this category.</p>
+            </div>
+          )}
 
           {/* Load More */}
           <motion.div

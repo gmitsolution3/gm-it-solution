@@ -1,18 +1,21 @@
 import { motion } from "framer-motion";
+import { FaReact, FaNodeJs, FaPython, FaAws } from "react-icons/fa";
+import { RiNextjsFill } from "react-icons/ri";
+import { SiTypescript, SiPostgresql, SiMongodb, SiDocker, SiFigma, SiFlutter, SiGraphql } from "react-icons/si";
 
 const technologies = [
-  { name: "React", icon: "⚛️" },
-  { name: "Next.js", icon: "▲" },
-  { name: "TypeScript", icon: "📘" },
-  { name: "Node.js", icon: "🟢" },
-  { name: "Python", icon: "🐍" },
-  { name: "AWS", icon: "☁️" },
-  { name: "PostgreSQL", icon: "🐘" },
-  { name: "MongoDB", icon: "🍃" },
-  { name: "Docker", icon: "🐳" },
-  { name: "Figma", icon: "🎨" },
-  { name: "Flutter", icon: "💙" },
-  { name: "GraphQL", icon: "◈" },
+  { name: "React", icon: <FaReact /> },
+  { name: "Next.js", icon: <RiNextjsFill /> },
+  { name: "TypeScript", icon: <SiTypescript /> },
+  { name: "Node.js", icon: <FaNodeJs /> },
+  { name: "Python", icon: <FaPython /> },
+  { name: "AWS", icon: <FaAws /> },
+  { name: "PostgreSQL", icon: <SiPostgresql /> },
+  { name: "MongoDB", icon: <SiMongodb /> },
+  { name: "Docker", icon: <SiDocker /> },
+  { name: "Figma", icon: <SiFigma /> },
+  { name: "Flutter", icon: <SiFlutter /> },
+  { name: "GraphQL", icon: <SiGraphql /> },
 ];
 
 const containerVariants = {

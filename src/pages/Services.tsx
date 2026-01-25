@@ -12,6 +12,13 @@ import {
   Settings,
   Code2,
 } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const services = [
   {
@@ -27,7 +34,15 @@ const services = [
       "CMS implementation",
       "Performance optimization",
     ],
-    technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "TypeScript"],
+    technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "TypeScript", "Prisma", "Tailwind CSS", "Shadcn UI"],
+    image: [
+      "https://i.postimg.cc/fygYZ294/pexels-divinetechygirl-1181263-(1).jpg",
+      "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
+      "https://i.postimg.cc/zvPT5tg8/pexels-hiteshchoudhary-1261427.jpg",
+      "https://i.postimg.cc/PJq1gsN1/pexels-kevin-ku-92347-577585.jpg",
+      "https://i.postimg.cc/prdKwbpN/pexels-pixabay-159299.jpg",
+      "https://i.postimg.cc/tJgFKQ7D/pexels-realtoughcandy-11035380.jpg",
+    ],
   },
   {
     id: "mobile",
@@ -43,6 +58,15 @@ const services = [
       "Offline functionality",
     ],
     technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase"],
+    image: [
+      "https://i.postimg.cc/HLpnZ0rK/pexels-kadiremir-31148083.jpg",
+      "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
+      "https://i.postimg.cc/bvzrC0ZF/pexels-ivan-s-7213210.jpg",
+      "https://i.postimg.cc/LsH5CkJw/pexels-ivan-s-7213504.jpg",
+      "https://i.postimg.cc/fbwy27V2/pexels-rccbtn-15406295.jpg",
+      "https://i.postimg.cc/Jh1063sB/pexels-realtoughcandy-11035474.jpg",
+      "https://i.postimg.cc/zfJvtwyW/pexels-sanketgraphy-16229745.jpg",
+    ],
   },
   {
     id: "design",
@@ -58,6 +82,14 @@ const services = [
       "Design systems",
     ],
     technologies: ["Figma", "Adobe XD", "Sketch", "Principle", "Framer"],
+    image: [
+      "https://i.postimg.cc/kgYzzqGm/pexels-dlxmedia-hu-215591835-11894290.jpg",
+      "https://i.postimg.cc/9MdxmhmC/pexels-ron-lach-8102680.jpg",
+      "https://i.postimg.cc/VNSpcpr3/pexels-firosnv-8171308.jpg",
+      "https://i.postimg.cc/vm1kdkxR/pexels-kawerodriguess-16313512.jpg",
+      "https://i.postimg.cc/NjCSSBFv/pexels-sami-aksu-48867324-10003549.jpg",
+      "https://i.postimg.cc/VNSpcp0c/pexels-tranmautritam-326518.jpg",
+    ],
   },
   {
     id: "marketing",
@@ -73,6 +105,15 @@ const services = [
       "Analytics & reporting",
     ],
     technologies: ["Google Analytics", "SEMrush", "HubSpot", "Meta Ads", "Google Ads"],
+    image: [
+      "https://i.postimg.cc/66GZG0nV/pexels-a-darmel-7642113.jpg",
+      "https://i.postimg.cc/FFJSJZ3Z/pexels-eva-bronzini-7661590.jpg",
+      "https://i.postimg.cc/2jBWBwhQ/pexels-goumbik-590016.jpg",
+      "https://i.postimg.cc/Pf8D84YP/pexels-jakubzerdzicki-29277702.jpg",
+      "https://i.postimg.cc/Pf8D84YJ/pexels-jakubzerdzicki-32045959.jpg",
+      "https://i.postimg.cc/Pf8D84YD/pexels-kindelmedia-7688102.jpg",
+      "https://i.postimg.cc/NGrXr4mx/pexels-pixabay-267401.jpg",
+    ],
   },
   {
     id: "branding",
@@ -88,6 +129,15 @@ const services = [
       "Presentation design",
     ],
     technologies: ["Adobe Creative Suite", "Figma", "Canva", "Illustrator", "Photoshop"],
+    image: [
+      "https://i.postimg.cc/FFJSJZ3Z/pexels-eva-bronzini-7661590.jpg",
+      "https://i.postimg.cc/NGrXr4mx/pexels-pixabay-267401.jpg",
+      "https://i.postimg.cc/2jBWBwhQ/pexels-goumbik-590016.jpg",
+      "https://i.postimg.cc/Pf8D84YP/pexels-jakubzerdzicki-29277702.jpg",
+      "https://i.postimg.cc/66GZG0nV/pexels-a-darmel-7642113.jpg",
+      "https://i.postimg.cc/Pf8D84YJ/pexels-jakubzerdzicki-32045959.jpg",
+      "https://i.postimg.cc/Pf8D84YD/pexels-kindelmedia-7688102.jpg",
+    ],
   },
   {
     id: "automation",
@@ -103,6 +153,15 @@ const services = [
       "Custom software development",
     ],
     technologies: ["Zapier", "Make", "Python", "Power Automate", "Custom APIs"],
+    image: [
+      "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
+      "https://i.postimg.cc/bvzrC0ZF/pexels-ivan-s-7213210.jpg",
+      "https://i.postimg.cc/LsH5CkJw/pexels-ivan-s-7213504.jpg",
+      "https://i.postimg.cc/HLpnZ0rK/pexels-kadiremir-31148083.jpg",
+      "https://i.postimg.cc/fbwy27V2/pexels-rccbtn-15406295.jpg",
+      "https://i.postimg.cc/Jh1063sB/pexels-realtoughcandy-11035474.jpg",
+      "https://i.postimg.cc/zfJvtwyW/pexels-sanketgraphy-16229745.jpg",
+    ],
   },
   {
     id: "software",
@@ -118,6 +177,15 @@ const services = [
       "Maintenance & support",
     ],
     technologies: ["AWS", "Docker", "Kubernetes", "CI/CD", "Microservices"],
+    image: [
+      "https://i.postimg.cc/HLpnZ0rK/pexels-kadiremir-31148083.jpg",
+      "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
+      "https://i.postimg.cc/bvzrC0ZF/pexels-ivan-s-7213210.jpg",
+      "https://i.postimg.cc/LsH5CkJw/pexels-ivan-s-7213504.jpg",
+      "https://i.postimg.cc/fbwy27V2/pexels-rccbtn-15406295.jpg",
+      "https://i.postimg.cc/Jh1063sB/pexels-realtoughcandy-11035474.jpg",
+      "https://i.postimg.cc/zfJvtwyW/pexels-sanketgraphy-16229745.jpg",
+    ],
   },
 ];
 
@@ -164,9 +232,8 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
+                className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                  }`}
               >
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
@@ -211,7 +278,23 @@ const Services = () => {
 
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                   <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 p-8 flex items-center justify-center">
-                    <service.icon className="w-32 h-32 text-primary/30" />
+                    <Carousel className="w-full h-full">
+                      <CarouselContent>
+                        {service.image.map((image, idx) => (
+                          <CarouselItem key={idx}>
+                            <div className="w-full h-full overflow-hidden rounded-lg">
+                              <img
+                                src={image}
+                                alt={`${service.title} preview ${idx + 1}`}
+                                className="w-full h-full object-cover aspect-[4/3] rounded-lg"
+                              />
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious />
+                      <CarouselNext />
+                    </Carousel>
                   </div>
                 </div>
               </motion.div>
