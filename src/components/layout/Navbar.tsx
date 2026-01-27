@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/mode-toggle";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -75,6 +76,7 @@ export const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-4">
+            <ModeToggle />
             <Button variant="hero" size="lg" asChild>
               <Link to="/contact">Get Started</Link>
             </Button>
@@ -123,11 +125,15 @@ export const Navbar = () => {
                 <Button variant="hero" size="lg" className="mt-4" asChild>
                   <Link to="/contact">Get Started</Link>
                 </Button>
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-muted-foreground font-medium">Switch Theme</span>
+                  <ModeToggle />
+                </div>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </motion.header >
   );
 };

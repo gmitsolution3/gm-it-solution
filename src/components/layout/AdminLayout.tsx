@@ -1,6 +1,6 @@
 import { SidebarProvider, Sidebar, SidebarContent, SidebarHeader, SidebarGroup, SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter, SidebarRail, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, Settings, LogOut, Home } from "lucide-react";
+import { LayoutDashboard, Users, Settings, LogOut, Home, FolderGit2 } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 
 const AdminLayout = () => {
@@ -11,6 +11,11 @@ const AdminLayout = () => {
             title: "Dashboard",
             url: "/admin/dashboard",
             icon: LayoutDashboard,
+        },
+        {
+            title: "Portfolio",
+            url: "/admin/portfolio",
+            icon: FolderGit2,
         },
         {
             title: "Users",

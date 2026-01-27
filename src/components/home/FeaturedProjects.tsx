@@ -3,40 +3,7 @@ import { Link } from "react-router-dom";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const projects = [
-  {
-    id: 1,
-    title: "FinTech Dashboard",
-    category: "Web Development",
-    description: "A comprehensive financial management platform with real-time analytics and reporting.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-    tags: ["React", "Node.js", "PostgreSQL"],
-  },
-  {
-    id: 2,
-    title: "E-Commerce Mobile App",
-    category: "Mobile App",
-    description: "Cross-platform shopping app with seamless checkout and personalized recommendations.",
-    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
-    tags: ["React Native", "Firebase", "Stripe"],
-  },
-  {
-    id: 3,
-    title: "Healthcare Portal",
-    category: "UI/UX Design",
-    description: "Patient management system with intuitive interface for medical professionals.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
-    tags: ["Figma", "React", "HIPAA"],
-  },
-  {
-    id: 4,
-    title: "SaaS Marketing Website",
-    category: "Digital Marketing",
-    description: "High-converting landing pages that increased sign-ups by 150%.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-    tags: ["Next.js", "SEO", "Analytics"],
-  },
-];
+import { usePortfolioStore } from "@/lib/portfolio-store";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -56,6 +23,9 @@ const cardVariants = {
 };
 
 export const FeaturedProjects = () => {
+  const { projects } = usePortfolioStore();
+  const featuredOnly = projects.slice(0, 4);
+
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
@@ -91,7 +61,7 @@ export const FeaturedProjects = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 gap-8"
         >
-          {projects.map((project) => (
+          {featuredOnly.map((project) => (
             <motion.div key={project.id} variants={cardVariants}>
               <Link to={`/portfolio/${project.id}`} className="block group">
                 <div className="rounded-2xl overflow-hidden bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
