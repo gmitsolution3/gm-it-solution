@@ -15,7 +15,7 @@ const Index = () => {
       <ServicesPreview />
       <FeaturedProjects />
       <Testimonials />
-      <TechStack />
+      {/* <TechStack /> */}
       <CTASection />
     </Layout>
   );
