@@ -5,6 +5,7 @@ import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { cn } from "@/lib/utils";
+import Logo from "@/assets/logo.png";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -135,14 +136,11 @@ export const Navbar = () => {
               whileHover="hover"
             >
               <Link to="/" className="flex items-center gap-2 group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-lg">
-                    GM
-                  </span>
-                </div>
-                <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors">
-                  IT Solution
-                </span>
+                <img
+                  src={Logo}
+                  alt="GM IT Solution Logo"
+                  className="w-20"
+                />
               </Link>
             </motion.div>
 
@@ -309,17 +307,16 @@ export const Navbar = () => {
                 <Button
                   variant="secondary"
                   size="lg"
-                  className="relative overflow-hidden group !rounded-0"
+                  className="relative overflow-hidden group !rounded-none"
                   asChild
                 >
                   <Link
-                    to="/contact !rounded-0"
+                    to="/contact"
                     className="flex items-center gap-2"
                   >
                     <span className="relative z-10">Get Started</span>
                     <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
 
-                    {/* Premium shine effect */}
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                       animate={{

@@ -1,6 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -8,215 +14,432 @@ const slides = [
   {
     id: 1,
     title: "We Build Digital Products",
-    highlight: "That Grow Businesses",
+    highlight: "That Actually Grow Businesses",
     description:
-      "Modern, reliable, and global-standard IT solutions tailored for startups, SMEs, and enterprise clients worldwide.",
-    cta: { primary: "View Our Work", secondary: "Contact Us" },
+      "No fluff. Just modern, reliable tech solutions that solve real problems for startups, SMEs, and enterprises.",
+    cta: { primary: "See Our Work", secondary: "Let's Talk" },
   },
   {
     id: 2,
-    title: "Transform Your Ideas Into",
-    highlight: "Reality",
+    title: "Got an Idea?",
+    highlight: "Let's Build It Together",
     description:
-      "From concept to deployment, we craft stunning web applications, mobile apps, and digital experiences that captivate users.",
-    cta: { primary: "Our Services", secondary: "Get Quote" },
+      "From that napkin sketch to a full-blown platform—we turn your vision into something people actually want to use.",
+    cta: { primary: "How We Build", secondary: "Get a Quote" },
   },
   {
     id: 3,
-    title: "Your Trusted Partner For",
-    highlight: "Digital Innovation",
+    title: "100+ Projects Later,",
+    highlight: "We're Just Getting Started",
     description:
-      "With years of experience and 100+ successful projects, we deliver solutions that drive growth and exceed expectations.",
-    cta: { primary: "Case Studies", secondary: "Start Project" },
+      "Every line of code, every pixel—crafted with care. We're the partner who actually reads your emails and answers your calls.",
+    cta: { primary: "Our Stories", secondary: "Start Something" },
   },
 ];
 
 export const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
+    // Slower, more human-like timing with random variation
+    const timer = setInterval(
+      () => {
+        if (!isHovering) {
+          setCurrentSlide((prev) => (prev + 1) % slides.length);
+        }
+      },
+      7000 + Math.random() * 2000,
+    ); // Random delay between slides
+
     return () => clearInterval(timer);
+  }, [isHovering]);
+
+  // Parallax effect on mouse move - feels more interactive and human
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        setMousePosition({ x, y });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () =>
+      window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  const nextSlide = () =>
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const prevSlide = () =>
+    setCurrentSlide(
+      (prev) => (prev - 1 + slides.length) % slides.length,
+    );
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
-      {/* Background Gradient Orbs */}
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center overflow-hidden pt-20 bg-gradient-to-b from-background via-background to-background/95"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      {/* Hand-drawn style background elements - more organic */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] animate-pulse-slow" />
-        <div className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[80px]" />
+        {/* Imperfect, hand-painted style orbs */}
+        <div
+          className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]"
+          style={{
+            transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
+            transition: "transform 0.2s ease-out",
+          }}
+        />
+        <div
+          className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[100px]"
+          style={{
+            transform: `translate(${mousePosition.x * -30}px, ${mousePosition.y * -30}px)`,
+            transition: "transform 0.3s ease-out",
+          }}
+        />
+
+        {/* Hand-drawn scribbles - adds human touch */}
+        <svg
+          className="absolute top-20 left-10 w-32 h-32 opacity-20"
+          viewBox="0 0 100 100"
+        >
+          <path
+            d="M20,50 Q35,30 50,50 T80,50"
+            stroke="currentColor"
+            fill="none"
+            strokeWidth="2"
+            className="text-primary"
+            strokeDasharray="5,5"
+          />
+        </svg>
+        <svg
+          className="absolute bottom-20 right-10 w-40 h-40 opacity-20 rotate-45"
+          viewBox="0 0 100 100"
+        >
+          <path
+            d="M30,70 Q45,40 70,30"
+            stroke="currentColor"
+            fill="none"
+            strokeWidth="2"
+            className="text-accent"
+            strokeDasharray="3,6"
+          />
+        </svg>
       </div>
 
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
+      {/* More subtle, less perfect grid */}
+      <div
+        className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:50px_50px]"
+        style={{
+          maskImage:
+            "radial-gradient(circle at 50% 50%, black, transparent 80%)",
+        }}
+      />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-[7fr_3fr] gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.5 }}
+                exit={{ opacity: 0, y: -40 }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
+                {/* More personal badge */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center gap-3 px-4 py-2 rounded-none bg-primary/5 border border-primary/10 mb-8 group hover:bg-primary/10 transition-colors cursor-default"
                 >
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  <span className="text-sm font-medium text-primary">GM IT Solution</span>
+                  <span className="text-sm font-medium text-white">
+                    Hello, we're GM IT Solution
+                  </span>
                 </motion.div>
 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
-                  <span className="text-foreground">{slides[currentSlide].title}</span>
+                <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+                  <span className="text-foreground">
+                    {slides[currentSlide].title}
+                  </span>
                   <br />
-                  <span className="hero-gradient-text">{slides[currentSlide].highlight}</span>
+                  <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
+                    {slides[currentSlide].highlight}
+                  </span>
                 </h1>
 
-                <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                <p className="text-lg text-muted-foreground/90 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
                   {slides[currentSlide].description}
                 </p>
 
+                {/* More human button interaction */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Button variant="hero" size="xl" asChild>
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    asChild
+                    className="group relative overflow-hidden hover:scale-105 transition-transform rounded-none"
+                  >
                     <Link to="/portfolio">
-                      {slides[currentSlide].cta.primary}
-                      <ArrowRight className="w-5 h-5" />
+                      <span className="relative z-10 flex items-center gap-2">
+                        {slides[currentSlide].cta.primary}
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                        animate={{
+                          x: ["-100%", "100%"],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "linear",
+                          repeatDelay: 1,
+                        }}
+                      />
                     </Link>
                   </Button>
-                  <Button variant="hero-outline" size="xl" asChild>
-                    <Link to="/contact">{slides[currentSlide].cta.secondary}</Link>
+                  <Button
+                    variant="hero-outline"
+                    size="lg"
+                    asChild
+                    className="hover:bg-primary/5 transition-all hover:scale-105 rounded-none"
+                  >
+                    <Link
+                      to="/contact"
+                      className="flex items-center gap-2"
+                    >
+                      {slides[currentSlide].cta.secondary}
+                      <Zap className="w-4 h-4" />
+                    </Link>
                   </Button>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            {/* Slide Indicators */}
+            {/* More tactile slide indicators */}
             <div className="flex items-center gap-4 mt-12 justify-center lg:justify-start">
               <button
                 onClick={prevSlide}
-                className="p-2 rounded-lg hover:bg-muted transition-colors"
+                className="p-3 rounded-xl hover:bg-muted/50 transition-all hover:scale-110 active:scale-95 border border-transparent hover:border-muted"
+                aria-label="Previous slide"
               >
-                <ChevronLeft className="w-5 h-5 text-muted-foreground" />
+                <ChevronLeft className="w-5 h-5" />
               </button>
-              <div className="flex gap-2">
+
+              <div className="flex gap-3">
                 {slides.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
+                    className={`relative transition-all duration-500 ${
                       index === currentSlide
-                        ? "w-8 bg-primary"
-                        : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                    }`}
-                  />
+                        ? "w-10 h-3 bg-primary"
+                        : "w-3 h-3 bg-muted-foreground/20 hover:bg-muted-foreground/40"
+                    } rounded-full overflow-hidden group`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  >
+                    {index === currentSlide && (
+                      <motion.div
+                        className="absolute inset-0 bg-primary"
+                        initial={{ x: "-100%" }}
+                        animate={{ x: 0 }}
+                        transition={{ duration: 7, ease: "linear" }}
+                      />
+                    )}
+                  </button>
                 ))}
               </div>
+
               <button
                 onClick={nextSlide}
-                className="p-2 rounded-lg hover:bg-muted transition-colors"
+                className="p-3 rounded-xl hover:bg-muted/50 transition-all hover:scale-110 active:scale-95 border border-transparent hover:border-muted"
+                aria-label="Next slide"
               >
-                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          {/* Visual Element */}
+          {/* More organic visual elements */}
           <div className="hidden lg:block relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.4,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="relative"
+              style={{
+                transform: `perspective(1000px) rotateY(${mousePosition.x * 5}deg) rotateX(${mousePosition.y * -5}deg)`,
+              }}
             >
-              {/* Floating Cards */}
+              {/* Floating elements with more personality */}
               <div className="relative w-full h-[500px]">
+                {/* Hand-drawn style card */}
                 <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-0 right-0 glass-card rounded-2xl p-6 w-64"
+                  animate={{
+                    y: [0, -20, 0],
+                    rotate: [0, 2, 0],
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    times: [0, 0.5, 1],
+                  }}
+                  className="absolute top-0 right-0 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-64 border border-primary/10 shadow-2xl"
+                  style={{
+                    boxShadow: "0 20px 40px -15px rgba(0,0,0,0.3)",
+                  }}
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold">100+</span>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-14 h-14 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                      <span className="text-white font-bold text-xl">
+                        100+
+                      </span>
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground">Projects</p>
-                      <p className="text-sm text-muted-foreground">Delivered</p>
+                      <p className="font-semibold text-foreground text-lg">
+                        Projects
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        and counting
+                      </p>
+                    </div>
+                  </div>
+                  {/* Hand-drawn squiggle */}
+                  <svg
+                    className="absolute -bottom-2 -right-2 w-16 h-16 opacity-30"
+                    viewBox="0 0 50 50"
+                  >
+                    <path
+                      d="M10,40 Q20,20 40,10"
+                      stroke="currentColor"
+                      fill="none"
+                      strokeWidth="1.5"
+                      className="text-primary"
+                    />
+                  </svg>
+                </motion.div>
+
+                <motion.div
+                  animate={{
+                    y: [0, 25, 0],
+                    rotate: [0, -3, 0],
+                  }}
+                  transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                  className="absolute top-1/3 left-0 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-56 border border-accent/10 shadow-2xl"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-none bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg">
+                      <span className="text-white font-bold text-xl">
+                        50+
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground text-lg">
+                        Happy
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        clients
+                      </p>
                     </div>
                   </div>
                 </motion.div>
 
                 <motion.div
-                  animate={{ y: [0, 15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute top-1/3 left-0 glass-card rounded-2xl p-6 w-56"
+                  animate={{
+                    y: [0, -15, 0],
+                    rotate: [0, 1.5, 0],
+                  }}
+                  transition={{
+                    duration: 5.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                  className="absolute bottom-0 right-1/4 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-60 border border-primary/10 shadow-2xl"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold">50+</span>
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                      <span className="text-white font-bold text-xl">
+                        5+
+                      </span>
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground">Happy</p>
-                      <p className="text-sm text-muted-foreground">Clients</p>
+                      <p className="font-semibold text-foreground text-lg">
+                        Years
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        of fun
+                      </p>
                     </div>
                   </div>
                 </motion.div>
 
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute bottom-0 right-1/4 glass-card rounded-2xl p-6 w-60"
+                {/* Organic blob instead of perfect circle */}
+                {/* <svg
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 opacity-30"
+                  viewBox="0 0 200 200"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold">5+</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">Years</p>
-                      <p className="text-sm text-muted-foreground">Experience</p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Central Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-[60px]" />
+                  <path
+                    d="M100,20 Q140,30 160,60 T180,120 Q170,160 140,180 T80,170 Q40,160 30,120 T60,50 Q70,30 100,20"
+                    fill="url(#gradient)"
+                    className="text-primary"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="gradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop
+                        offset="0%"
+                        stopColor="rgb(var(--primary))"
+                        stopOpacity="0.2"
+                      />
+                      <stop
+                        offset="100%"
+                        stopColor="rgb(var(--accent))"
+                        stopOpacity="0.2"
+                      />
+                    </linearGradient>
+                  </defs>
+                </svg> */}
               </div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      {/* <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1.5 h-3 bg-primary rounded-full"
-          />
-        </motion.div>
-      </motion.div> */}
+      {/* Hand-drawn style signature */}
+      <div className="absolute bottom-4 right-4 opacity-30 text-xs text-muted-foreground font-mono">
+        ✦ handcrafted with care ✦
+      </div>
     </section>
   );
 };
