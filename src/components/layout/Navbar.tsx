@@ -17,16 +17,35 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+
+      // Update isScrolled state for background changes
+      setIsScrolled(currentScrollY > 20);
+
+      // Show/hide header based on scroll direction
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down & past threshold
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -35,13 +54,15 @@ export const Navbar = () => {
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      animate={{
+        y: isVisible ? 0 : -100,
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg"
-          : "bg-transparent"
+          : "bg-transparent",
       )}
     >
       <nav className="container mx-auto px-4 lg:px-8">
@@ -49,7 +70,9 @@ export const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">GM</span>
+              <span className="text-primary-foreground font-bold text-lg">
+                GM
+              </span>
             </div>
             <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors">
               IT Solution
@@ -66,7 +89,7 @@ export const Navbar = () => {
                   "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                   location.pathname === link.path
                     ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted",
                 )}
               >
                 {link.name}
@@ -116,17 +139,24 @@ export const Navbar = () => {
                       "px-4 py-3 rounded-lg text-base font-medium transition-all duration-200",
                       location.pathname === link.path
                         ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted",
                     )}
                   >
                     {link.name}
                   </Link>
                 ))}
-                <Button variant="hero" size="lg" className="mt-4" asChild>
+                <Button
+                  variant="hero"
+                  size="lg"
+                  className="mt-4"
+                  asChild
+                >
                   <Link to="/contact">Get Started</Link>
                 </Button>
                 <div className="mt-4 flex justify-between items-center">
-                  <span className="text-muted-foreground font-medium">Switch Theme</span>
+                  <span className="text-muted-foreground font-medium">
+                    Switch Theme
+                  </span>
                   <ModeToggle />
                 </div>
               </div>
@@ -134,6 +164,6 @@ export const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header >
+    </motion.header>
   );
 };

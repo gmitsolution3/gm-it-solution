@@ -1,8 +1,211 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')
+layer(utilities);
+
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+@theme {
+  --font-sans: Inter, system-ui, -apple-system, sans-serif;
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
+  --animate-slide-in-right: slide-in-right 0.6s ease-out forwards;
+  --animate-scale-in: scale-in 0.5s ease-out forwards;
+  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes scale-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.5);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility glass-card {
+  @apply backdrop-blur-xl border border-border/50;
+  background: var(--gradient-card);
+}
+
+@utility gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: var(--gradient-primary);
+}
+
+@utility hero-gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: var(--gradient-hero);
+}
+
+@utility glow-effect {
+  box-shadow: var(--shadow-glow);
+}
+
+@utility card-shadow {
+  box-shadow: var(--shadow-card);
+}
+
+@utility elevated-shadow {
+  box-shadow: var(--shadow-elevated);
+}
+
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-linear-to-r from-primary to-accent;
+}
+
+@utility animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@utility animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@utility animate-shimmer {
+  animation: shimmer 2s linear infinite;
+}
 
 /* GM IT Solution Design System - Premium Dark Theme */
 
@@ -162,51 +365,7 @@
   }
 }
 
-@layer components {
-  .glass-card {
-    @apply backdrop-blur-xl border border-border/50;
-    background: var(--gradient-card);
-  }
-
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-primary);
-  }
-
-  .hero-gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-hero);
-  }
-
-  .glow-effect {
-    box-shadow: var(--shadow-glow);
-  }
-
-  .card-shadow {
-    box-shadow: var(--shadow-card);
-  }
-
-  .elevated-shadow {
-    box-shadow: var(--shadow-elevated);
-  }
-
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
-  }
-}
-
 @layer utilities {
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .animate-shimmer {
-    animation: shimmer 2s linear infinite;
-  }
 
   @keyframes float {
     0%,
