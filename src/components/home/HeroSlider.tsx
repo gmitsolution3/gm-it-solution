@@ -9,6 +9,9 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import HeroImage from "@/assets/hero.jpg";
+import HeroTwoImage from "@/assets/hero_two.jpg";
+import HeroThreeImage from "@/assets/hero_three.jpg";
 
 const slides = [
   {
@@ -18,6 +21,7 @@ const slides = [
     description:
       "No fluff. Just modern, reliable tech solutions that solve real problems for startups, SMEs, and enterprises.",
     cta: { primary: "See Our Work", secondary: "Let's Talk" },
+    image: HeroImage,
   },
   {
     id: 2,
@@ -26,6 +30,7 @@ const slides = [
     description:
       "From that napkin sketch to a full-blown platform—we turn your vision into something people actually want to use.",
     cta: { primary: "How We Build", secondary: "Get a Quote" },
+    image: HeroTwoImage,
   },
   {
     id: 3,
@@ -34,6 +39,7 @@ const slides = [
     description:
       "Every line of code, every pixel—crafted with care. We're the partner who actually reads your emails and answers your calls.",
     cta: { primary: "Our Stories", secondary: "Start Something" },
+    image: HeroThreeImage,
   },
 ];
 
@@ -83,12 +89,32 @@ export const HeroSlider = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center overflow-hidden pt-20 bg-gradient-to-b from-background via-background to-background/95"
+      className="relative min-h-screen flex items-center overflow-hidden pt-20"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
+      {/* Animated background image for current slide */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentSlide}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+          className="absolute inset-0 -z-10"
+          style={{
+            backgroundImage: `url(${slides[currentSlide].image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+      </AnimatePresence>
+
+      {/* Dark gradient overlay for text readability */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/45 via-black/25 to-transparent dark:from-background/95 dark:via-background/70 dark:to-background/40" />
+
       {/* Hand-drawn style background elements - more organic */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden -z-10">
         {/* Imperfect, hand-painted style orbs */}
         <div
           className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]"
@@ -144,7 +170,7 @@ export const HeroSlider = () => {
       />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-[7fr_3fr] gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
             <AnimatePresence mode="wait">
@@ -275,8 +301,8 @@ export const HeroSlider = () => {
             </div>
           </div>
 
-          {/* More organic visual elements */}
-          <div className="hidden lg:block relative">
+          {/* Right side - Floating stat cards */}
+          <div className="hidden lg:block relative h-[550px]">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -285,156 +311,105 @@ export const HeroSlider = () => {
                 delay: 0.4,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="relative"
-              style={{
-                transform: `perspective(1000px) rotateY(${mousePosition.x * 5}deg) rotateX(${mousePosition.y * -5}deg)`,
-              }}
+              className="relative w-full h-full"
             >
-              {/* Floating elements with more personality */}
-              <div className="relative w-full h-[500px]">
-                {/* Hand-drawn style card */}
-                <motion.div
-                  animate={{
-                    y: [0, -20, 0],
-                    rotate: [0, 2, 0],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    times: [0, 0.5, 1],
-                  }}
-                  className="absolute top-0 right-0 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-64 border border-primary/10 shadow-2xl"
-                  style={{
-                    boxShadow: "0 20px 40px -15px rgba(0,0,0,0.3)",
-                  }}
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
-                      <span className="text-white font-bold text-xl">
-                        100+
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground text-lg">
-                        Projects
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        and counting
-                      </p>
-                    </div>
+              {/* Floating stat cards */}
+              <motion.div
+                animate={{
+                  y: [0, -20, 0],
+                  rotate: [0, 2, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  times: [0, 0.5, 1],
+                }}
+                className="absolute top-8 right-12 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-lg p-6 w-64 border border-primary/10 shadow-2xl"
+                style={{
+                  boxShadow: "0 20px 40px -15px rgba(0,0,0,0.3)",
+                }}
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-xl">
+                      100+
+                    </span>
                   </div>
-                  {/* Hand-drawn squiggle */}
-                  <svg
-                    className="absolute -bottom-2 -right-2 w-16 h-16 opacity-30"
-                    viewBox="0 0 50 50"
-                  >
-                    <path
-                      d="M10,40 Q20,20 40,10"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeWidth="1.5"
-                      className="text-primary"
-                    />
-                  </svg>
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    y: [0, 25, 0],
-                    rotate: [0, -3, 0],
-                  }}
-                  transition={{
-                    duration: 7,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                  className="absolute top-1/3 left-0 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-56 border border-accent/10 shadow-2xl"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-none bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg">
-                      <span className="text-white font-bold text-xl">
-                        50+
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground text-lg">
-                        Happy
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        clients
-                      </p>
-                    </div>
+                  <div>
+                    <p className="font-semibold text-foreground text-lg">
+                      Projects
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      and counting
+                    </p>
                   </div>
-                </motion.div>
+                </div>
+              </motion.div>
 
-                <motion.div
-                  animate={{
-                    y: [0, -15, 0],
-                    rotate: [0, 1.5, 0],
-                  }}
-                  transition={{
-                    duration: 5.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5,
-                  }}
-                  className="absolute bottom-0 right-1/4 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-60 border border-primary/10 shadow-2xl"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
-                      <span className="text-white font-bold text-xl">
-                        5+
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground text-lg">
-                        Years
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        of fun
-                      </p>
-                    </div>
+              <motion.div
+                animate={{
+                  y: [0, 25, 0],
+                  rotate: [0, -3, 0],
+                }}
+                transition={{
+                  duration: 7,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
+                className="absolute top-1/3 left-8 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-lg p-6 w-56 border border-accent/10 shadow-2xl"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-xl">
+                      50+
+                    </span>
                   </div>
-                </motion.div>
+                  <div>
+                    <p className="font-semibold text-foreground text-lg">
+                      Happy
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      clients
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
 
-                {/* Organic blob instead of perfect circle */}
-                {/* <svg
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 opacity-30"
-                  viewBox="0 0 200 200"
-                >
-                  <path
-                    d="M100,20 Q140,30 160,60 T180,120 Q170,160 140,180 T80,170 Q40,160 30,120 T60,50 Q70,30 100,20"
-                    fill="url(#gradient)"
-                    className="text-primary"
-                  />
-                  <defs>
-                    <linearGradient
-                      id="gradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="100%"
-                    >
-                      <stop
-                        offset="0%"
-                        stopColor="rgb(var(--primary))"
-                        stopOpacity="0.2"
-                      />
-                      <stop
-                        offset="100%"
-                        stopColor="rgb(var(--accent))"
-                        stopOpacity="0.2"
-                      />
-                    </linearGradient>
-                  </defs>
-                </svg> */}
-              </div>
+              <motion.div
+                animate={{
+                  y: [0, -15, 0],
+                  rotate: [0, 1.5, 0],
+                }}
+                transition={{
+                  duration: 5.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5,
+                }}
+                className="absolute bottom-8 right-16 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-lg p-6 w-60 border border-primary/10 shadow-2xl"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-xl">
+                      5+
+                    </span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground text-lg">
+                      Years
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      of fun
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
-      </div>
+        </div>
 
       {/* Hand-drawn style signature */}
       <div className="absolute bottom-4 right-4 opacity-30 text-xs text-muted-foreground font-mono">
