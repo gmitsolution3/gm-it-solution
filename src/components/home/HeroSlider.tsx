@@ -47,7 +47,17 @@ export const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
   const sectionRef = useRef(null);
+
+  // Preload image when slide changes
+  useEffect(() => {
+    setImageLoaded(false);
+    const img = new Image();
+    img.onload = () => setImageLoaded(true);
+    img.onerror = () => setImageLoaded(true); // Show even if loading fails
+    img.src = slides[currentSlide].image;
+  }, [currentSlide]);
 
   useEffect(() => {
     // Slower, more human-like timing with random variation
@@ -97,10 +107,13 @@ export const HeroSlider = () => {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, scale: 1.02 }}
+          animate={{ opacity: imageLoaded ? 1 : 0, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{
+            duration: 1.2,
+            ease: "easeInOut",
+          }}
           className="absolute inset-0 -z-10"
           style={{
             backgroundImage: `url(${slides[currentSlide].image})`,
@@ -109,6 +122,11 @@ export const HeroSlider = () => {
           }}
         />
       </AnimatePresence>
+
+      {/* Loading skeleton while image loads */}
+      {!imageLoaded && (
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-muted via-muted/50 to-muted/30 animate-pulse" />
+      )}
 
       {/* Dark gradient overlay for text readability */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/45 via-black/25 to-transparent dark:from-background/95 dark:via-background/70 dark:to-background/40" />
@@ -196,7 +214,7 @@ export const HeroSlider = () => {
                   </span>
                 </motion.div>
 
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+                <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
                   <span className="text-foreground">
                     {slides[currentSlide].title}
                   </span>
@@ -206,7 +224,7 @@ export const HeroSlider = () => {
                   </span>
                 </h1>
 
-                <p className="text-lg text-muted-foreground/90 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                <p className="text-base text-muted-foreground/90 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
                   {slides[currentSlide].description}
                 </p>
 
@@ -325,13 +343,13 @@ export const HeroSlider = () => {
                   ease: "easeInOut",
                   times: [0, 0.5, 1],
                 }}
-                className="absolute top-8 right-12 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-lg p-6 w-64 border border-primary/10 shadow-2xl"
+                className="absolute top-8 right-12 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-64 border border-primary/10 shadow-2xl"
                 style={{
                   boxShadow: "0 20px 40px -15px rgba(0,0,0,0.3)",
                 }}
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-xl">
                       100+
                     </span>
@@ -358,10 +376,10 @@ export const HeroSlider = () => {
                   ease: "easeInOut",
                   delay: 1,
                 }}
-                className="absolute top-1/3 left-8 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-lg p-6 w-56 border border-accent/10 shadow-2xl"
+                className="absolute top-1/3 left-8 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-56 border border-accent/10 shadow-2xl"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 rounded-none bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-xl">
                       50+
                     </span>
@@ -388,10 +406,10 @@ export const HeroSlider = () => {
                   ease: "easeInOut",
                   delay: 0.5,
                 }}
-                className="absolute bottom-8 right-16 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-lg p-6 w-60 border border-primary/10 shadow-2xl"
+                className="absolute bottom-8 right-16 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl rounded-none p-6 w-60 border border-primary/10 shadow-2xl"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-xl">
                       5+
                     </span>
@@ -409,11 +427,6 @@ export const HeroSlider = () => {
             </motion.div>
           </div>
         </div>
-        </div>
-
-      {/* Hand-drawn style signature */}
-      <div className="absolute bottom-4 right-4 opacity-30 text-xs text-muted-foreground font-mono">
-        ✦ handcrafted with care ✦
       </div>
     </section>
   );
