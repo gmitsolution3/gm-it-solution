@@ -4,112 +4,96 @@ import { Award, Clock, Target, Users, Zap, Shield } from "lucide-react";
 const features = [
   {
     icon: Award,
-    title: "Expert Team",
-    description: "Skilled developers, designers, and strategists with years of industry experience.",
+    title: "Actually experienced people",
+    description: "No junior devs learning on your project. Just senior folks who've built stuff like this before.",
   },
   {
     icon: Clock,
-    title: "On-Time Delivery",
-    description: "We respect deadlines and deliver projects on schedule, every time.",
+    title: "We show up on time",
+    description: "Deadlines matter. We respect yours like we'd want you to respect ours.",
   },
   {
     icon: Target,
-    title: "Business-Focused",
-    description: "Solutions designed to drive growth, increase revenue, and achieve your goals.",
+    title: "Built for your bottom line",
+    description: "Pretty designs don't pay the bills. We build stuff that actually moves the needle.",
   },
   {
     icon: Users,
-    title: "Dedicated Support",
-    description: "24/7 support and maintenance to keep your systems running smoothly.",
+    title: "We don't ghost you",
+    description: "Got a problem at 2 AM? We're here. Well, maybe not at 2 AM, but you get the point.",
   },
   {
     icon: Zap,
-    title: "Modern Tech Stack",
-    description: "We use cutting-edge technologies for scalable, future-proof solutions.",
+    title: "Tech that won't embarrass you",
+    description: "No legacy spaghetti. Just clean, modern code that'll age better than your competitors'.",
   },
   {
     icon: Shield,
-    title: "Secure & Reliable",
-    description: "Enterprise-grade security and reliability you can trust.",
+    title: "Serious about security",
+    description: "Because getting hacked sucks. We make sure it doesn't happen to you.",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 },
-  },
-};
-
 export const WhyChooseUs = () => {
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-muted/30" />
-      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px]" />
+    <section className="py-24 relative overflow-hidden bg-muted/20">
+      {/* Simple background - nothing fancy */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
 
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            Why Choose Us
+      <div className="container mx-auto px-4 lg:px-8 relative">
+        {/* The header - keeping it real */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="text-sm uppercase tracking-widest text-primary font-medium">
+            Here's the deal
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-6">
-            We Deliver <span className="gradient-text">Excellence</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
+            Why Choose Us?
           </h2>
           <p className="text-lg text-muted-foreground">
-            Partner with us for reliable, innovative, and results-driven digital solutions
-            that transform your business.
+            Look, there are a lot of agencies out there. Here's why people stick with us.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Features Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              variants={itemVariants}
-              className="group"
-            >
-              <div className="h-full glass-card rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="w-7 h-7 text-primary-foreground" />
+        {/* The good stuff */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={feature.title}
+                className="group relative"
+              >
+                <div className="relative p-8 bg-background rounded-2xl border border-border hover:border-primary/20 transition-all hover:-translate-y-1 hover:shadow-md">
+                  {/* Icon - simple but effective */}
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+
+                  {/* Content - straight to the point */}
+                  <h3 className="text-xl font-semibold mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+
+                  {/* Tiny detail - makes it feel handmade */}
+                  <div className="absolute top-4 right-4 text-4xl text-primary/5 font-bold">
+                    {(index + 1).toString().padStart(2, '0')}
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {feature.description}
-                </p>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Simple footer - no pressure */}
+        <p className="text-center text-sm text-muted-foreground mt-12">
+          Still reading?{' '}
+          <button className="text-primary hover:text-primary/80 font-medium underline-offset-2 hover:underline">
+            Let's talk
+          </button>
+        </p>
       </div>
     </section>
   );
