@@ -198,17 +198,6 @@ export const Navbar = () => {
                       {/* Link text */}
                       <span className="relative">{link.name}</span>
 
-                      {/* Indicator for mega menu */}
-                      {link.megaMenu && (
-                        <ChevronDown
-                          className={cn(
-                            "w-3 h-3 transition-transform duration-300",
-                            activeMegaMenu === link.path &&
-                              "rotate-180",
-                          )}
-                        />
-                      )}
-
                       {/* Active indicator with premium animation */}
                       {location.pathname === link.path && (
                         <motion.div className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-accent" />
@@ -229,68 +218,6 @@ export const Navbar = () => {
                         )}
                     </Link>
                   </motion.div>
-
-                  {/* Mega Menu with premium design */}
-                  <AnimatePresence>
-                    {activeMegaMenu === link.path &&
-                      link.megaMenu && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[600px]"
-                        >
-                          <div className="bg-background/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl shadow-primary/10 overflow-hidden">
-                            {/* Premium header gradient */}
-                            <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary" />
-
-                            <div className="p-6">
-                              <div className="grid grid-cols-2 gap-4">
-                                {link.megaMenu.map((item, index) => (
-                                  <motion.div
-                                    key={item.title}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{
-                                      delay: index * 0.05,
-                                    }}
-                                    whileHover={{ scale: 1.02, x: 5 }}
-                                    className="group cursor-pointer"
-                                  >
-                                    <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-muted/50 transition-all duration-300">
-                                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-lg">
-                                        {item.icon}
-                                      </div>
-                                      <div>
-                                        <h4 className="font-semibold text-sm flex items-center gap-1">
-                                          {item.title}
-                                          <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
-                                        </h4>
-                                        <p className="text-xs text-muted-foreground mt-0.5">
-                                          {item.description}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </motion.div>
-                                ))}
-                              </div>
-
-                              {/* Mega menu footer */}
-                              <div className="mt-4 pt-4 border-t border-border/50">
-                                <Link
-                                  to={link.path}
-                                  className="text-xs text-primary hover:text-accent transition-colors flex items-center justify-center gap-1 group"
-                                >
-                                  View all services
-                                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                  </AnimatePresence>
                 </div>
               ))}
             </div>

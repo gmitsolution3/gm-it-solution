@@ -248,86 +248,103 @@ const Services = () => {
       <section className="py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="space-y-24">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.id}
-                id={service.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
-              >
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="w-16 h-16 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
-                    <service.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-8">
-                    {service.description}
-                  </p>
+            {services.map((service, index) => {
+              const isEven = index % 2 === 0;
 
-                  <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                    {service.features.map((feature) => (
-                      <div
-                        key={feature}
-                        className="flex items-center gap-2"
-                      >
-                        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
-                          <Check className="w-3 h-3 text-primary" />
+              return (
+                <motion.div
+                  key={service.id}
+                  id={service.id}
+                  initial={{
+                    opacity: 0,
+                    x: isEven ? -120 : 120,
+                    scale: 0.95,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                  }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.9,
+                    ease: [0.22, 1, 0.36, 1], // premium cubic-bezier
+                  }}
+                  className={`grid lg:grid-cols-2 gap-12 items-center`}
+                >
+                  <div
+                    className={index % 2 === 1 ? "lg:order-2" : ""}
+                  >
+                    <div className="w-16 h-16 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
+                      <service.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                      {service.title}
+                    </h2>
+                    <p className="text-lg text-muted-foreground mb-8">
+                      {service.description}
+                    </p>
+
+                    <div className="grid sm:grid-cols-2 gap-3 mb-8">
+                      {service.features.map((feature) => (
+                        <div
+                          key={feature}
+                          className="flex items-center gap-2"
+                        >
+                          <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Check className="w-3 h-3 text-primary" />
+                          </div>
+                          <span className="text-muted-foreground">
+                            {feature}
+                          </span>
                         </div>
-                        <span className="text-muted-foreground">
-                          {feature}
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {service.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 text-sm bg-muted rounded-none text-muted-foreground"
+                        >
+                          {tech}
                         </span>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+
+                    <div className="flex items-start">
+                      <CTAButton href={"/contact"}>
+                        Get Started
+                      </CTAButton>
+                    </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {service.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 text-sm bg-muted rounded-none text-muted-foreground"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  <div
+                    className={index % 2 === 1 ? "lg:order-1" : ""}
+                  >
+                    <div className="aspect-[4/3] rounded-none bg-gradient-to-br from-primary/10 to-accent/10 p-2 flex items-center justify-center">
+                      <Carousel className="w-full h-full">
+                        <CarouselContent>
+                          {service.image.map((image, idx) => (
+                            <CarouselItem key={idx}>
+                              <div className="w-full h-full overflow-hidden rounded-none">
+                                <img
+                                  src={image}
+                                  alt={`${service.title} preview ${idx + 1}`}
+                                  className="w-full h-full object-cover aspect-[4/3] rounded-none"
+                                />
+                              </div>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                      </Carousel>
+                    </div>
                   </div>
-
-                  <div className="flex items-start">
-                    <CTAButton href={"/contact"}>
-                      Get Started
-                    </CTAButton>
-                  </div>
-                </div>
-
-                <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div className="aspect-[4/3] rounded-none bg-gradient-to-br from-primary/10 to-accent/10 p-2 flex items-center justify-center">
-                    <Carousel className="w-full h-full">
-                      <CarouselContent>
-                        {service.image.map((image, idx) => (
-                          <CarouselItem key={idx}>
-                            <div className="w-full h-full overflow-hidden rounded-none">
-                              <img
-                                src={image}
-                                alt={`${service.title} preview ${idx + 1}`}
-                                className="w-full h-full object-cover aspect-[4/3] rounded-none"
-                              />
-                            </div>
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselPrevious />
-                      <CarouselNext />
-                    </Carousel>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
