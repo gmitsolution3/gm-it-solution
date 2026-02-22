@@ -19,13 +19,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { CTASection } from "@/components/home/CTASection";
+import CTAButton from "./../components/CTAButton";
 
 const services = [
   {
     id: "web",
     icon: Globe,
     title: "Web Development",
-    description: "Custom websites and web applications built with modern frameworks for performance and scalability.",
+    description:
+      "Custom websites and web applications built with modern frameworks for performance and scalability.",
     features: [
       "Custom website development",
       "E-commerce solutions",
@@ -34,7 +37,16 @@ const services = [
       "CMS implementation",
       "Performance optimization",
     ],
-    technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "TypeScript", "Prisma", "Tailwind CSS", "Shadcn UI"],
+    technologies: [
+      "React",
+      "Next.js",
+      "Node.js",
+      "PostgreSQL",
+      "TypeScript",
+      "Prisma",
+      "Tailwind CSS",
+      "Shadcn UI",
+    ],
     image: [
       "https://i.postimg.cc/fygYZ294/pexels-divinetechygirl-1181263-(1).jpg",
       "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
@@ -45,34 +57,11 @@ const services = [
     ],
   },
   {
-    id: "mobile",
-    icon: Smartphone,
-    title: "Mobile App Development",
-    description: "Native and cross-platform mobile apps that deliver exceptional user experiences.",
-    features: [
-      "iOS app development",
-      "Android app development",
-      "Cross-platform solutions",
-      "App store optimization",
-      "Push notifications",
-      "Offline functionality",
-    ],
-    technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase"],
-    image: [
-      "https://i.postimg.cc/HLpnZ0rK/pexels-kadiremir-31148083.jpg",
-      "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
-      "https://i.postimg.cc/bvzrC0ZF/pexels-ivan-s-7213210.jpg",
-      "https://i.postimg.cc/LsH5CkJw/pexels-ivan-s-7213504.jpg",
-      "https://i.postimg.cc/fbwy27V2/pexels-rccbtn-15406295.jpg",
-      "https://i.postimg.cc/Jh1063sB/pexels-realtoughcandy-11035474.jpg",
-      "https://i.postimg.cc/zfJvtwyW/pexels-sanketgraphy-16229745.jpg",
-    ],
-  },
-  {
     id: "design",
     icon: Palette,
     title: "UI/UX Design",
-    description: "User-centered design that converts visitors into customers through intuitive interfaces.",
+    description:
+      "User-centered design that converts visitors into customers through intuitive interfaces.",
     features: [
       "User research & analysis",
       "Wireframing & prototyping",
@@ -81,7 +70,13 @@ const services = [
       "Usability testing",
       "Design systems",
     ],
-    technologies: ["Figma", "Adobe XD", "Sketch", "Principle", "Framer"],
+    technologies: [
+      "Figma",
+      "Adobe XD",
+      "Sketch",
+      "Principle",
+      "Framer",
+    ],
     image: [
       "https://i.postimg.cc/kgYzzqGm/pexels-dlxmedia-hu-215591835-11894290.jpg",
       "https://i.postimg.cc/9MdxmhmC/pexels-ron-lach-8102680.jpg",
@@ -95,7 +90,8 @@ const services = [
     id: "marketing",
     icon: TrendingUp,
     title: "Digital Marketing",
-    description: "Data-driven marketing strategies that increase visibility and drive qualified leads.",
+    description:
+      "Data-driven marketing strategies that increase visibility and drive qualified leads.",
     features: [
       "Search engine optimization (SEO)",
       "Pay-per-click advertising",
@@ -104,7 +100,13 @@ const services = [
       "Email marketing",
       "Analytics & reporting",
     ],
-    technologies: ["Google Analytics", "SEMrush", "HubSpot", "Meta Ads", "Google Ads"],
+    technologies: [
+      "Google Analytics",
+      "SEMrush",
+      "HubSpot",
+      "Meta Ads",
+      "Google Ads",
+    ],
     image: [
       "https://i.postimg.cc/66GZG0nV/pexels-a-darmel-7642113.jpg",
       "https://i.postimg.cc/FFJSJZ3Z/pexels-eva-bronzini-7661590.jpg",
@@ -119,7 +121,8 @@ const services = [
     id: "branding",
     icon: Briefcase,
     title: "Branding & Graphics",
-    description: "Complete brand identity development that sets you apart from the competition.",
+    description:
+      "Complete brand identity development that sets you apart from the competition.",
     features: [
       "Logo design",
       "Brand guidelines",
@@ -128,7 +131,13 @@ const services = [
       "Print design",
       "Presentation design",
     ],
-    technologies: ["Adobe Creative Suite", "Figma", "Canva", "Illustrator", "Photoshop"],
+    technologies: [
+      "Adobe Creative Suite",
+      "Figma",
+      "Canva",
+      "Illustrator",
+      "Photoshop",
+    ],
     image: [
       "https://i.postimg.cc/FFJSJZ3Z/pexels-eva-bronzini-7661590.jpg",
       "https://i.postimg.cc/NGrXr4mx/pexels-pixabay-267401.jpg",
@@ -143,7 +152,8 @@ const services = [
     id: "automation",
     icon: Settings,
     title: "Business Automation",
-    description: "Streamline operations with custom software solutions and workflow automation.",
+    description:
+      "Streamline operations with custom software solutions and workflow automation.",
     features: [
       "Process automation",
       "CRM implementation",
@@ -152,7 +162,13 @@ const services = [
       "Data integration",
       "Custom software development",
     ],
-    technologies: ["Zapier", "Make", "Python", "Power Automate", "Custom APIs"],
+    technologies: [
+      "Zapier",
+      "Make",
+      "Python",
+      "Power Automate",
+      "Custom APIs",
+    ],
     image: [
       "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
       "https://i.postimg.cc/bvzrC0ZF/pexels-ivan-s-7213210.jpg",
@@ -167,7 +183,8 @@ const services = [
     id: "software",
     icon: Code2,
     title: "Custom Software Solutions",
-    description: "Tailored software solutions designed to solve your unique business challenges.",
+    description:
+      "Tailored software solutions designed to solve your unique business challenges.",
     features: [
       "Requirements analysis",
       "Architecture design",
@@ -176,7 +193,13 @@ const services = [
       "Deployment & DevOps",
       "Maintenance & support",
     ],
-    technologies: ["AWS", "Docker", "Kubernetes", "CI/CD", "Microservices"],
+    technologies: [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "Microservices",
+    ],
     image: [
       "https://i.postimg.cc/HLpnZ0rK/pexels-kadiremir-31148083.jpg",
       "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
@@ -209,12 +232,13 @@ const Services = () => {
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
               Our Services
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-4 mb-6">
-              Solutions That <span className="gradient-text">Drive Growth</span>
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-3">
+              Solutions That{" "}
+              <span className="gradient-text">Drive Growth</span>
             </h1>
-            <p className="text-xl text-muted-foreground">
-              Comprehensive digital services tailored to transform your business
-              and achieve your goals.
+            <p className="text-base text-muted-foreground">
+              Comprehensive digital services tailored to transform
+              your business and achieve your goals.
             </p>
           </motion.div>
         </div>
@@ -232,12 +256,13 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                  }`}
+                className={`grid lg:grid-cols-2 gap-12 items-center ${
+                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                }`}
               >
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
-                    <service.icon className="w-8 h-8 text-primary-foreground" />
+                  <div className="w-16 h-16 rounded-none bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
+                    <service.icon className="w-8 h-8 text-white" />
                   </div>
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                     {service.title}
@@ -248,11 +273,16 @@ const Services = () => {
 
                   <div className="grid sm:grid-cols-2 gap-3 mb-8">
                     {service.features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-2">
+                      <div
+                        key={feature}
+                        className="flex items-center gap-2"
+                      >
                         <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
                           <Check className="w-3 h-3 text-primary" />
                         </div>
-                        <span className="text-muted-foreground">{feature}</span>
+                        <span className="text-muted-foreground">
+                          {feature}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -261,32 +291,31 @@ const Services = () => {
                     {service.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 text-sm bg-muted rounded-full text-muted-foreground"
+                        className="px-3 py-1 text-sm bg-muted rounded-none text-muted-foreground"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
 
-                  <Button variant="hero" size="lg" asChild>
-                    <Link to="/contact">
+                  <div className="flex items-start">
+                    <CTAButton href={"/contact"}>
                       Get Started
-                      <ArrowRight className="w-5 h-5" />
-                    </Link>
-                  </Button>
+                    </CTAButton>
+                  </div>
                 </div>
 
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 p-8 flex items-center justify-center">
+                  <div className="aspect-[4/3] rounded-none bg-gradient-to-br from-primary/10 to-accent/10 p-2 flex items-center justify-center">
                     <Carousel className="w-full h-full">
                       <CarouselContent>
                         {service.image.map((image, idx) => (
                           <CarouselItem key={idx}>
-                            <div className="w-full h-full overflow-hidden rounded-lg">
+                            <div className="w-full h-full overflow-hidden rounded-none">
                               <img
                                 src={image}
                                 alt={`${service.title} preview ${idx + 1}`}
-                                className="w-full h-full object-cover aspect-[4/3] rounded-lg"
+                                className="w-full h-full object-cover aspect-[4/3] rounded-none"
                               />
                             </div>
                           </CarouselItem>
@@ -304,31 +333,7 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
-        <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Ready to Get Started?
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Let's discuss your project and find the perfect solution for your business.
-            </p>
-            <Button variant="hero" size="xl" asChild>
-              <Link to="/contact">
-                Contact Us Today
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-          </motion.div>
-        </div>
-      </section>
+      <CTASection />
     </Layout>
   );
 };

@@ -11,6 +11,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import CTAButton from "./../CTAButton";
 
 const services = [
   {
@@ -85,10 +86,10 @@ export const ServicesPreview = () => {
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
               Our Services
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-4">
               What We <span className="gradient-text">Offer</span>
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base text-muted-foreground">
               Comprehensive digital solutions to help your business
               thrive in the modern world.
             </p>
@@ -169,37 +170,7 @@ export const ServicesPreview = () => {
           </div>
 
           {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center mt-15 relative"
-          >
-            <Button
-              variant="secondary"
-              size="lg"
-              asChild
-              className="rounded-none relative overflow-hidden"
-            >
-              <Link to="/services">
-                View All Services
-                <ArrowRight className="w-5 h-5" />
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  animate={{
-                    x: ["-100%", "100%"],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear",
-                    repeatDelay: 1,
-                  }}
-                />
-              </Link>
-            </Button>
-          </motion.div>
+          <CTAButton href="/services">View All Services</CTAButton>
         </div>
       </div>
     </section>

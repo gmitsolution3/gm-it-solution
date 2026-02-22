@@ -46,10 +46,10 @@ export const WhyChooseUs = () => {
           <span className="text-sm uppercase tracking-widest text-primary font-medium">
             Here's the deal
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4">
             Why Choose Us?
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-base text-muted-foreground">
             Look, there are a lot of agencies out there. Here's why people stick with us.
           </p>
         </div>
