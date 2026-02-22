@@ -10,7 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import Logo from "@/assets/logo.png";
 
 const quickLinks = [
@@ -57,10 +57,9 @@ export const Footer = () => {
               </h3>
 
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed px-4 sm:px-6 lg:px-0">
-                Join our community of forward-thinking
-                professionals. Get weekly insights, industry trends,
-                and exclusive content delivered straight to your
-                inbox.
+                Join our community of forward-thinking professionals.
+                Get weekly insights, industry trends, and exclusive
+                content delivered straight to your inbox.
               </p>
 
               {/* Feature list - Responsive layout */}
@@ -123,7 +122,7 @@ export const Footer = () => {
             </div>
 
             {/* Right content - Responsive subscription form */}
-            <div className="bg-card/50 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-border/50 p-4 sm:p-6 md:p-8 shadow-lg mx-4 sm:mx-6 lg:mx-0">
+            <div className="bg-card/50 backdrop-blur-sm rounded-none border border-border/50 p-4 sm:p-6 md:p-8 shadow-lg mx-4 sm:mx-6 lg:mx-0">
               <div className="space-y-4 sm:space-y-5 md:space-y-6">
                 <div className="space-y-1.5 sm:space-y-2">
                   <label className="text-xs sm:text-sm font-medium text-foreground block">
@@ -133,7 +132,7 @@ export const Footer = () => {
                     <input
                       type="email"
                       placeholder="you@example.com"
-                      className="w-full px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-background border border-border 
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 rounded-none bg-background border border-border 
                          focus:border-primary focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-primary/10 
                          transition-all duration-200 text-sm sm:text-base text-foreground placeholder:text-muted-foreground/50
                          group-hover:border-primary/50"
@@ -197,8 +196,15 @@ export const Footer = () => {
           {/* Company Info */}
           <div className="sm:col-span-2 lg:col-span-1 text-center sm:text-left">
             <div className="flex justify-center sm:justify-start">
-              <Link to="/" className="flex items-center gap-2 mb-4 sm:mb-5 md:mb-6">
-                <img src={Logo} alt="GM IT Solution Logo" className="h-8 sm:h-9 md:h-10 w-auto" />
+              <Link
+                to="/"
+                className="flex items-center gap-2 mb-4 sm:mb-5 md:mb-6"
+              >
+                <img
+                  src={Logo}
+                  alt="GM IT Solution Logo"
+                  className="h-8 sm:h-9 md:h-10 w-auto"
+                />
               </Link>
             </div>
             <p className="text-sm sm:text-base text-muted-foreground mb-5 sm:mb-6 leading-relaxed px-4 sm:px-0">
@@ -292,7 +298,8 @@ export const Footer = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 md:py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left">
             <p className="text-xs sm:text-sm text-muted-foreground order-2 sm:order-1">
-              © {new Date().getFullYear()} GM IT Solution. All rights reserved.
+              © {new Date().getFullYear()} GM IT Solution. All rights
+              reserved.
             </p>
             <div className="flex gap-4 sm:gap-6 order-1 sm:order-2">
               <Link
