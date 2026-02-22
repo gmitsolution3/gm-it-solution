@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
-import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  MessageCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const contactInfo = [
@@ -37,7 +43,9 @@ const Contact = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -68,11 +76,12 @@ const Contact = () => {
               Contact Us
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-4 mb-6">
-              Let's Start Your <span className="gradient-text">Project</span>
+              Let's Start Your{" "}
+              <span className="gradient-text">Project</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Have a project in mind? We'd love to hear about it. Get in touch and
-              let's create something amazing together.
+              Have a project in mind? We'd love to hear about it. Get
+              in touch and let's create something amazing together.
             </p>
           </motion.div>
         </div>
@@ -93,8 +102,8 @@ const Contact = () => {
                 Get In Touch
               </h2>
               <p className="text-muted-foreground mb-8">
-                We're here to help you bring your vision to life. Reach out through
-                any of the following channels.
+                We're here to help you bring your vision to life.
+                Reach out through any of the following channels.
               </p>
 
               <div className="space-y-6 mb-8">
@@ -102,30 +111,58 @@ const Contact = () => {
                   <a
                     key={item.title}
                     href={item.link}
-                    className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors group"
+                    className="flex items-start gap-4 p-4 rounded-none bg-muted/50 hover:bg-muted transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+                    <div className="w-12 h-12 rounded-none bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all">
                       <item.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm">{item.value}</p>
+                      <h3 className="font-semibold text-foreground">
+                        {item.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        {item.value}
+                      </p>
                     </div>
                   </a>
                 ))}
               </div>
 
-              {/* WhatsApp CTA */}
-              <Button variant="hero" size="lg" className="w-full" asChild>
-                <a
-                  href="https://wa.me/15551234567"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="text-center mt-15 relative"
+              >
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  asChild
+                  className="rounded-none relative overflow-hidden"
                 >
-                  <MessageCircle className="w-5 h-5" />
-                  Chat on WhatsApp
-                </a>
-              </Button>
+                  <a
+                    href="https://wa.me/15551234567"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    Chat on WhatsApp
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      animate={{
+                        x: ["-100%", "100%"],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "linear",
+                        repeatDelay: 1,
+                      }}
+                    />
+                  </a>
+                </Button>
+              </motion.div>
             </motion.div>
 
             {/* Contact Form */}
@@ -135,7 +172,7 @@ const Contact = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="lg:col-span-2"
             >
-              <div className="glass-card rounded-2xl p-8">
+              <div className="glass-card rounded-none p-8">
                 <h2 className="text-2xl font-bold text-foreground mb-6">
                   Send Us a Message
                 </h2>
@@ -156,7 +193,7 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-3 rounded-none bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                         placeholder="John Doe"
                       />
                     </div>
@@ -174,7 +211,7 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-3 rounded-none bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -194,7 +231,7 @@ const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-3 rounded-none bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                         placeholder="+1 (555) 000-0000"
                       />
                     </div>
@@ -211,7 +248,7 @@ const Contact = () => {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-3 rounded-none bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                         placeholder="Your Company"
                       />
                     </div>
@@ -230,15 +267,23 @@ const Contact = () => {
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-3 rounded-none bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                       >
                         <option value="">Select a service</option>
                         <option value="web">Web Development</option>
-                        <option value="mobile">Mobile App Development</option>
+                        <option value="mobile">
+                          Mobile App Development
+                        </option>
                         <option value="design">UI/UX Design</option>
-                        <option value="marketing">Digital Marketing</option>
-                        <option value="branding">Branding & Graphics</option>
-                        <option value="automation">Business Automation</option>
+                        <option value="marketing">
+                          Digital Marketing
+                        </option>
+                        <option value="branding">
+                          Branding & Graphics
+                        </option>
+                        <option value="automation">
+                          Business Automation
+                        </option>
                         <option value="other">Other</option>
                       </select>
                     </div>
@@ -254,7 +299,7 @@ const Contact = () => {
                         name="budget"
                         value={formData.budget}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-3 rounded-none bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                       >
                         <option value="">Select budget range</option>
                         <option value="5k">$5,000 - $10,000</option>
@@ -279,12 +324,17 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-none bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
                       placeholder="Describe your project, goals, and any specific requirements..."
                     />
                   </div>
 
-                  <Button variant="hero" size="xl" type="submit" className="w-full">
+                  <Button
+                    variant="hero-outline"
+                    size="xl"
+                    type="submit"
+                    className="w-full rounded-none cursor-pointer"
+                  >
                     Send Message
                     <Send className="w-5 h-5" />
                   </Button>
@@ -303,7 +353,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-2xl overflow-hidden h-[400px] bg-muted"
+            className="rounded-none overflow-hidden h-[400px] bg-muted"
           >
             <iframe
               src="https://maps.google.com/maps?q=23.815781,90.36541&z=15&output=embed"

@@ -4,35 +4,44 @@ import { Layout } from "@/components/layout/Layout";
 import { Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import { CTASection } from "@/components/home/CTASection";
+import Anik from "@/assets/anik.jpeg";
+import Sabbir from "@/assets/sabbir.jpeg";
+import Siam from "@/assets/siam.jpeg";
+import Moin from "@/assets/moin.jpg";
+import Mariam from "@/assets/mariam.png";
+import CeoImage from "@/assets/ceo.jpg";
+import ChairManImage from "@/assets/chairman.jpg";
 
 const team = [
   {
-    name: "David Khan",
-    role: "Chief Technology Officer",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBvqzyx_zoi6q2c0Gd1XnE7wysD9PGOLe3-A&s",
-    linkedin: "#",
+    name: "Morium Akter Jannatul",
+    role: "Office Admin",
+    image: Mariam,
+    linkedin: "https://linkedin.com/in/mariamapu",
   },
   {
-    name: "Sarah Ahmed",
-    role: "Lead Designer",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBvqzyx_zoi6q2c0Gd1XnE7wysD9PGOLe3-A&s",
-    linkedin: "#",
+    name: "Anik Saha",
+    role: "Product Manager",
+    image: Anik,
+    linkedin: "https://linkedin.com/in/aniksahaaorno",
   },
   {
-    name: "Michael Lee",
-    role: "Project Manager",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBvqzyx_zoi6q2c0Gd1XnE7wysD9PGOLe3-A&s",
-    linkedin: "#",
+    name: "Tariqul Islam Khan",
+    role: "Full Stack Developer",
+    image: Sabbir,
+    linkedin: "https://www.linkedin.com/in/tariqul-islam-khan",
   },
   {
-    name: "John Smith",
-    role: "Senior Developer",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBvqzyx_zoi6q2c0Gd1XnE7wysD9PGOLe3-A&s",
-    linkedin: "#",
+    name: "MD. Siam Hossain",
+    role: "Graphic Designer",
+    image: Siam,
+    linkedin: "https://linkedin.com/in/siamvaiboss",
+  },
+  {
+    name: "Moin Khan",
+    role: "Frontend Developer",
+    image: Moin,
+    linkedin: "https://linkedin.com/in/nmkhans",
   },
 ];
 
@@ -58,8 +67,10 @@ const About = () => {
             </p>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 sm:mb-5 md:mb-6 px-4 sm:px-0">
-              Driving Digital Transformation at{" "} <br />
-              <span className="text-primary block sm:inline">Global Scale</span>
+              Driving Digital Transformation at <br />
+              <span className="text-primary block sm:inline">
+                Global Scale
+              </span>
             </h1>
 
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-primary mx-auto mb-6 sm:mb-7 md:mb-8 rounded-full" />
@@ -91,7 +102,7 @@ const About = () => {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-full blur-2xl -z-10" />
               <div className="flex justify-center">
                 <img
-                  src="https://www.shutterstock.com/image-photo/happy-mid-aged-older-business-600nw-2322385015.jpg"
+                  src={ChairManImage}
                   alt="Chairman"
                   className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-cover rounded-full shadow-2xl border-4 border-primary/70 mx-auto hover:scale-105 transition-transform duration-700"
                 />
@@ -116,11 +127,23 @@ const About = () => {
               <div className="w-16 h-1 bg-primary mb-5 sm:mb-6 rounded-full mx-auto lg:mx-0" />
 
               <p className="text-muted-foreground leading-relaxed mb-5 sm:mb-6 text-base sm:text-lg px-4 sm:px-6 lg:px-0">
-                From inception, our mission has been clear — empower
-                businesses through strategic digital innovation. At GM
-                IT Solution, we believe technology must not only solve
-                problems but unlock new growth opportunities for the
-                future.
+                Assalamu Alaikum, আমি Gazi Sultan Juwel, Chairman, GM
+                IT Solution। আমাদের যাত্রা শুরু হয়েছিল একটি স্বপ্ন
+                নিয়ে—বাংলাদেশের তরুণদের প্রযুক্তিতে দক্ষ করে তোলা এবং
+                ব্যবসাগুলোকে ডিজিটালভাবে শক্তিশালী করা। আজ GM IT
+                Solution সেই স্বপ্ন বাস্তবায়নের পথে এগিয়ে যাচ্ছে।
+                আমরা বিশ্বাস করি, একটি দেশের উন্নয়নের জন্য প্রযুক্তি
+                শিক্ষা অত্যন্ত গুরুত্বপূর্ণ। তাই আমরা শুধু সার্ভিস
+                দিচ্ছি না, আমরা তৈরি করছি স্কিলড প্রফেশনাল, যারা দেশের
+                অর্থনীতিতে ভূমিকা রাখবে এবং বৈদেশিক রেমিটেন্স আনবে।
+                আমাদের প্রতিটি প্রজেক্টে আমরা সততা, স্বচ্ছতা এবং
+                দীর্ঘমেয়াদী ভ্যালুকে গুরুত্ব দেই। ভবিষ্যতে আমরা আরও
+                উন্নত সফটওয়্যার সলিউশন, আন্তর্জাতিক মানের ট্রেনিং এবং
+                গ্লোবাল পার্টনারশিপের মাধ্যমে GM IT Solution-কে নতুন
+                উচ্চতায় নিয়ে যেতে চাই। আমরা চাই, GM IT Solution শুধু
+                একটি কোম্পানি না—একটি ব্র্যান্ড হয়ে উঠুক, যার উপর
+                সবাই ভরসা করতে পারে। আপনাদের সবার দোয়া ও সমর্থন
+                আমাদের পথচলার প্রেরণা। ধন্যবাদ।
               </p>
 
               <div className="rounded-xl overflow-hidden shadow-lg border border-border/50 hover:shadow-2xl transition-shadow duration-500 mx-4 sm:mx-6 lg:mx-0">
@@ -162,14 +185,30 @@ const About = () => {
               <div className="w-16 h-1 bg-primary mb-5 sm:mb-6 rounded-full mx-auto lg:mx-0" />
 
               <blockquote className="border-l-4 border-primary pl-4 sm:pl-6 italic text-muted-foreground mb-5 sm:mb-6 text-base sm:text-lg mx-4 sm:mx-6 lg:mx-0 text-left">
-                “Innovation is not optional — it is our responsibility.”
+                “Innovation is not optional — it is our
+                responsibility.”
               </blockquote>
 
               <p className="text-muted-foreground leading-relaxed mb-5 sm:mb-6 text-base sm:text-lg px-4 sm:px-6 lg:px-0">
-                Our leadership philosophy focuses on agility,
-                measurable results, and long-term client partnerships.
-                Every solution we design aligns with business
-                scalability and global standards.
+                Assalamu Alaikum, আমি MD Ashraful Islam, CEO, GM IT
+                Solution। GM IT Solution শুধু একটি আইটি কোম্পানি নয়,
+                এটি একটি ভিশন। আমরা বিশ্বাস করি—ডিজিটাল যুগে টিকে
+                থাকতে হলে প্রযুক্তি ও দক্ষতার বিকল্প নেই। তাই আমরা
+                সফটওয়্যার ডেভেলপমেন্ট থেকে শুরু করে ওয়েব ডিজাইন,
+                অ্যাপ ডেভেলপমেন্ট, ডিজিটাল মার্কেটিং, গ্রাফিক্স, এবং
+                প্রফেশনাল আইটি ট্রেনিং—সবকিছু এক ছাদের নিচে নিয়ে
+                এসেছি। আমাদের লক্ষ্য শুধু সার্ভিস দেওয়া নয়, বরং
+                প্রতিটি ক্লায়েন্ট ও শিক্ষার্থীর সাথে দীর্ঘমেয়াদী
+                সম্পর্ক গড়ে তোলা। আমরা এমন সফটওয়্যার তৈরি করি যা
+                ব্যবসাকে দ্রুত, নিরাপদ ও স্মার্ট করে তোলে। আর আমাদের
+                ট্রেনিং প্রোগ্রামগুলো তৈরি করা হয়েছে ইন্ডাস্ট্রির
+                বাস্তব অভিজ্ঞতার ভিত্তিতে, যাতে একজন শিক্ষার্থী শুধু
+                শিখে না—আয় করতেও পারে। GM IT Solution-এ আমরা ইনোভেশন,
+                কোয়ালিটি এবং কাস্টমার স্যাটিসফ্যাকশনকে সর্বোচ্চ
+                গুরুত্ব দেই। আমরা চাই, আমাদের কাজের মাধ্যমে দেশ ও
+                আন্তর্জাতিক পর্যায়ে একটি শক্ত অবস্থান তৈরি করতে।
+                আপনাদের বিশ্বাস ও সহযোগিতাই আমাদের এগিয়ে যাওয়ার
+                শক্তি। ধন্যবাদ।
               </p>
 
               <div className="rounded-xl overflow-hidden shadow-lg border border-border/50 hover:shadow-2xl transition-shadow duration-500 mx-4 sm:mx-6 lg:mx-0">
@@ -192,7 +231,7 @@ const About = () => {
               <div className="absolute inset-0 bg-gradient-to-tl from-primary/20 to-transparent rounded-full blur-2xl -z-10" />
               <div className="flex justify-center">
                 <img
-                  src="https://www.shutterstock.com/image-photo/happy-mid-aged-older-business-600nw-2322385015.jpg"
+                  src={CeoImage}
                   alt="CEO"
                   className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-cover rounded-full shadow-2xl border-4 border-primary/70 mx-auto hover:scale-105 transition-transform duration-700"
                 />
@@ -243,14 +282,12 @@ const About = () => {
               >
                 <div className="relative bg-background/50 backdrop-blur-sm p-2 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
                   <div className="relative mb-4 sm:mb-5 md:mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative overflow-hidden aspect-square">
                       <img
                         src={member.image}
                         alt={member.name}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        className={`w-full h-full object-cover ${["MD. Siam Hossain"].includes(member.name) ? "object-center" : "object-top"}  transition-transform duration-700 group-hover:scale-110`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
                   </div>
 
@@ -274,11 +311,9 @@ const About = () => {
                       </a>
                     </div>
                   </div>
-
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 transition-all duration-500 pointer-events-none" />
                 </div>
 
-                <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-primary/5 rounded-full blur-2xl sm:blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10" />
+                {/* <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-primary/5 rounded-full blur-2xl sm:blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10" /> */}
               </motion.div>
             ))}
           </div>

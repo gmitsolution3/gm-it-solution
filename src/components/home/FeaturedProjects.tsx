@@ -72,8 +72,9 @@ export const FeaturedProjects = () => {
                 viewport={{ once: true, amount: 0.3 }}
                 className="relative"
               >
-                <Link
-                  to={`/portfolio/${project.id}`}
+                <a
+                  href={project.url}
+                  target="_blank"
                   className="block group"
                 >
                   <div className="relative border border-border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-colors duration-500 rounded-2xl overflow-hidden">
@@ -90,7 +91,7 @@ export const FeaturedProjects = () => {
                           <img
                             src={project.image}
                             alt={project.title}
-                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
+                            className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
                           />
                         </div>
                       </div>
@@ -121,23 +122,11 @@ export const FeaturedProjects = () => {
                             {project.description}
                           </p>
 
-                          {/* Tags */}
-                          <div className="flex flex-wrap gap-3">
-                            {project.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="px-4 py-2 text-sm font-mono border border-border bg-muted/50 rounded-full text-muted-foreground"
-                              >
-                                &lt;{tag}&gt;
-                              </span>
-                            ))}
-                          </div>
-
                           {/* Action */}
                           <div className="pt-4">
                             <div className="inline-flex items-center gap-4 text-primary font-mono text-sm tracking-wider">
                               <Eye className="w-5 h-5" />
-                              <span>VIEW_CASE_STUDY</span>
+                              <span>Live Site</span>
                               <ArrowRight className="w-4 h-4" />
                             </div>
                           </div>
@@ -145,7 +134,7 @@ export const FeaturedProjects = () => {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </a>
               </motion.div>
             );
           })}

@@ -1,26 +1,22 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
-import { Link } from "react-router-dom";
-import { ArrowRight, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
+  Check,
+  Video,
   Globe,
-  Smartphone,
   Palette,
   TrendingUp,
   Briefcase,
-  Settings,
   Code2,
 } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { CTASection } from "@/components/home/CTASection";
 import CTAButton from "./../components/CTAButton";
+import webDevelopmentImage from "@/assets/web_development.jpg";
+import uiUxDesign from "@/assets/ui_ux.jpg";
+import videoEdit from "@/assets/video_edit.jpg";
+import softwareDevelopment from "@/assets/software_development.jpg";
+import brandDesign from "@/assets/brand.jpg";
+import digitalMarketing from "@/assets/digital_marketing.jpg";
 
 const services = [
   {
@@ -47,14 +43,7 @@ const services = [
       "Tailwind CSS",
       "Shadcn UI",
     ],
-    image: [
-      "https://i.postimg.cc/fygYZ294/pexels-divinetechygirl-1181263-(1).jpg",
-      "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
-      "https://i.postimg.cc/zvPT5tg8/pexels-hiteshchoudhary-1261427.jpg",
-      "https://i.postimg.cc/PJq1gsN1/pexels-kevin-ku-92347-577585.jpg",
-      "https://i.postimg.cc/prdKwbpN/pexels-pixabay-159299.jpg",
-      "https://i.postimg.cc/tJgFKQ7D/pexels-realtoughcandy-11035380.jpg",
-    ],
+    image: webDevelopmentImage,
   },
   {
     id: "design",
@@ -77,14 +66,7 @@ const services = [
       "Principle",
       "Framer",
     ],
-    image: [
-      "https://i.postimg.cc/kgYzzqGm/pexels-dlxmedia-hu-215591835-11894290.jpg",
-      "https://i.postimg.cc/9MdxmhmC/pexels-ron-lach-8102680.jpg",
-      "https://i.postimg.cc/VNSpcpr3/pexels-firosnv-8171308.jpg",
-      "https://i.postimg.cc/vm1kdkxR/pexels-kawerodriguess-16313512.jpg",
-      "https://i.postimg.cc/NjCSSBFv/pexels-sami-aksu-48867324-10003549.jpg",
-      "https://i.postimg.cc/VNSpcp0c/pexels-tranmautritam-326518.jpg",
-    ],
+    image: uiUxDesign,
   },
   {
     id: "marketing",
@@ -107,15 +89,7 @@ const services = [
       "Meta Ads",
       "Google Ads",
     ],
-    image: [
-      "https://i.postimg.cc/66GZG0nV/pexels-a-darmel-7642113.jpg",
-      "https://i.postimg.cc/FFJSJZ3Z/pexels-eva-bronzini-7661590.jpg",
-      "https://i.postimg.cc/2jBWBwhQ/pexels-goumbik-590016.jpg",
-      "https://i.postimg.cc/Pf8D84YP/pexels-jakubzerdzicki-29277702.jpg",
-      "https://i.postimg.cc/Pf8D84YJ/pexels-jakubzerdzicki-32045959.jpg",
-      "https://i.postimg.cc/Pf8D84YD/pexels-kindelmedia-7688102.jpg",
-      "https://i.postimg.cc/NGrXr4mx/pexels-pixabay-267401.jpg",
-    ],
+    image: digitalMarketing,
   },
   {
     id: "branding",
@@ -138,46 +112,30 @@ const services = [
       "Illustrator",
       "Photoshop",
     ],
-    image: [
-      "https://i.postimg.cc/FFJSJZ3Z/pexels-eva-bronzini-7661590.jpg",
-      "https://i.postimg.cc/NGrXr4mx/pexels-pixabay-267401.jpg",
-      "https://i.postimg.cc/2jBWBwhQ/pexels-goumbik-590016.jpg",
-      "https://i.postimg.cc/Pf8D84YP/pexels-jakubzerdzicki-29277702.jpg",
-      "https://i.postimg.cc/66GZG0nV/pexels-a-darmel-7642113.jpg",
-      "https://i.postimg.cc/Pf8D84YJ/pexels-jakubzerdzicki-32045959.jpg",
-      "https://i.postimg.cc/Pf8D84YD/pexels-kindelmedia-7688102.jpg",
-    ],
+    image: brandDesign,
   },
   {
-    id: "automation",
-    icon: Settings,
-    title: "Business Automation",
+    id: "video-editing",
+    icon: Video,
+    title: "Professional Video Editing",
     description:
-      "Streamline operations with custom software solutions and workflow automation.",
+      "Transform raw footage into engaging, high-quality videos with professional editing, motion graphics, and cinematic effects.",
     features: [
-      "Process automation",
-      "CRM implementation",
-      "ERP solutions",
-      "Workflow optimization",
-      "Data integration",
-      "Custom software development",
+      "Professional video editing",
+      "Color correction & grading",
+      "Motion graphics & animations",
+      "YouTube & social media editing",
+      "Promotional & commercial videos",
+      "Subtitle & caption integration",
     ],
     technologies: [
-      "Zapier",
-      "Make",
-      "Python",
-      "Power Automate",
-      "Custom APIs",
+      "Adobe Premiere Pro",
+      "After Effects",
+      "DaVinci Resolve",
+      "Final Cut Pro",
+      "CapCut Pro",
     ],
-    image: [
-      "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
-      "https://i.postimg.cc/bvzrC0ZF/pexels-ivan-s-7213210.jpg",
-      "https://i.postimg.cc/LsH5CkJw/pexels-ivan-s-7213504.jpg",
-      "https://i.postimg.cc/HLpnZ0rK/pexels-kadiremir-31148083.jpg",
-      "https://i.postimg.cc/fbwy27V2/pexels-rccbtn-15406295.jpg",
-      "https://i.postimg.cc/Jh1063sB/pexels-realtoughcandy-11035474.jpg",
-      "https://i.postimg.cc/zfJvtwyW/pexels-sanketgraphy-16229745.jpg",
-    ],
+    image: videoEdit,
   },
   {
     id: "software",
@@ -200,15 +158,7 @@ const services = [
       "CI/CD",
       "Microservices",
     ],
-    image: [
-      "https://i.postimg.cc/HLpnZ0rK/pexels-kadiremir-31148083.jpg",
-      "https://i.postimg.cc/fWHcxLgv/pexels-goumbik-574071.jpg",
-      "https://i.postimg.cc/bvzrC0ZF/pexels-ivan-s-7213210.jpg",
-      "https://i.postimg.cc/LsH5CkJw/pexels-ivan-s-7213504.jpg",
-      "https://i.postimg.cc/fbwy27V2/pexels-rccbtn-15406295.jpg",
-      "https://i.postimg.cc/Jh1063sB/pexels-realtoughcandy-11035474.jpg",
-      "https://i.postimg.cc/zfJvtwyW/pexels-sanketgraphy-16229745.jpg",
-    ],
+    image: softwareDevelopment,
   },
 ];
 
@@ -323,23 +273,13 @@ const Services = () => {
                     className={index % 2 === 1 ? "lg:order-1" : ""}
                   >
                     <div className="aspect-[4/3] rounded-none bg-gradient-to-br from-primary/10 to-accent/10 p-2 flex items-center justify-center">
-                      <Carousel className="w-full h-full">
-                        <CarouselContent>
-                          {service.image.map((image, idx) => (
-                            <CarouselItem key={idx}>
-                              <div className="w-full h-full overflow-hidden rounded-none">
-                                <img
-                                  src={image}
-                                  alt={`${service.title} preview ${idx + 1}`}
-                                  className="w-full h-full object-cover aspect-[4/3] rounded-none"
-                                />
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                      </Carousel>
+                      <div className="w-full h-full overflow-hidden rounded-none">
+                        <img
+                          src={service.image}
+                          alt={`${service.title} preview`}
+                          className="w-full h-full object-cover aspect-[4/3] rounded-none"
+                        />
+                      </div>
                     </div>
                   </div>
                 </motion.div>
