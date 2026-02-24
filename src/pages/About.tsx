@@ -9,6 +9,7 @@ import Sabbir from "@/assets/sabbir.jpeg";
 import Siam from "@/assets/siam.jpeg";
 import Moin from "@/assets/moin.jpg";
 import Mariam from "@/assets/mariam.png";
+import Kawsar from "@/assets/kawsar.png";
 import CeoImage from "@/assets/ceo.jpg";
 import ChairManImage from "@/assets/chairman.jpg";
 
@@ -42,6 +43,12 @@ const team = [
     role: "Frontend Developer",
     image: Moin,
     linkedin: "https://linkedin.com/in/nmkhans",
+  },
+  {
+    name: "Kawsar Ahmed",
+    role: "Office Assistant",
+    image: Kawsar,
+    linkedin: "https://linkedin.com/in/null",
   },
 ];
 
@@ -286,7 +293,7 @@ const About = () => {
                       <img
                         src={member.image}
                         alt={member.name}
-                        className={`w-full h-full object-cover ${["MD. Siam Hossain"].includes(member.name) ? "object-center" : "object-top"}  transition-transform duration-700 group-hover:scale-110`}
+                        className={`w-full h-full object-cover ${["MD. Siam Hossain", "Kawsar Ahmed"].includes(member.name) ? "object-center" : "object-top"}  transition-transform duration-700 group-hover:scale-110`}
                       />
                     </div>
                   </div>
