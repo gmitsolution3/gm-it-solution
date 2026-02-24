@@ -7,6 +7,7 @@ import ProjectFour from "@/assets/project_four.png";
 import ProjectFive from "@/assets/project_five.png";
 import ProjectSix from "@/assets/project_six.png";
 import ProjectSeven from "@/assets/project_seven.png";
+import ProjectFsCreation from "@/assets/fs-creation.png";
 
 export interface Project {
   id: number;
@@ -30,7 +31,7 @@ const defaultProjects: Project[] = [
     title: "GM International",
     category: "Service",
     description:
-      "M International is a professional service-based consultancy dedicated to helping individuals and businesses connect with opportunities in China. We provide complete guidance and end-to-end support for students, entrepreneurs, and travelers who wish to study, expand business, or explore tourism in China.",
+      "GM International is a professional service-based consultancy dedicated to helping individuals and businesses connect with opportunities in China. We provide complete guidance and end-to-end support for students, entrepreneurs, and travelers who wish to study, expand business, or explore tourism in China.",
     image: ProjectSix,
     url: "https://gminternational.live",
   },
@@ -72,6 +73,15 @@ const defaultProjects: Project[] = [
   },
   {
     id: 6,
+    title: "FS Creation",
+    category: "Animation",
+    description:
+      "FS Creation is a 2D animation production house specializing in creating engaging content for YouTube. We bring stories to life through high-quality animation while also mentoring the next generation of artists. Through our dedicated teaching programs, we help students master the art of 2D animation and turn their passion into a professional skillset.",
+    image: ProjectFsCreation,
+    url: "https://www.fscreation.us",
+  },
+  {
+    id: 7,
     title: "Yello Furniture",
     category: "E-commerce",
     description:
@@ -80,7 +90,7 @@ const defaultProjects: Project[] = [
     url: "https://yellowfurniture.xyz",
   },
   {
-    id: 7,
+    id: 8,
     title: "Dr. Serjina",
     category: "Service",
     description:

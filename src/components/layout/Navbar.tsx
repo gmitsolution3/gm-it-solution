@@ -43,8 +43,6 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(
     null,
@@ -56,22 +54,13 @@ export const Navbar = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 20);
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-        setActiveMegaMenu(null);
-      } else {
-        setIsVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener("scroll", handleScroll, {
       passive: true,
     });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -98,9 +87,6 @@ export const Navbar = () => {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: isVisible ? 0 : -100 }}
-        transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50",
           "transition-all duration-500",

@@ -85,14 +85,46 @@ export const FeaturedProjects = () => {
                           : "lg:flex-row-reverse"
                       }`}
                     >
-                      {/* Image */}
+                      {/* Image with Scroll Effect */}
                       <div className="lg:w-1/2 relative overflow-hidden">
-                        <div className="aspect-[4/3] lg:aspect-auto lg:h-[500px]">
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
-                          />
+                        <div className="aspect-[4/3] lg:aspect-auto lg:h-[500px] overflow-hidden relative">
+                          {/* Gradient Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-700" />
+                          
+                          {/* Image with Scroll Effect */}
+                          <div className="absolute inset-0 overflow-hidden">
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="w-full h-[200%] object-cover object-top transition-transform duration-[8000ms] ease-out group-hover:-translate-y-1/2"
+                              style={{
+                                objectPosition: "top",
+                                transform: "translateY(0)",
+                              }}
+                            />
+                          </div>
+
+                          {/* Category Badge - Floating */}
+                          <motion.div
+                            className="absolute top-4 right-4 z-20"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                          >
+                            <span className="px-4 py-2 text-xs font-bold uppercase bg-black/20 text-white rounded-full shadow-lg backdrop-blur-sm">
+                              {project.category}
+                            </span>
+                          </motion.div>
+
+                          {/* Scroll Indicator */}
+                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <div className="flex flex-col items-center">
+                              <span className="text-[10px] text-white/80 uppercase tracking-wider mb-1">
+                                Scroll
+                              </span>
+                              <div className="w-5 h-8 border-2 border-white/30 rounded-full flex justify-center">
+                                <div className="w-1 h-2 bg-white/60 rounded-full mt-1 animate-bounce" />
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -141,7 +173,6 @@ export const FeaturedProjects = () => {
         </div>
 
         {/* CTA */}
-
         <CTAButton href="/portfolio">View All Products</CTAButton>
       </div>
     </section>

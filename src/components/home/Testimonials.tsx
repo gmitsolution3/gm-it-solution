@@ -52,14 +52,14 @@ export const Testimonials = () => {
   const duplicatedReversed = [...reversed, ...reversed];
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="text-center mx-auto mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
             Testimonials
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4 text-foreground">
             What Our <span className="text-primary">Clients Say</span>
           </h2>
           <p className="text-muted-foreground">
@@ -71,10 +71,10 @@ export const Testimonials = () => {
         {/* Slider Wrapper */}
         <div className="relative overflow-hidden space-y-6">
           {/* LEFT FADE */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-background via-background/90 to-transparent z-10" />
 
           {/* RIGHT FADE */}
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-background to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-background via-background/90 to-transparent z-10" />
 
           {/* 🔼 TOP ROW (slides right) */}
           <motion.div
@@ -126,8 +126,8 @@ export const Testimonials = () => {
 const TestimonialCard = ({ testimonial }: any) => {
   return (
     <div className="flex-shrink-0 w-[400px]">
-      <div className="p-8 rounded-none bg-white/5 backdrop-blur-xl border border-white/10">
-        <p className="text-lg text-white/80 leading-relaxed mb-8">
+      <div className="p-8 rounded-none bg-card/80 backdrop-blur-xl border border-border">
+        <p className="text-lg text-card-foreground/80 leading-relaxed mb-8">
           "{testimonial.content}"
         </p>
 
@@ -135,13 +135,13 @@ const TestimonialCard = ({ testimonial }: any) => {
           <img
             src={testimonial.avatar}
             alt={testimonial.name}
-            className="w-14 h-14 rounded-full border border-white/20"
+            className="w-14 h-14 rounded-full border border-border"
           />
           <div>
-            <h4 className="font-semibold text-white">
+            <h4 className="font-semibold text-card-foreground">
               {testimonial.name}
             </h4>
-            <p className="text-sm text-white/40">
+            <p className="text-sm text-muted-foreground">
               {testimonial.role}
             </p>
           </div>

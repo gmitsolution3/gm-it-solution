@@ -215,7 +215,7 @@ export const HeroSlider = () => {
                 </motion.div>
 
                 <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-                  <span className="text-foreground">
+                  <span className="text-white dark:text-foreground">
                     {slides[currentSlide].title}
                   </span>
                   <br />
@@ -224,7 +224,7 @@ export const HeroSlider = () => {
                   </span>
                 </h1>
 
-                <p className="text-base text-muted-foreground/90 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                <p className="text-white dark:text-base text-muted-foreground/90 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
                   {slides[currentSlide].description}
                 </p>
 
@@ -237,7 +237,7 @@ export const HeroSlider = () => {
                     className="group relative overflow-hidden hover:scale-105 transition-transform rounded-none"
                   >
                     <Link to="/portfolio">
-                      <span className="relative z-10 flex items-center gap-2">
+                      <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
                         {slides[currentSlide].cta.primary}
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                       </span>
@@ -265,7 +265,7 @@ export const HeroSlider = () => {
                   >
                     <Link
                       to="/contact"
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 text-white"
                     >
                       {slides[currentSlide].cta.secondary}
                       <Zap className="w-4 h-4" />
@@ -279,7 +279,7 @@ export const HeroSlider = () => {
             <div className="flex items-center gap-4 mt-12 justify-center lg:justify-start">
               <button
                 onClick={prevSlide}
-                className="p-3 rounded-xl hover:bg-muted/50 transition-all hover:scale-110 active:scale-95 border border-transparent hover:border-muted"
+                className="p-3 rounded-xl hover:bg-muted/50 transition-all hover:scale-110 active:scale-95 border border-transparent hover:border-muted text-white"
                 aria-label="Previous slide"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -311,7 +311,7 @@ export const HeroSlider = () => {
 
               <button
                 onClick={nextSlide}
-                className="p-3 rounded-xl hover:bg-muted/50 transition-all hover:scale-110 active:scale-95 border border-transparent hover:border-muted"
+                className="p-3 rounded-xl hover:bg-muted/50 transition-all hover:scale-110 active:scale-95 border border-transparent hover:border-muted text-white"
                 aria-label="Next slide"
               >
                 <ChevronRight className="w-5 h-5" />
