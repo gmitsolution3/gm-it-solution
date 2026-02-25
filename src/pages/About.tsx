@@ -10,6 +10,7 @@ import Siam from "@/assets/siam.jpeg";
 import Moin from "@/assets/moin.jpg";
 import Mariam from "@/assets/mariam.png";
 import Kawsar from "@/assets/kawsar.png";
+import Musfiqur from "@/assets/musfiqur.jpeg";
 import CeoImage from "@/assets/ceo.jpg";
 import ChairManImage from "@/assets/chairman.jpg";
 
@@ -43,6 +44,12 @@ const team = [
     role: "Frontend Developer",
     image: Moin,
     linkedin: "https://linkedin.com/in/nmkhans",
+  },
+  {
+    name: "Musfiqur Rahman",
+    role: "Video Editor",
+    image: Musfiqur,
+    linkedin: "https://linkedin.com/in/null",
   },
   {
     name: "Kawsar Ahmed",
