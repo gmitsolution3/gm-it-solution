@@ -282,7 +282,7 @@ export const Footer = () => {
                 <span className="text-sm sm:text-base text-muted-foreground">
                   <a href="tel:+8801898796506">+880 1898-796506</a>{" "}
                   <br />
-                  <a href="tel:+8801898796507">+880 1898-796506</a>
+                  <a href="tel:+8801898796507">+880 1898-796507</a>
                 </span>
               </li>
               <li className="flex items-start justify-center sm:justify-start gap-2 sm:gap-3">
@@ -298,7 +298,7 @@ export const Footer = () => {
               <Bolt className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
               <span className="text-sm sm:text-base text-muted-foreground">
                 Powered by{" "}
-                <a className="text-blue-400" href="https://gmitsolution.net" target="_blank">
+                <a className="text-blue-400" href="https://www.facebook.com/profile.php?id=61578361911412" target="_blank">
                   GM Group
                 </a>
               </span>
