@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Globe,
@@ -8,11 +8,14 @@ import {
   TrendingUp,
   Briefcase,
   Settings,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import CTAButton from "./../CTAButton";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 
 const services = [
   {
@@ -67,6 +70,7 @@ const services = [
 
 export const ServicesPreview = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [swiperInstance, setSwiperInstance] = useState(null);
 
   return (
     <section
@@ -97,7 +101,7 @@ export const ServicesPreview = () => {
         {/* Swiper Slider - Responsive */}
         <div className="relative w-full">
           <Swiper
-            modules={[Autoplay]}
+            modules={[Autoplay, Navigation]}
             autoplay={{
               delay: 2000,
               disableOnInteraction: false,
@@ -107,15 +111,20 @@ export const ServicesPreview = () => {
             loop={true}
             className="!overflow-hidden !p-5"
             breakpoints={{
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
               640: {
                 slidesPerView: 2,
                 spaceBetween: 20,
               },
               1024: {
                 slidesPerView: 3,
-                spaceBetween: 24,
+                spaceBetween: 30,
               },
             }}
+            onSwiper={setSwiperInstance}
           >
             {services.map((service, index) => (
               <SwiperSlide key={index} className="h-auto">
@@ -143,6 +152,20 @@ export const ServicesPreview = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Navigation Arrows */}
+          <button 
+            onClick={() => swiperInstance?.slidePrev()}
+            className="hidden lg:inline-flex absolute -left-10 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background border border-border hover:border-primary/20 rounded-none flex items-center justify-center hover:bg-primary/5 transition-all -ml-5"
+          >
+            <ChevronLeft className="w-5 h-5 text-foreground" />
+          </button>
+          <button 
+            onClick={() => swiperInstance?.slideNext()}
+            className="hidden lg:inline-flex absolute -right-10 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background border border-border hover:border-primary/20 rounded-none flex items-center justify-center hover:bg-primary/5 transition-all -mr-5"
+          >
+            <ChevronRight className="w-5 h-5 text-foreground" />
+          </button>
         </div>
 
         {/* CTA Button */}

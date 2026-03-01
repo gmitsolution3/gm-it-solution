@@ -8,6 +8,7 @@ import {
   Facebook,
   Instagram,
   ArrowRight,
+  Bolt,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -273,22 +274,35 @@ export const Footer = () => {
               <li className="flex items-center sm:items-start justify-center sm:justify-start gap-2 sm:gap-3">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
                 <span className="text-sm sm:text-base text-muted-foreground break-all">
-                  hello@gmitsolution.com
+                  gmitsolution.net@gmail.com
                 </span>
               </li>
               <li className="flex items-center sm:items-start justify-center sm:justify-start gap-2 sm:gap-3">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
                 <span className="text-sm sm:text-base text-muted-foreground">
-                  +1 (555) 123-4567
+                  <a href="tel:+8801898796506">+880 1898-796506</a>{" "}
+                  <br />
+                  <a href="tel:+8801898796507">+880 1898-796506</a>
                 </span>
               </li>
               <li className="flex items-start justify-center sm:justify-start gap-2 sm:gap-3">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" />
                 <span className="text-sm sm:text-base text-muted-foreground max-w-[200px] sm:max-w-none">
-                  123 Tech Street, Silicon Valley, CA 94025
+                  2nd Floor, House-1, Road-1, Section-7, Mirpur-11,
+                  Dhaka-1216
                 </span>
               </li>
             </ul>
+
+            <div className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 mt-5">
+              <Bolt className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+              <span className="text-sm sm:text-base text-muted-foreground">
+                Powered by{" "}
+                <a className="text-blue-400" href="https://gmitsolution.net" target="_blank">
+                  GM Group
+                </a>
+              </span>
+            </div>
           </div>
         </div>
       </div>
