@@ -1,8 +1,16 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
@@ -15,12 +23,17 @@ import Dashboard from "./pages/admin/Dashboard";
 import PortfolioManager from "./pages/admin/PortfolioManager";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme" attribute="class">
+    <ThemeProvider
+      defaultTheme="dark"
+      storageKey="vite-ui-theme"
+      attribute="class"
+    >
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -35,14 +48,21 @@ const App = () => (
 
             {/* Admin Routes */}
             <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<Navigate to="/admin/dashboard" replace />} />
+              <Route
+                index
+                element={<Navigate to="/admin/dashboard" replace />}
+              />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="portfolio" element={<PortfolioManager />} />
+              <Route
+                path="portfolio"
+                element={<PortfolioManager />}
+              />
             </Route>
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <ScrollToTop />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
