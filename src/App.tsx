@@ -24,6 +24,10 @@ import PortfolioManager from "./pages/admin/PortfolioManager";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { ScrollToTop } from "./components/ScrollToTop";
+import CaseStudies from "./pages/CaseStudies";
+import Carrier from "./pages/Carrier";
+import PrivacyAndPolicy from "./pages/PrivacyAndPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +48,16 @@ const App = () => (
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route
+              path="/privacy-policy"
+              element={<PrivacyAndPolicy />}
+            />
+            <Route
+              path="/terms-and-conditions"
+              element={<TermsAndConditions />}
+            />
             <Route path="/contact" element={<Contact />} />
 
             {/* Admin Routes */}

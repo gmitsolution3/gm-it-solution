@@ -16,10 +16,10 @@ import Logo from "@/assets/logo.png";
 
 const quickLinks = [
   { name: "Home", path: "/" },
-  { name: "Services", path: "/services" },
-  { name: "Portfolio", path: "/portfolio" },
-  { name: "About Us", path: "/about" },
-  { name: "Blog", path: "/blog" },
+  { name: "Case Studies", path: "/case-studies" },
+  { name: "Carrier", path: "/carrier" },
+  { name: "Privacy Policy", path: "/privacy-policy" },
+  { name: "Terms & Conditions", path: "/terms-and-conditions" },
   { name: "Contact", path: "/contact" },
 ];
 
