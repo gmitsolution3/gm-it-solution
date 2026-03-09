@@ -61,7 +61,7 @@ const team = [
 
 const About = () => {
   return (
-    <Layout>
+    <>
       {/* Hero Section - Responsive */}
       <section className="pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-16 sm:pb-20 md:pb-24 lg:pb-28 bg-gradient-to-b from-background to-muted/30 text-center relative overflow-hidden">
         {/* Background Decorative Elements - Hidden on mobile */}
@@ -335,7 +335,7 @@ const About = () => {
       </section>
 
       <CTASection />
-    </Layout>
+    </>
   );
 };
 

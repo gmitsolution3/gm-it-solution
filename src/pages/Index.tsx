@@ -9,14 +9,14 @@ import { CTASection } from "@/components/home/CTASection";
 
 const Index = () => {
   return (
-    <Layout>
+    <>
       <HeroSlider />
       <WhyChooseUs />
       <ServicesPreview />
       <FeaturedProjects />
       <Testimonials />
       <CTASection />
-    </Layout>
+    </>
   );
 };
 

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Layout } from "@/components/layout/Layout";
 import {
   Mail,
   Phone,
@@ -57,7 +56,7 @@ const Contact = () => {
   };
 
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0">
@@ -367,7 +366,7 @@ const Contact = () => {
           </motion.div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 };
 

@@ -25,10 +25,12 @@ import PortfolioManager from "./pages/admin/PortfolioManager";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ScrollToTop } from "./components/ScrollToTop";
 import CaseStudies from "./pages/CaseStudies";
-import Carrier from "./pages/Carrier";
+// import Carrier from "./pages/Carrier";
 import PrivacyAndPolicy from "./pages/PrivacyAndPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
+
+import { Layout } from "./components/layout/Layout";
 
 const queryClient = new QueryClient();
 
@@ -44,26 +46,86 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route
+              path="/"
+              element={
+                <Layout>
+                  <Index />
+                </Layout>
+              }
+            />
+            <Route
+              path="/services"
+              element={
+                <Layout>
+                  <Services />
+                </Layout>
+              }
+            />
+            <Route
+              path="/portfolio"
+              element={
+                <Layout>
+                  <Portfolio />
+                </Layout>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <Layout>
+                  <About />
+                </Layout>
+              }
+            />
+            <Route
+              path="/blog"
+              element={
+                <Layout>
+                  <Blog />
+                </Layout>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <Layout>
+                  <Contact />
+                </Layout>
+              }
+            />
+            <Route
+              path="/case-studies"
+              element={
+                <Layout>
+                  <CaseStudies />
+                </Layout>
+              }
+            />
             <Route
               path="/case-studies/:id"
-              element={<CaseStudyDetail />}
+              element={
+                <Layout>
+                  <CaseStudyDetail />
+                </Layout>
+              }
             />
             <Route
               path="/privacy-policy"
-              element={<PrivacyAndPolicy />}
+              element={
+                <Layout>
+                  <PrivacyAndPolicy />
+                </Layout>
+              }
             />
             <Route
               path="/terms-and-conditions"
-              element={<TermsAndConditions />}
+              element={
+                <Layout>
+                  <TermsAndConditions />
+                </Layout>
+              }
             />
-            <Route path="/contact" element={<Contact />} />
 
             {/* Admin Routes */}
             <Route path="/admin" element={<AdminLayout />}>

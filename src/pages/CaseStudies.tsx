@@ -27,7 +27,7 @@ export default function CaseStudies() {
   const { projects } = usePortfolioStore();
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
+    <div className="pt-32 pb-20 bg-background text-foreground min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
         <div className="text-center mb-16">

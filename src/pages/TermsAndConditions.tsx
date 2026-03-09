@@ -28,7 +28,7 @@ const sectionVariants: Variants = {
 
 export default function TermsAndConditions() {
   return (
-    <div className="bg-background text-foreground">
+    <div className="pt-32 pb-20 bg-background text-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Page Header */}
         <div className="max-w-3xl mx-auto text-center mb-12">

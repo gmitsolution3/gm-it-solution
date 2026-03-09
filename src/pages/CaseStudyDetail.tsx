@@ -4,6 +4,29 @@ import Logo from "@/assets/logo.png";
 import { usePortfolioStore } from "@/lib/portfolio-store";
 import { useCaseStudyStore } from "@/lib/casestudy-store";
 
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+    >
+      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+
+      <div className="text-muted-foreground leading-relaxed">
+        {children}
+      </div>
+    </motion.section>
+  );
+}
+
 export default function CaseStudyDetail() {
   const { id } = useParams();
 
@@ -15,20 +38,19 @@ export default function CaseStudyDetail() {
     state.caseStudies.find((c) => c.id === Number(id)),
   );
 
+  console.log(caseStudy)
+
   if (!project || !caseStudy) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">
-          Case study not found.
-        </p>
+        <p className="text-muted-foreground">Case study not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-background text-foreground">
+    <div className="pt-32 pb-20 bg-background text-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-
         {/* Logo */}
         <div className="flex justify-center mb-10">
           <Link to="/">
@@ -46,9 +68,7 @@ export default function CaseStudyDetail() {
             {project.category}
           </p>
 
-          <h1 className="text-4xl font-bold mb-4">
-            {project.title}
-          </h1>
+          <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
 
           <p className="text-muted-foreground">
             {project.description}
@@ -71,11 +91,8 @@ export default function CaseStudyDetail() {
 
         {/* Content */}
         <div className="max-w-4xl mx-auto space-y-12">
-
           {/* Overview */}
-          <Section title="Overview">
-            {caseStudy.overview}
-          </Section>
+          <Section title="Overview">{caseStudy.overview}</Section>
 
           {/* Challenge */}
           <Section title="The Challenge">
@@ -83,9 +100,7 @@ export default function CaseStudyDetail() {
           </Section>
 
           {/* Solution */}
-          <Section title="The Solution">
-            {caseStudy.solution}
-          </Section>
+          <Section title="The Solution">{caseStudy.solution}</Section>
 
           {/* Features */}
           <Section title="Key Features">
@@ -111,9 +126,7 @@ export default function CaseStudyDetail() {
           </Section>
 
           {/* Results */}
-          <Section title="Results">
-            {caseStudy.results}
-          </Section>
+          <Section title="Results">{caseStudy.results}</Section>
 
           {/* Visit Website */}
           <div className="text-center pt-8">
@@ -121,7 +134,7 @@ export default function CaseStudyDetail() {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-medium hover:opacity-90 transition"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-medium hover:opacity-90 transition text-white"
             >
               Visit Website →
             </a>
@@ -129,30 +142,5 @@ export default function CaseStudyDetail() {
         </div>
       </div>
     </div>
-  );
-}
-
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
-      <h2 className="text-2xl font-semibold mb-4">
-        {title}
-      </h2>
-
-      <div className="text-muted-foreground leading-relaxed">
-        {children}
-      </div>
-    </motion.section>
   );
 }

@@ -10,7 +10,7 @@ const Portfolio = () => {
   const { projects } = usePortfolioStore();
 
   return (
-    <Layout>
+    <>
       {/* ================= HERO ================= */}
       <section className="relative pt-36 pb-24 overflow-hidden">
         {/* Background Glow */}
@@ -190,7 +190,7 @@ const Portfolio = () => {
           )}
         </div>
       </section>
-    </Layout>
+    </>
   );
 };
 
