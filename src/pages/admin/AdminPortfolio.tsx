@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useFetch } from "@/hooks/tanstack/useFetch";
-// import { useDelete } from "@/hooks/swr/useDelete";
+import { useDelete } from "@/hooks/tanstack/useDelete"; // Import the delete hook
 import {
   Table,
   TableBody,
@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import AdminPortfolioDetailModal from "@/components/modals/AdminPortfolioDetailModal";
 import AdminCreatePortfolioModal from "@/components/modals/AdminCreatePortfolioModal";
+import AdminEditPortfolioModal from "@/components/modals/AdminEditPortfolioModal";
 
 import {
   DropdownMenu,
@@ -35,7 +36,6 @@ import {
 import { Eye, MoreHorizontal, Globe, Calendar } from "lucide-react";
 
 import Swal from "sweetalert2";
-import { Link } from "react-router";
 import AdminPortfolioTableLoader from "@/components/loaders/AdminPortfolioTableLoder";
 import { IPortfolioItem } from "@/types";
 import { formatDate } from "@/utils";
@@ -46,24 +46,35 @@ export default function AdminPortfolio() {
     url: "/portfolios",
   });
 
+  // Initialize delete hook
+  const deleteMutation = useDelete({
+    url: "/portfolios",
+  });
+
   const portfolioList: IPortfolioItem[] = data?.data || [];
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedPortfolio, setSelectedPortfolio] =
     useState<IPortfolioItem | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [portfolioToEdit, setPortfolioToEdit] =
+    useState<IPortfolioItem | null>(null);
 
   const handleViewPortfolio = (item: IPortfolioItem) => {
     setSelectedPortfolio(item);
     setIsDetailModalOpen(true);
   };
 
-  // const { deleteItem } = useDelete("/portfolios");
+  const handleEditPortfolio = (item: IPortfolioItem) => {
+    setPortfolioToEdit(item);
+    setIsEditModalOpen(true);
+  };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: string, title: string) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: `You won't be able to revert deleting "${title}"!`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#232156",
@@ -71,15 +82,39 @@ export default function AdminPortfolio() {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        // const res = await deleteItem(id);
-        // if (res.success) {
-        //   Swal.fire({
-        //     title: "Deleted!",
-        //     text: res.message,
-        //     icon: "success",
-        //   });
-        //   refetch(); // Refresh the list after deletion
-        // }
+        try {
+          // Show loading state
+          Swal.fire({
+            title: "Deleting...",
+            text: "Please wait",
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+              Swal.showLoading();
+            },
+          });
+
+          // Call the delete mutation
+          await deleteMutation.mutateAsync(id);
+
+          // Success message (if not already handled by the hook)
+          Swal.fire({
+            title: "Deleted!",
+            text: "Portfolio item has been deleted successfully.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        } catch (error: any) {
+          // Error message
+          Swal.fire({
+            title: "Error",
+            text:
+              error.response?.data?.message ||
+              "Failed to delete portfolio item",
+            icon: "error",
+          });
+        }
       }
     });
   };
@@ -175,6 +210,7 @@ export default function AdminPortfolio() {
             size="icon"
             className="h-8 w-8 hover:text-white"
             onClick={() => handleViewPortfolio(row.original)}
+            disabled={deleteMutation.isPending}
           >
             <Eye className="h-4 w-4" />
           </Button>
@@ -184,6 +220,7 @@ export default function AdminPortfolio() {
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8 hover:text-white"
+                disabled={deleteMutation.isPending}
               >
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
@@ -191,19 +228,21 @@ export default function AdminPortfolio() {
             <DropdownMenuContent align="end" className="w-40">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link
-                  to={`/admin-dashboard/portfolio/edit/${row.original._id}`}
-                  className="w-full"
-                >
-                  Edit item
-                </Link>
+              <DropdownMenuItem
+                onSelect={() => handleEditPortfolio(row.original)}
+                className="hover:text-white!"
+                disabled={deleteMutation.isPending}
+              >
+                Edit item
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => handleDelete(row.original._id)}
-                className="text-destructive"
+                onClick={() =>
+                  handleDelete(row.original._id, row.original.title)
+                }
+                className="text-destructive hover:text-white!"
+                disabled={deleteMutation.isPending}
               >
-                Delete
+                {deleteMutation.isPending ? "Deleting..." : "Delete"}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -238,6 +277,7 @@ export default function AdminPortfolio() {
           <Button
             className="w-full sm:w-auto shadow-sm text-white"
             onClick={() => setIsCreateModalOpen(true)}
+            disabled={deleteMutation.isPending}
           >
             Add New Item
           </Button>
@@ -315,6 +355,7 @@ export default function AdminPortfolio() {
                           variant="outline"
                           className="mt-2"
                           onClick={() => setIsCreateModalOpen(true)}
+                          disabled={deleteMutation.isPending}
                         >
                           Add Portfolio Item
                         </Button>
@@ -332,6 +373,15 @@ export default function AdminPortfolio() {
         <AdminCreatePortfolioModal
           isModalOpen={isCreateModalOpen}
           setIsModalOpen={setIsCreateModalOpen}
+          onSuccess={refetch}
+        />
+      )}
+
+      {isEditModalOpen && portfolioToEdit && (
+        <AdminEditPortfolioModal
+          isModalOpen={isEditModalOpen}
+          setIsModalOpen={setIsEditModalOpen}
+          portfolioData={portfolioToEdit}
           onSuccess={refetch}
         />
       )}
