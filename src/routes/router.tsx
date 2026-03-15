@@ -12,6 +12,8 @@ import CaseStudies from "@/pages/CaseStudies";
 import CaseStudyDetail from "@/pages/CaseStudyDetail";
 import PrivacyAndPolicy from "@/pages/PrivacyAndPolicy";
 import TermsAndConditions from "@/pages/TermsAndConditions";
+import AdminDashboardLayout from "@/layouts/AdminLayout";
+import Dashboard from "./../pages/admin/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +59,16 @@ export const router = createBrowserRouter([
       {
         path: "/terms-and-conditions",
         element: <TermsAndConditions />,
+      },
+    ],
+  },
+  {
+    path: "/admin-dashboard",
+    element: <AdminDashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
       },
     ],
   },

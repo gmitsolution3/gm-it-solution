@@ -1,8 +1,7 @@
-
-@import 'tailwindcss';
+@import "tailwindcss";
 @import "tw-animate-css";
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap")
 layer(utilities);
 
 @custom-variant dark (&:is(.dark *));
@@ -51,9 +50,13 @@ layer(utilities);
   --color-sidebar: hsl(var(--sidebar-background));
   --color-sidebar-foreground: hsl(var(--sidebar-foreground));
   --color-sidebar-primary: hsl(var(--sidebar-primary));
-  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-primary-foreground: hsl(
+    var(--sidebar-primary-foreground)
+  );
   --color-sidebar-accent: hsl(var(--sidebar-accent));
-  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-accent-foreground: hsl(
+    var(--sidebar-accent-foreground)
+  );
   --color-sidebar-border: hsl(var(--sidebar-border));
   --color-sidebar-ring: hsl(var(--sidebar-ring));
 
@@ -243,17 +246,20 @@ layer(utilities);
 
     --radius: 0.75rem;
 
+    --sidebar-width: 16rem; /* 256px */
+    --sidebar-width-icon: 4rem; /* 48px */
+
     /* Custom GM IT Solution tokens - Gradients with #0284C7 */
     --gradient-primary: linear-gradient(
       135deg,
-      #0284C7 0%,
-      #0EA5E9 100%
+      #0284c7 0%,
+      #0ea5e9 100%
     );
     --gradient-hero: linear-gradient(
       135deg,
-      #0284C7 0%,
-      #38BDF8 50%,
-      #0EA5E9 100%
+      #0284c7 0%,
+      #38bdf8 50%,
+      #0ea5e9 100%
     );
     --gradient-glow: radial-gradient(
       ellipse at center,
@@ -311,17 +317,19 @@ layer(utilities);
     --input: 215 40% 20%;
     --ring: 199 98% 45%;
 
+    
+
     /* Dark mode custom tokens - with #0284C7 */
     --gradient-primary: linear-gradient(
       135deg,
-      #0284C7 0%,
-      #0EA5E9 100%
+      #0284c7 0%,
+      #0ea5e9 100%
     );
     --gradient-hero: linear-gradient(
       135deg,
-      #0284C7 0%,
-      #38BDF8 50%,
-      #0EA5E9 100%
+      #0284c7 0%,
+      #38bdf8 50%,
+      #0ea5e9 100%
     );
     --gradient-glow: radial-gradient(
       ellipse at center,
@@ -369,7 +377,6 @@ layer(utilities);
 }
 
 @layer utilities {
-
   @keyframes float {
     0%,
     100% {
