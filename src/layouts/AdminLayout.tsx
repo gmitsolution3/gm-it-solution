@@ -21,7 +21,7 @@ const AdminDashboardLayout = () => {
         }}
       >
         <Header />
-        <main className="container py-6">
+        <main className="px-8 py-6">
           <Outlet />
         </main>
       </div>

@@ -12,8 +12,11 @@ import CaseStudies from "@/pages/CaseStudies";
 import CaseStudyDetail from "@/pages/CaseStudyDetail";
 import PrivacyAndPolicy from "@/pages/PrivacyAndPolicy";
 import TermsAndConditions from "@/pages/TermsAndConditions";
+
+// Admin Routes
 import AdminDashboardLayout from "@/layouts/AdminLayout";
 import Dashboard from "./../pages/admin/Dashboard";
+import AdminPortfolio from "@/pages/admin/AdminPortfolio";
 
 export const router = createBrowserRouter([
   {
@@ -69,6 +72,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+      },
+      {
+        path: "portfolio",
+        element: <AdminPortfolio />,
       },
     ],
   },
