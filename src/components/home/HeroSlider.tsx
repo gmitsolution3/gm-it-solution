@@ -8,7 +8,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import HeroImage from "@/assets/hero.jpg";
 import HeroTwoImage from "@/assets/hero_two.jpg";
 import HeroThreeImage from "@/assets/hero_three.jpg";

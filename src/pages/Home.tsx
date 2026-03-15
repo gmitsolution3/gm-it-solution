@@ -7,7 +7,7 @@ import { Testimonials } from "@/components/home/Testimonials";
 import { TechStack } from "@/components/home/TechStack";
 import { CTASection } from "@/components/home/CTASection";
 
-const Index = () => {
+const Home = () => {
   return (
     <>
       <HeroSlider />
@@ -20,4 +20,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Home;

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import {
   Mail,
   Phone,
@@ -298,7 +298,11 @@ export const Footer = () => {
               <Bolt className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
               <span className="text-sm sm:text-base text-muted-foreground">
                 Powered by{" "}
-                <a className="text-blue-400" href="https://www.facebook.com/profile.php?id=61578361911412" target="_blank">
+                <a
+                  className="text-blue-400"
+                  href="https://www.facebook.com/profile.php?id=61578361911412"
+                  target="_blank"
+                >
                   GM Group
                 </a>
               </span>
@@ -315,20 +319,6 @@ export const Footer = () => {
               © {new Date().getFullYear()} GM IT Solution. All rights
               reserved.
             </p>
-            <div className="flex gap-4 sm:gap-6 order-1 sm:order-2">
-              <Link
-                to="/privacy"
-                className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                to="/terms"
-                className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                Terms of Service
-              </Link>
-            </div>
           </div>
         </div>
       </div>

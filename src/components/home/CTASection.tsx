@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -28,35 +28,41 @@ export const CTASection = () => {
           <div className="space-y-3 sm:space-y-4">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight px-4 sm:px-0">
               Ready to build something{" "}
-              <span className="gradient-text block sm:inline">amazing?</span>
+              <span className="gradient-text block sm:inline">
+                amazing?
+              </span>
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed px-6 sm:px-8 md:px-0">
-              Let's turn your ideas into reality. Get a free consultation today.
+              Let's turn your ideas into reality. Get a free
+              consultation today.
             </p>
           </div>
 
           {/* Actions - Responsive button layout */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
-            <Button 
-              variant="hero" 
-              size="lg" 
-              asChild 
+            <Button
+              variant="hero"
+              size="lg"
+              asChild
               className="rounded-none text-white w-full sm:w-auto"
             >
-              <Link to="/contact" className="flex items-center justify-center">
+              <Link
+                to="/contact"
+                className="flex items-center justify-center"
+              >
                 Start Your Project
                 <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-2" />
               </Link>
             </Button>
-            <Button 
-              variant="hero-outline" 
-              size="lg" 
-              asChild 
+            <Button
+              variant="hero-outline"
+              size="lg"
+              asChild
               className="rounded-none w-full sm:w-auto"
             >
-              <a 
-                href="https://wa.me/15551234567" 
-                target="_blank" 
+              <a
+                href="https://wa.me/15551234567"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center"
               >
@@ -75,8 +81,8 @@ export const CTASection = () => {
             className="pt-4 sm:pt-6 md:pt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-10 max-w-sm sm:max-w-none mx-auto"
           >
             {stats.map((stat, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="flex flex-col items-center bg-background/50 backdrop-blur-sm p-4 sm:p-0 sm:bg-transparent sm:backdrop-blur-none rounded-lg sm:rounded-none border border-border/50 sm:border-none"
               >
                 <span className="text-xl sm:text-2xl md:text-2xl font-bold text-foreground">

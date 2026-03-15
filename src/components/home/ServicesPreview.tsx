@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import {
   Globe,
   Smartphone,
@@ -73,10 +73,7 @@ export const ServicesPreview = () => {
   const [swiperInstance, setSwiperInstance] = useState(null);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative py-24"
-    >
+    <section ref={containerRef} className="relative py-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -154,13 +151,13 @@ export const ServicesPreview = () => {
           </Swiper>
 
           {/* Navigation Arrows */}
-          <button 
+          <button
             onClick={() => swiperInstance?.slidePrev()}
             className="hidden lg:inline-flex absolute -left-10 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background border border-border hover:border-primary/20 rounded-none flex items-center justify-center hover:bg-primary/5 transition-all -ml-5"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
-          <button 
+          <button
             onClick={() => swiperInstance?.slideNext()}
             className="hidden lg:inline-flex absolute -right-10 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-background border border-border hover:border-primary/20 rounded-none flex items-center justify-center hover:bg-primary/5 transition-all -mr-5"
           >

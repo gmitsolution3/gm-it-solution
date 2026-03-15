@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ArrowRight, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePortfolioStore } from "@/lib/portfolio-store";
@@ -90,7 +90,7 @@ export const FeaturedProjects = () => {
                         <div className="aspect-[4/3] lg:aspect-auto lg:h-[500px] overflow-hidden relative">
                           {/* Gradient Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-700" />
-                          
+
                           {/* Image with Scroll Effect */}
                           <div className="absolute inset-0 overflow-hidden">
                             <img

@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import { motion } from "framer-motion";
 import Logo from "@/assets/logo.png";
 import { usePortfolioStore } from "@/lib/portfolio-store";
@@ -38,7 +38,7 @@ export default function CaseStudyDetail() {
     state.caseStudies.find((c) => c.id === Number(id)),
   );
 
-  console.log(caseStudy)
+  console.log(caseStudy);
 
   if (!project || !caseStudy) {
     return (

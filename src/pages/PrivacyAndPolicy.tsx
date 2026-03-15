@@ -1,6 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import Logo from "@/assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const containerVariants: Variants = {
   hidden: {},

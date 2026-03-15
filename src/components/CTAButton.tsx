@@ -1,9 +1,15 @@
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 
-export default function CTAButton({ href, children }: { href: string; children: React.ReactNode }) {
+export default function CTAButton({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
