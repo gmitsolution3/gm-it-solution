@@ -17,6 +17,7 @@ import TermsAndConditions from "@/pages/TermsAndConditions";
 import AdminDashboardLayout from "@/layouts/AdminLayout";
 import Dashboard from "./../pages/admin/Dashboard";
 import AdminPortfolio from "@/pages/admin/AdminPortfolio";
+import AdminPortfolioCaseStudy from "./../pages/admin/AdminPortfolioCaseStudy";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: "portfolio",
         element: <AdminPortfolio />,
+      },
+      {
+        path: "case-study",
+        element: <AdminPortfolioCaseStudy />,
       },
     ],
   },
