@@ -6,76 +6,69 @@ import {
   ChevronRight,
   Sparkles,
   Zap,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 import HeroImage from "@/assets/hero.jpg";
 import HeroTwoImage from "@/assets/hero_two.jpg";
 import HeroThreeImage from "@/assets/hero_three.jpg";
+import { useFetch } from "@/hooks/tanstack/useFetch";
 
-const slides = [
-  {
-    id: 1,
-    title: "We Build Digital Products",
-    highlight: "That Actually Grow Businesses",
-    description:
-      "No fluff. Just modern, reliable tech solutions that solve real problems for startups, SMEs, and enterprises.",
-    cta: { primary: "See Our Work", secondary: "Let's Talk" },
-    image: HeroImage,
-  },
-  {
-    id: 2,
-    title: "Got an Idea?",
-    highlight: "Let's Build It Together",
-    description:
-      "From that napkin sketch to a full-blown platform—we turn your vision into something people actually want to use.",
-    cta: { primary: "How We Build", secondary: "Get a Quote" },
-    image: HeroTwoImage,
-  },
-  {
-    id: 3,
-    title: "100+ Projects Later,",
-    highlight: "We're Just Getting Started",
-    description:
-      "Every line of code, every pixel—crafted with care. We're the partner who actually reads your emails and answers your calls.",
-    cta: { primary: "Our Stories", secondary: "Start Something" },
-    image: HeroThreeImage,
-  },
-];
+interface ISlider {
+  _id: string;
+  title: string;
+  highlight: string;
+  description: string;
+  image: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+}
 
 export const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(true);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { data, isLoading } = useFetch({
+    queryKey: ["sliders"],
+    url: "/sliders",
+  });
+
+  const sliders: ISlider[] = data?.data || [];
 
   // Preload image when slide changes
   useEffect(() => {
-    setImageLoaded(false);
-    const img = new Image();
-    img.onload = () => setImageLoaded(true);
-    img.onerror = () => setImageLoaded(true); // Show even if loading fails
-    img.src = slides[currentSlide].image;
-  }, [currentSlide]);
+    if (sliders.length > 0) {
+      setImageLoaded(false);
+      const img = new Image();
+      img.onload = () => setImageLoaded(true);
+      img.onerror = () => setImageLoaded(true); // Show even if loading fails
+      img.src = sliders[currentSlide].image;
+    }
+  }, [currentSlide, sliders]);
 
   useEffect(() => {
+    if (sliders.length === 0) return;
+
     // Slower, more human-like timing with random variation
     const timer = setInterval(
       () => {
         if (!isHovering) {
-          setCurrentSlide((prev) => (prev + 1) % slides.length);
+          setCurrentSlide((prev) => (prev + 1) % sliders.length);
         }
       },
       7000 + Math.random() * 2000,
     ); // Random delay between slides
 
     return () => clearInterval(timer);
-  }, [isHovering]);
+  }, [isHovering, sliders.length]);
 
   // Parallax effect on mouse move - feels more interactive and human
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (sectionRef.current) {
         const rect = sectionRef.current.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -90,11 +83,220 @@ export const HeroSlider = () => {
   }, []);
 
   const nextSlide = () =>
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % sliders.length);
   const prevSlide = () =>
     setCurrentSlide(
-      (prev) => (prev - 1 + slides.length) % slides.length,
+      (prev) => (prev - 1 + sliders.length) % sliders.length,
     );
+
+  // Loading State
+  if (isLoading) {
+    return (
+      <section
+        ref={sectionRef}
+        className="relative min-h-screen flex items-center overflow-hidden pt-20 bg-gradient-to-br from-background via-background to-muted"
+      >
+        {/* Animated background gradient */}
+        <motion.div
+          animate={{
+            background: [
+              "linear-gradient(45deg, var(--primary) 0%, var(--accent) 100%)",
+              "linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%)",
+              "linear-gradient(225deg, var(--primary) 0%, var(--accent) 100%)",
+              "linear-gradient(315deg, var(--accent) 0%, var(--primary) 100%)",
+            ],
+          }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute inset-0 opacity-5"
+        />
+
+        {/* Loading Content */}
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Loading Content */}
+            <div className="text-center lg:text-left">
+              {/* Badge Skeleton */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="inline-flex items-center gap-3 px-4 py-2 rounded-none bg-primary/5 border border-primary/10 mb-8"
+              >
+                <div className="w-4 h-4 bg-primary/20 rounded-full animate-pulse" />
+                <div className="w-32 h-4 bg-primary/20 rounded animate-pulse" />
+              </motion.div>
+
+              {/* Title Skeleton */}
+              <div className="space-y-4 mb-6">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="h-12 bg-primary/10 rounded w-3/4 animate-pulse"
+                />
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="h-12 bg-gradient-to-r from-primary/20 to-accent/20 rounded w-2/3 animate-pulse"
+                />
+              </div>
+
+              {/* Description Skeleton */}
+              <div className="space-y-3 max-w-xl mx-auto lg:mx-0 mb-10">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="h-4 bg-muted/20 rounded w-full animate-pulse"
+                />
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="h-4 bg-muted/20 rounded w-5/6 animate-pulse"
+                />
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  className="h-4 bg-muted/20 rounded w-4/6 animate-pulse"
+                />
+              </div>
+
+              {/* Buttons Skeleton */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  className="h-12 w-40 bg-primary/20 rounded animate-pulse"
+                />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  className="h-12 w-40 bg-muted/20 rounded animate-pulse"
+                />
+              </div>
+
+              {/* Slide Indicators Skeleton */}
+              <div className="flex items-center gap-4 mt-12 justify-center lg:justify-start">
+                <div className="p-3">
+                  <ChevronLeft className="w-5 h-5 text-muted-foreground/30" />
+                </div>
+                <div className="flex gap-3">
+                  {[1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className="w-3 h-3 bg-muted-foreground/20 rounded-full animate-pulse"
+                      style={{ animationDelay: `${i * 0.1}s` }}
+                    />
+                  ))}
+                </div>
+                <div className="p-3">
+                  <ChevronRight className="w-5 h-5 text-muted-foreground/30" />
+                </div>
+              </div>
+            </div>
+
+            {/* Right side - Floating Cards Skeleton */}
+            <div className="hidden lg:block relative h-[550px]">
+              <div className="relative w-full h-full">
+                {/* Floating stat cards skeletons */}
+                <motion.div
+                  animate={{
+                    y: [0, -20, 0],
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute top-8 right-12 bg-background/80 backdrop-blur-xl rounded-none p-6 w-64 border border-primary/10"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-none bg-primary/20 animate-pulse" />
+                    <div className="space-y-2">
+                      <div className="h-5 bg-primary/20 rounded w-16 animate-pulse" />
+                      <div className="h-4 bg-muted/20 rounded w-20 animate-pulse" />
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{
+                    y: [0, 25, 0],
+                  }}
+                  transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                  className="absolute top-1/3 left-8 bg-background/80 backdrop-blur-xl rounded-none p-6 w-56 border border-accent/10"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-none bg-accent/20 animate-pulse" />
+                    <div className="space-y-2">
+                      <div className="h-5 bg-accent/20 rounded w-16 animate-pulse" />
+                      <div className="h-4 bg-muted/20 rounded w-20 animate-pulse" />
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{
+                    y: [0, -15, 0],
+                  }}
+                  transition={{
+                    duration: 5.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                  className="absolute bottom-8 right-16 bg-background/80 backdrop-blur-xl rounded-none p-6 w-60 border border-primary/10"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-none bg-primary/20 animate-pulse" />
+                    <div className="space-y-2">
+                      <div className="h-5 bg-primary/20 rounded w-16 animate-pulse" />
+                      <div className="h-4 bg-muted/20 rounded w-20 animate-pulse" />
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Centered Loading Spinner */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/20"
+          >
+            <Loader2 className="w-4 h-4 text-primary animate-spin" />
+            <span className="text-sm text-muted-foreground">Loading amazing content...</span>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
+
+  // Return null or fallback if no sliders
+  if (sliders.length === 0) {
+    return (
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-background via-background to-muted">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold mb-2">No Slides Available</h2>
+          <p className="text-muted-foreground">Check back soon for updates.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -116,7 +318,7 @@ export const HeroSlider = () => {
           }}
           className="absolute inset-0 -z-10"
           style={{
-            backgroundImage: `url(${slides[currentSlide].image})`,
+            backgroundImage: `url(${sliders[currentSlide].image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -209,6 +411,7 @@ export const HeroSlider = () => {
                   transition={{ delay: 0.2 }}
                   className="inline-flex items-center gap-3 px-4 py-2 rounded-none bg-primary/5 border border-primary/10 mb-8 group hover:bg-primary/10 transition-colors cursor-default"
                 >
+                  <Sparkles className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium text-white">
                     Hello, we're GM IT Solution
                   </span>
@@ -216,16 +419,16 @@ export const HeroSlider = () => {
 
                 <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
                   <span className="text-white dark:text-foreground">
-                    {slides[currentSlide].title}
+                    {sliders[currentSlide].title}
                   </span>
                   <br />
                   <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-                    {slides[currentSlide].highlight}
+                    {sliders[currentSlide].highlight}
                   </span>
                 </h1>
 
-                <p className="text-white dark:text-base text-muted-foreground/90 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
-                  {slides[currentSlide].description}
+                <p className="text-white/80 dark:text-muted-foreground/90 text-base max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                  {sliders[currentSlide].description}
                 </p>
 
                 {/* More human button interaction */}
@@ -238,7 +441,7 @@ export const HeroSlider = () => {
                   >
                     <Link to="/portfolio">
                       <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
-                        {slides[currentSlide].cta.primary}
+                        {sliders[currentSlide].ctaPrimary}
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -267,7 +470,7 @@ export const HeroSlider = () => {
                       to="/contact"
                       className="flex items-center gap-2 text-white"
                     >
-                      {slides[currentSlide].cta.secondary}
+                      {sliders[currentSlide].ctaSecondary}
                       <Zap className="w-4 h-4" />
                     </Link>
                   </Button>
@@ -286,7 +489,7 @@ export const HeroSlider = () => {
               </button>
 
               <div className="flex gap-3">
-                {slides.map((_, index) => (
+                {sliders.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
