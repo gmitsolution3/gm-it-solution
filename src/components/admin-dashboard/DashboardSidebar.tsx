@@ -9,7 +9,8 @@ import {
   UserCircle,
   GalleryVerticalEnd,
   LibraryBig,
-  ClipboardCheck
+  ClipboardCheck,
+  Images,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,6 +40,11 @@ const menuItems = [
     path: "/admin-dashboard",
     icon: LayoutDashboard,
     label: "Dashboard",
+  },
+  {
+    path: "/admin-dashboard/sliders",
+    icon: Images,
+    label: "Sliders",
   },
   {
     path: "/admin-dashboard/services",

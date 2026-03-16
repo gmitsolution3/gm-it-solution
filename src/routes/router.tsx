@@ -15,10 +15,11 @@ import TermsAndConditions from "@/pages/TermsAndConditions";
 
 // Admin Routes
 import AdminDashboardLayout from "@/layouts/AdminLayout";
-import Dashboard from "./../pages/admin/Dashboard";
+import Dashboard from "@/pages/admin/Dashboard";
 import AdminPortfolio from "@/pages/admin/AdminPortfolio";
-import AdminPortfolioCaseStudy from "./../pages/admin/AdminPortfolioCaseStudy";
+import AdminPortfolioCaseStudy from "@/pages/admin/AdminPortfolioCaseStudy";
 import AdminServices from "@/pages/admin/AdminServices";
+import AdminSliders from '@/pages/admin/AdminSliders';
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+      },
+      {
+        path: "sliders",
+        element: <AdminSliders />,
       },
       {
         path: "portfolio",
