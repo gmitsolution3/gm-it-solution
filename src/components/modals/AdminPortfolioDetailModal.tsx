@@ -10,22 +10,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Globe, ExternalLink } from "lucide-react";
 import { Link } from "react-router";
-
-interface PortfolioItem {
-  _id: string;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  url: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { formatDate } from "@/utils";
+import { IPortfolioItem } from "@/types";
 
 interface AdminPortfolioDetailModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (open: boolean) => void;
-  selectedPortfolio: PortfolioItem | null;
+  selectedPortfolio: IPortfolioItem | null;
 }
 
 export default function AdminPortfolioDetailModal({
@@ -34,14 +25,6 @@ export default function AdminPortfolioDetailModal({
   selectedPortfolio,
 }: AdminPortfolioDetailModalProps) {
   if (!selectedPortfolio) return null;
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -61,10 +44,6 @@ export default function AdminPortfolioDetailModal({
                 src={selectedPortfolio.image}
                 alt={selectedPortfolio.title}
                 className="w-full h-auto object-cover max-h-[300px]"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    "https://via.placeholder.com/600x300?text=Image+Not+Found";
-                }}
               />
             </div>
           )}
@@ -139,13 +118,6 @@ export default function AdminPortfolioDetailModal({
               onClick={() => setIsModalOpen(false)}
             >
               Close
-            </Button>
-            <Button asChild className="text-white">
-              <Link
-                to={`/admin-dashboard/portfolio/edit/${selectedPortfolio._id}`}
-              >
-                Edit Item
-              </Link>
             </Button>
           </div>
         </div>

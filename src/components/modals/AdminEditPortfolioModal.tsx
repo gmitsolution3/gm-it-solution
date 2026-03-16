@@ -31,13 +31,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Globe, Image as ImageIcon, X } from "lucide-react";
+import { Loader2, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { usePatch } from "@/hooks/tanstack/usePatch";
 import Swal from "sweetalert2";
 import { IPortfolioItem } from "@/types";
+import { ImageUploader } from "@/components/image-uploader";
 
-// Form validation schema (same as create modal)
 const formSchema = z.object({
   title: z
     .string()
@@ -155,6 +155,10 @@ export default function AdminEditPortfolioModal({
     setIsModalOpen(false);
   };
 
+  const handleImageChange = (url: string) => {
+    form.setValue("image", url, { shouldValidate: true });
+  };
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
@@ -172,52 +176,46 @@ export default function AdminEditPortfolioModal({
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8"
           >
-            {/* Image Preview Section */}
+            {/* Image Uploader Section - REPLACES the old image preview and URL input */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <FormLabel className="text-base">
-                  Image Preview
+                  Project Image
                 </FormLabel>
                 {imageUrl && (
                   <Badge variant="outline" className="gap-1">
-                    <ImageIcon className="h-3 w-3" />
-                    Preview
+                    Image Uploaded
                   </Badge>
                 )}
               </div>
-              <div className="relative rounded-lg border bg-muted/30 p-4">
-                {imageUrl ? (
-                  <div className="relative group">
-                    <img
-                      src={imageUrl}
-                      alt="Preview"
-                      className="w-full h-48 object-cover rounded-lg border"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          "https://via.placeholder.com/600x300?text=Invalid+Image+URL";
-                      }}
-                    />
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="icon"
-                      className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => form.setValue("image", "")}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="h-48 flex items-center justify-center text-muted-foreground">
-                    <div className="text-center">
-                      <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
-                      <p className="text-sm">
-                        Enter an image URL to see preview
-                      </p>
-                    </div>
-                  </div>
+
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <ImageUploader
+                        value={field.value}
+                        onChange={handleImageChange}
+                        uploadEndpoint={`${import.meta.env.VITE_BACKEND_API_DEV_URL}/upload`} // Adjust endpoint
+                        maxSize={5}
+                        allowedTypes={[
+                          "image/jpeg",
+                          "image/png",
+                          "image/webp",
+                          "image/gif",
+                        ]}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Upload a new image or keep the existing one (max
+                      5MB)
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
+              />
             </div>
 
             {/* Form Fields */}
@@ -293,33 +291,6 @@ export default function AdminEditPortfolioModal({
                   </FormControl>
                   <FormDescription>
                     Write a compelling description (10-500 characters)
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Image URL */}
-            <FormField
-              control={form.control}
-              name="image"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image URL</FormLabel>
-                  <FormControl>
-                    <div className="flex">
-                      <div className="flex items-center px-3 border border-r-0 rounded-l-md bg-muted">
-                        <ImageIcon className="h-4 w-4 text-muted-foreground" />
-                      </div>
-                      <Input
-                        className="rounded-l-none"
-                        placeholder="https://example.com/image.jpg"
-                        {...field}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormDescription>
-                    Provide a direct link to your project image
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

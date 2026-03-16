@@ -50,9 +50,9 @@ const menuItems = [
     label: "Analytics",
   },
   {
-    path: "/admin-dashboard/products",
+    path: "/admin-dashboard/portfolio",
     icon: Package,
-    label: "Products",
+    label: "Portfolios",
   },
   {
     path: "/admin-dashboard/orders",
@@ -108,6 +108,7 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
               <li key={item.path}>
                 <NavLink
                   to={item.path}
+                  end
                   className={({ isActive }) =>
                     `flex space-x-3 rounded-lg px-3 py-2.5 transition-all group ${
                       isActive

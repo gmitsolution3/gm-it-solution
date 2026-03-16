@@ -29,12 +29,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Globe, Image as ImageIcon, X } from "lucide-react";
+import { Loader2, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { usePost } from "@/hooks/tanstack/usePost";
 import Swal from "sweetalert2";
+import { ImageUploader } from "@/components/image-uploader";
 
-// Form validation schema
 const formSchema = z.object({
   title: z
     .string()
@@ -97,6 +97,7 @@ export default function AdminCreatePortfolioModal({
 
   const imageUrl = form.watch("image");
   const title = form.watch("title");
+  const description = form.watch("description");
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -104,7 +105,6 @@ export default function AdminCreatePortfolioModal({
 
       if (response.success) {
         setIsModalOpen(false);
-
         form.reset();
         onSuccess?.();
 
@@ -138,6 +138,10 @@ export default function AdminCreatePortfolioModal({
     setIsModalOpen(false);
   };
 
+  const handleImageChange = (url: string) => {
+    form.setValue("image", url, { shouldValidate: true });
+  };
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
@@ -156,48 +160,45 @@ export default function AdminCreatePortfolioModal({
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8"
           >
-            {/* Image Preview Section */}
+            {/* Image Uploader Section - REPLACES the old image preview section */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <FormLabel className="text-base">
-                  Image Preview
+                  Project Image
                 </FormLabel>
                 {imageUrl && (
                   <Badge variant="outline" className="gap-1">
-                    <ImageIcon className="h-3 w-3" />
-                    Preview
+                    Image Uploaded
                   </Badge>
                 )}
               </div>
-              <div className="relative rounded-lg border bg-muted/30 p-4">
-                {imageUrl ? (
-                  <div className="relative group">
-                    <img
-                      src={imageUrl}
-                      alt="Preview"
-                      className="w-full h-48 object-cover rounded-lg border"
-                    />
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="icon"
-                      className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => form.setValue("image", "")}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="h-48 flex items-center justify-center text-muted-foreground">
-                    <div className="text-center">
-                      <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
-                      <p className="text-sm">
-                        Enter an image URL to see preview
-                      </p>
-                    </div>
-                  </div>
+
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <ImageUploader
+                        value={field.value}
+                        onChange={handleImageChange}
+                        uploadEndpoint={`${import.meta.env.VITE_BACKEND_API_DEV_URL}/upload`}
+                        maxSize={5}
+                        allowedTypes={[
+                          "image/jpeg",
+                          "image/png",
+                          "image/webp",
+                          "image/gif",
+                        ]}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Upload an image for your project (max 5MB)
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
+              />
             </div>
 
             {/* Form Fields */}
@@ -278,33 +279,6 @@ export default function AdminCreatePortfolioModal({
               )}
             />
 
-            {/* Image URL */}
-            <FormField
-              control={form.control}
-              name="image"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image URL</FormLabel>
-                  <FormControl>
-                    <div className="flex">
-                      <div className="flex items-center px-3 border border-r-0 rounded-l-md bg-muted">
-                        <ImageIcon className="h-4 w-4 text-muted-foreground" />
-                      </div>
-                      <Input
-                        className="rounded-l-none"
-                        placeholder="https://example.com/image.jpg"
-                        {...field}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormDescription>
-                    Provide a direct link to your project image
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             {/* Project URL */}
             <FormField
               control={form.control}
@@ -342,16 +316,23 @@ export default function AdminCreatePortfolioModal({
                   <Badge variant="secondary">Preview</Badge>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-10 h-10 rounded bg-primary/10 flex items-center justify-center">
-                    <span className="text-lg font-semibold text-primary">
-                      {title.charAt(0)}
-                    </span>
+                  <div className="flex-shrink-0 w-10 h-10 rounded bg-primary/10 flex items-center justify-center overflow-hidden">
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt={title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-lg font-semibold text-primary">
+                        {title.charAt(0)}
+                      </span>
+                    )}
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="font-medium truncate">{title}</p>
                     <p className="text-xs text-muted-foreground line-clamp-1">
-                      {form.getValues("description") ||
-                        "Description will appear here"}
+                      {description || "Description will appear here"}
                     </p>
                   </div>
                 </div>
