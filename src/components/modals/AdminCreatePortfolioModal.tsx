@@ -22,13 +22,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Loader2, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { usePost } from "@/hooks/tanstack/usePost";
@@ -40,7 +33,10 @@ const formSchema = z.object({
     .string()
     .min(3, "Title must be at least 3 characters")
     .max(100, "Title must not exceed 100 characters"),
-  category: z.string().min(1, "Please select a category"),
+  category: z
+    .string()
+    .min(1, "Please enter a category")
+    .max(50, "Category must not exceed 50 characters"),
   description: z
     .string()
     .min(10, "Description must be at least 10 characters")
@@ -56,18 +52,6 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
-
-// Predefined categories
-const categories = [
-  "Web Development",
-  "Mobile App",
-  "UI/UX Design",
-  "Branding",
-  "Marketing",
-  "Service",
-  "E-commerce",
-  "Other",
-];
 
 interface AdminCreatePortfolioModalProps {
   isModalOpen: boolean;
@@ -160,7 +144,7 @@ export default function AdminCreatePortfolioModal({
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8"
           >
-            {/* Image Uploader Section - REPLACES the old image preview section */}
+            {/* Image Uploader Section */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <FormLabel className="text-base">
@@ -224,32 +208,21 @@ export default function AdminCreatePortfolioModal({
                 )}
               />
 
-              {/* Category */}
+              {/* Category - Changed from Select to Input */}
               <FormField
                 control={form.control}
                 name="category"
                 render={({ field }) => (
                   <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>Category</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a category" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {categories.map((category) => (
-                          <SelectItem key={category} value={category}>
-                            {category}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <FormControl>
+                      <Input
+                        placeholder="e.g., Web Development, Mobile App, Design"
+                        {...field}
+                      />
+                    </FormControl>
                     <FormDescription>
-                      Choose the type of project
+                      Enter the category or type of project
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

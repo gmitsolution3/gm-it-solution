@@ -28,9 +28,9 @@ export default function AdminPortfolioDetailModal({
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">
+          <DialogTitle className="text-2xl font-bold pr-6">
             {selectedPortfolio.title}
           </DialogTitle>
         </DialogHeader>
@@ -60,28 +60,30 @@ export default function AdminPortfolioDetailModal({
             <h3 className="text-sm font-medium text-muted-foreground mb-2">
               Description
             </h3>
-            <p className="text-base leading-relaxed">
+            <p className="text-base leading-relaxed break-words">
               {selectedPortfolio.description}
             </p>
           </div>
 
-          {/* URL */}
+          {/* URL - Fixed wrapping */}
           <div>
             <h3 className="text-sm font-medium text-muted-foreground mb-2">
               Project URL
             </h3>
-            <a
-              href={selectedPortfolio.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-blue-600 hover:underline group"
-            >
-              <Globe className="h-4 w-4 mr-2" />
-              <span className="truncate">
-                {selectedPortfolio.url}
-              </span>
-              <ExternalLink className="h-3 w-3 ml-1 opacity-60 group-hover:opacity-100" />
-            </a>
+            <div className="rounded-lg p-3 break-all">
+              <a
+                href={selectedPortfolio.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center text-blue-600 hover:underline group"
+              >
+                <Globe className="h-4 w-4 mr-2 flex-shrink-0" />
+                <span className="break-all">
+                  {selectedPortfolio.url}
+                </span>
+                <ExternalLink className="h-3 w-3 ml-1 opacity-60 group-hover:opacity-100 flex-shrink-0" />
+              </a>
+            </div>
           </div>
 
           {/* Metadata */}
@@ -89,8 +91,8 @@ export default function AdminPortfolioDetailModal({
             <div>
               <p className="text-xs text-muted-foreground">Created</p>
               <p className="text-sm font-medium flex items-center mt-1">
-                <Calendar className="h-3 w-3 mr-1 text-muted-foreground" />
-                {formatDate(selectedPortfolio.createdAt)}
+                <Calendar className="h-3 w-3 mr-1 text-muted-foreground flex-shrink-0" />
+                <span className="truncate">{formatDate(selectedPortfolio.createdAt)}</span>
               </p>
             </div>
             <div>
@@ -98,20 +100,20 @@ export default function AdminPortfolioDetailModal({
                 Last Updated
               </p>
               <p className="text-sm font-medium flex items-center mt-1">
-                <Calendar className="h-3 w-3 mr-1 text-muted-foreground" />
-                {formatDate(selectedPortfolio.updatedAt)}
+                <Calendar className="h-3 w-3 mr-1 text-muted-foreground flex-shrink-0" />
+                <span className="truncate">{formatDate(selectedPortfolio.updatedAt)}</span>
               </p>
             </div>
             <div className="col-span-2">
               <p className="text-xs text-muted-foreground">ID</p>
-              <p className="text-xs font-mono mt-1">
+              <p className="text-xs font-mono mt-1 break-all">
                 {selectedPortfolio._id}
               </p>
             </div>
           </div>
 
           {/* Actions */}
-          <div className="flex justify-end gap-3 pt-4">
+          <div className="flex justify-end gap-3 pt-4 sticky bottom-0 bg-background py-2">
             <Button
               variant="outline"
               className="hover:text-white"

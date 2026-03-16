@@ -1,17 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Link } from "react-router";
-import { ArrowRight, Eye } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { usePortfolioStore } from "@/lib/portfolio-store";
+import { motion, Variants } from "framer-motion";
+import { ArrowRight, Eye, FolderOpen } from "lucide-react";
 import CTAButton from "./../CTAButton";
+import { useFetch } from "@/hooks/tanstack/useFetch";
+import { IPortfolioItem } from "@/types/portfolio.type";
 
-/* =========================
-   Animation Function
-========================= */
-
-const getRevealVariant = (direction: "left" | "right") => ({
+const getRevealVariant = (direction: "left" | "right"): Variants => ({
   hidden: {
     opacity: 0,
     x: direction === "left" ? -120 : 120,
@@ -21,14 +16,99 @@ const getRevealVariant = (direction: "left" | "right") => ({
     x: 0,
     transition: {
       duration: 0.9,
-      ease: [0.22, 1, 0.36, 1], // smooth premium easing
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   },
 });
 
 export const FeaturedProjects = () => {
-  const { projects } = usePortfolioStore();
-  const featuredOnly = projects.slice(0, 4);
+  const { data, isLoading } = useFetch({
+    queryKey: ["portfolios"],
+    url: "/portfolios",
+  });
+
+  const portfolioList: IPortfolioItem[] = data?.data || [];
+
+  const featuredOnly = portfolioList.slice(0, 4);
+
+  if (isLoading) {
+    return (
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-muted/30" />
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <div className="flex flex-col items-center justify-center min-h-[400px]">
+            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            <p className="mt-6 text-muted-foreground">
+              Loading featured projects...
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!featuredOnly.length) {
+    return (
+      <section className="py-24 relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 bg-muted/30" />
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2" />
+        <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]" />
+
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-3xl mx-auto mb-16"
+          >
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+              Portfolio
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-4">
+              Featured <span className="gradient-text">Products</span>
+            </h2>
+            <p className="text-base text-muted-foreground">
+              Explore our recent work and see how we've helped
+              businesses achieve their digital goals.
+            </p>
+          </motion.div>
+
+          {/* Empty State */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col items-center justify-center py-16 px-4 rounded-2xl  backdrop-blur-sm"
+          >
+            <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+              <FolderOpen className="w-12 h-12 text-primary/60" />
+            </div>
+
+            <h3 className="text-2xl font-semibold text-foreground mb-3">
+              No Featured Projects Yet
+            </h3>
+
+            <p className="text-muted-foreground text-center max-w-md mb-8">
+              We're currently curating our best work. Check back soon
+              to see our featured projects and case studies.
+            </p>
+
+            <div className="flex gap-4">
+              <CTAButton href="/portfolio">
+                Browse All Projects
+              </CTAButton>
+
+              <CTAButton href="/contact">Start a Project</CTAButton>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 relative overflow-hidden">
@@ -65,7 +145,7 @@ export const FeaturedProjects = () => {
 
             return (
               <motion.div
-                key={project.id}
+                key={project._id}
                 variants={getRevealVariant(direction)}
                 initial="hidden"
                 whileInView="visible"
