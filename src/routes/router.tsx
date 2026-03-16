@@ -18,6 +18,7 @@ import AdminDashboardLayout from "@/layouts/AdminLayout";
 import Dashboard from "./../pages/admin/Dashboard";
 import AdminPortfolio from "@/pages/admin/AdminPortfolio";
 import AdminPortfolioCaseStudy from "./../pages/admin/AdminPortfolioCaseStudy";
+import AdminServices from "@/pages/admin/AdminServices";
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
       {
         path: "case-study",
         element: <AdminPortfolioCaseStudy />,
+      },
+      {
+        path: "services",
+        element: <AdminServices />,
       },
     ],
   },

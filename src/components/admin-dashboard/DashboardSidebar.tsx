@@ -2,17 +2,14 @@ import { NavLink } from "react-router";
 import {
   LayoutDashboard,
   Users,
-  BarChart3,
   Settings,
-  Package,
-  ShoppingCart,
   LogOut,
   ChevronLeft,
   ChevronRight,
   UserCircle,
-  FileText,
-  MessageSquare,
-  HelpCircle,
+  GalleryVerticalEnd,
+  LibraryBig,
+  ClipboardCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,38 +40,27 @@ const menuItems = [
     icon: LayoutDashboard,
     label: "Dashboard",
   },
-  { path: "/admin-dashboard/users", icon: Users, label: "Users" },
   {
-    path: "/admin-dashboard/analytics",
-    icon: BarChart3,
-    label: "Analytics",
+    path: "/admin-dashboard/services",
+    icon: ClipboardCheck,
+    label: "Services",
   },
   {
     path: "/admin-dashboard/portfolio",
-    icon: Package,
+    icon: GalleryVerticalEnd,
     label: "Portfolios",
   },
   {
-    path: "/admin-dashboard/orders",
-    icon: ShoppingCart,
-    label: "Orders",
+    path: "/admin-dashboard/case-study",
+    icon: LibraryBig,
+    label: "Case Studies",
   },
-  {
-    path: "/admin-dashboard/reports",
-    icon: FileText,
-    label: "Reports",
-  },
-  {
-    path: "/admin-dashboard/messages",
-    icon: MessageSquare,
-    label: "Messages",
-  },
+  { path: "/admin-dashboard/users", icon: Users, label: "Users" },
   {
     path: "/admin-dashboard/settings",
     icon: Settings,
     label: "Settings",
   },
-  { path: "/admin-dashboard/help", icon: HelpCircle, label: "Help" },
 ];
 
 export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
