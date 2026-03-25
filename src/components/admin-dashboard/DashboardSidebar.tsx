@@ -73,6 +73,7 @@ const menuItems = [
     icon: Users,
     label: "Team Members",
   },
+  { path: "/admin-dashboard/blogs", icon: UserRoundSearch, label: "Blogs" },
   { path: "/admin-dashboard/users", icon: UserRoundSearch, label: "Users" },
   {
     path: "/admin-dashboard/settings",

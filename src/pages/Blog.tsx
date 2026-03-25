@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router";
 import { ArrowRight, Calendar, User, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";

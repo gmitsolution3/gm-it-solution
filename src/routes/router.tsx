@@ -21,7 +21,8 @@ import AdminPortfolioCaseStudy from "@/pages/admin/AdminPortfolioCaseStudy";
 import AdminServices from "@/pages/admin/AdminServices";
 import AdminSliders from "@/pages/admin/AdminSliders";
 import AdminTeamMembers from "@/pages/admin/AdminTeamMembers";
-import AdminLeadershipMessage from "./../pages/admin/AdminLeadershipMessage";
+import AdminLeadershipMessage from "@/pages/admin/AdminLeadershipMessage";
+import AdminBlogs from '@/pages/admin/AdminBlogs';
 
 export const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
       {
         path: "team-members",
         element: <AdminTeamMembers />,
+      },
+      {
+        path: "blogs",
+        element: <AdminBlogs />,
       },
     ],
   },
