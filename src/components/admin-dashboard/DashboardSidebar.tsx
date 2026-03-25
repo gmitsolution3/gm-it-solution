@@ -2,6 +2,7 @@ import { NavLink } from "react-router";
 import {
   LayoutDashboard,
   Users,
+  UserRoundSearch,
   Settings,
   LogOut,
   ChevronLeft,
@@ -11,6 +12,7 @@ import {
   LibraryBig,
   ClipboardCheck,
   Images,
+  MessagesSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,7 +63,17 @@ const menuItems = [
     icon: LibraryBig,
     label: "Case Studies",
   },
-  { path: "/admin-dashboard/users", icon: Users, label: "Users" },
+  {
+    path: "/admin-dashboard/leadership-messages",
+    icon: MessagesSquare,
+    label: "Leadership Messages",
+  },
+  {
+    path: "/admin-dashboard/team-members",
+    icon: Users,
+    label: "Team Members",
+  },
+  { path: "/admin-dashboard/users", icon: UserRoundSearch, label: "Users" },
   {
     path: "/admin-dashboard/settings",
     icon: Settings,
