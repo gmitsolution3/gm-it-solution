@@ -37,16 +37,14 @@ import {
   Loader2,
   User,
   Clock,
-  Calendar,
   Star,
-  ImageIcon,
   Upload,
 } from "lucide-react";
 import { usePost } from "@/hooks/tanstack/usePost";
 import Swal from "sweetalert2";
 import { ImageUploader } from "@/components/image-uploader";
 
-// Form validation schema
+// Form validation schema - removed date field
 const formSchema = z.object({
   title: z
     .string()
@@ -61,7 +59,6 @@ const formSchema = z.object({
     .string()
     .min(2, "Author name must be at least 2 characters")
     .max(100, "Author name must not exceed 100 characters"),
-  date: z.string().min(1, "Publication date is required"),
   readTime: z
     .string()
     .min(2, "Read time must be at least 2 characters")
@@ -115,7 +112,6 @@ export default function AdminCreateBlogModal({
       excerpt: "",
       category: "",
       author: "",
-      date: new Date().toISOString().split("T")[0],
       readTime: "",
       image: "",
       featured: false,
@@ -133,7 +129,14 @@ export default function AdminCreateBlogModal({
 
   const onSubmit = async (data: FormValues) => {
     try {
-      const response = await postData(data);
+      // Add current date to the data
+      const currentDate = new Date().toISOString();
+      const payload = {
+        ...data,
+        date: currentDate,
+      };
+      
+      const response = await postData(payload);
 
       if (response.success) {
         setIsModalOpen(false);
@@ -181,7 +184,7 @@ export default function AdminCreateBlogModal({
             Create New Blog Post
           </DialogTitle>
           <DialogDescription>
-            Add a new blog post to your website.
+            Add a new blog post to your website. The publication date will be set to today.
           </DialogDescription>
         </DialogHeader>
 
@@ -359,61 +362,32 @@ export default function AdminCreateBlogModal({
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              {/* Publication Date */}
-              <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Publication Date</FormLabel>
-                    <FormControl>
-                      <div className="flex">
-                        <div className="flex items-center px-3 border border-r-0 rounded-l-md bg-muted">
-                          <Calendar className="h-4 w-4 text-muted-foreground" />
-                        </div>
-                        <Input
-                          type="date"
-                          className="rounded-l-none"
-                          {...field}
-                        />
+            {/* Read Time */}
+            <FormField
+              control={form.control}
+              name="readTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Read Time</FormLabel>
+                  <FormControl>
+                    <div className="flex">
+                      <div className="flex items-center px-3 border border-r-0 rounded-l-md bg-muted">
+                        <Clock className="h-4 w-4 text-muted-foreground" />
                       </div>
-                    </FormControl>
-                    <FormDescription>
-                      When this post should be published
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Read Time */}
-              <FormField
-                control={form.control}
-                name="readTime"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Read Time</FormLabel>
-                    <FormControl>
-                      <div className="flex">
-                        <div className="flex items-center px-3 border border-r-0 rounded-l-md bg-muted">
-                          <Clock className="h-4 w-4 text-muted-foreground" />
-                        </div>
-                        <Input
-                          className="rounded-l-none"
-                          placeholder="e.g., 5 min read"
-                          {...field}
-                        />
-                      </div>
-                    </FormControl>
-                    <FormDescription>
-                      Estimated reading time
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                      <Input
+                        className="rounded-l-none"
+                        placeholder="e.g., 5 min read"
+                        {...field}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormDescription>
+                    Estimated reading time
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             {/* Featured Checkbox */}
             <FormField
