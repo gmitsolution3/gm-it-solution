@@ -22,7 +22,8 @@ import AdminServices from "@/pages/admin/AdminServices";
 import AdminSliders from "@/pages/admin/AdminSliders";
 import AdminTeamMembers from "@/pages/admin/AdminTeamMembers";
 import AdminLeadershipMessage from "@/pages/admin/AdminLeadershipMessage";
-import AdminBlogs from '@/pages/admin/AdminBlogs';
+import AdminBlogs from "@/pages/admin/AdminBlogs";
+import BlogDetail from "@/pages/BlogDetail";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog />,
+      },
+      {
+        path: "/blog/:id",
+        element: <BlogDetail />,
       },
       {
         path: "/contact",
