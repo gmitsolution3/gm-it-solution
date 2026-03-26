@@ -12,6 +12,8 @@ import CaseStudies from "@/pages/CaseStudies";
 import CaseStudyDetail from "@/pages/CaseStudyDetail";
 import PrivacyAndPolicy from "@/pages/PrivacyAndPolicy";
 import TermsAndConditions from "@/pages/TermsAndConditions";
+import Carrier from "@/pages/Carrier";
+import CarrierDetail from "@/pages/CarrierDetail";
 
 // Admin Routes
 import AdminDashboardLayout from "@/layouts/AdminLayout";
@@ -25,6 +27,7 @@ import AdminLeadershipMessage from "@/pages/admin/AdminLeadershipMessage";
 import AdminBlogs from "@/pages/admin/AdminBlogs";
 import BlogDetail from "@/pages/BlogDetail";
 import AdminJobPosting from "./../pages/admin/AdminJobPosting";
+import AdminJobApplications from './../pages/admin/AdminJobApplications';
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +78,14 @@ export const router = createBrowserRouter([
         path: "/terms-and-conditions",
         element: <TermsAndConditions />,
       },
+      {
+        path: "/carrier",
+        element: <Carrier />,
+      },
+      {
+        path: "/carrier/:id",
+        element: <CarrierDetail />,
+      },
     ],
   },
   {
@@ -116,6 +127,10 @@ export const router = createBrowserRouter([
       {
         path: "job-postings",
         element: <AdminJobPosting />,
+      },
+      {
+        path: "job-postings/applications/:id",
+        element: <AdminJobApplications />,
       },
     ],
   },

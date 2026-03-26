@@ -48,6 +48,7 @@ import AdminJobDetailModal from "@/components/modals/AdminJobDetailModal";
 import AdminCreateJobModal from "@/components/modals/AdminCreateJobModal";
 import AdminEditJobModal from "@/components/modals/AdminEditJobModal";
 import { axiosInstance } from "@/lib/axios";
+import { useNavigate } from "react-router";
 
 export default function AdminCareers() {
   const [togglingId, setTogglingId] = useState<string | null>(null);
@@ -72,6 +73,8 @@ export default function AdminCareers() {
     null,
   );
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleViewJob = (item: IJobPosting) => {
     setSelectedJob(item);
@@ -270,6 +273,17 @@ export default function AdminCareers() {
             <DropdownMenuContent align="end" className="w-40">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onSelect={() =>
+                  navigate(
+                    `/admin-dashboard/job-postings/applications/${row.original._id}`,
+                  )
+                }
+                className="hover:text-white!"
+                disabled={deleteMutation.isPending}
+              >
+                View Applications
+              </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={() => handleEditJob(row.original)}
                 className="hover:text-white!"

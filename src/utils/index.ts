@@ -25,3 +25,26 @@ export const formatSalary = (salary: ISalaryRange) => {
   };
   return `${currency} ${min.toLocaleString()} - ${max.toLocaleString()}${periodMap[period] || ""}`;
 };
+
+export const formatPrice = (
+  price: number,
+  currency: string = "BDT",
+): string => {
+  if (!price && price !== 0) return "";
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price);
+};
+
+export const getInitials = (name: string): string => {
+  if (!name) return "";
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+};
