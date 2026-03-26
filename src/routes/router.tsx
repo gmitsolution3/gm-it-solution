@@ -24,6 +24,7 @@ import AdminTeamMembers from "@/pages/admin/AdminTeamMembers";
 import AdminLeadershipMessage from "@/pages/admin/AdminLeadershipMessage";
 import AdminBlogs from "@/pages/admin/AdminBlogs";
 import BlogDetail from "@/pages/BlogDetail";
+import AdminJobPosting from "./../pages/admin/AdminJobPosting";
 
 export const router = createBrowserRouter([
   {
@@ -111,6 +112,10 @@ export const router = createBrowserRouter([
       {
         path: "blogs",
         element: <AdminBlogs />,
+      },
+      {
+        path: "job-postings",
+        element: <AdminJobPosting />,
       },
     ],
   },

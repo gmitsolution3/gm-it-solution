@@ -12,7 +12,9 @@ import {
   LibraryBig,
   ClipboardCheck,
   Images,
-  MessagesSquare
+  MessagesSquare,
+  FileStack,
+  LayoutList,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -73,8 +75,21 @@ const menuItems = [
     icon: Users,
     label: "Team Members",
   },
-  { path: "/admin-dashboard/blogs", icon: UserRoundSearch, label: "Blogs" },
-  { path: "/admin-dashboard/users", icon: UserRoundSearch, label: "Users" },
+  {
+    path: "/admin-dashboard/blogs",
+    icon: LayoutList,
+    label: "Blogs",
+  },
+  {
+    path: "/admin-dashboard/job-postings",
+    icon: FileStack,
+    label: "Job Postings",
+  },
+  {
+    path: "/admin-dashboard/users",
+    icon: UserRoundSearch,
+    label: "Users",
+  },
   {
     path: "/admin-dashboard/settings",
     icon: Settings,

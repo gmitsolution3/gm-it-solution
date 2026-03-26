@@ -5,3 +5,4 @@ export * from "./slider.type";
 export * from "./team-members.type";
 export * from "./leadership-message.type";
 export * from "./blog.type";
+export * from "./job-posting.type";
