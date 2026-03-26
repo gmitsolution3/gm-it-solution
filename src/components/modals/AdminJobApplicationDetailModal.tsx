@@ -87,8 +87,12 @@ export default function AdminJobApplicationModal({
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-xs text-muted-foreground">Full Name</p>
-                <p className="font-medium mt-1">{selectedApplication.fullName}</p>
+                <p className="text-xs text-muted-foreground">
+                  Full Name
+                </p>
+                <p className="font-medium mt-1">
+                  {selectedApplication.fullName}
+                </p>
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Email</p>
@@ -108,7 +112,9 @@ export default function AdminJobApplicationModal({
                 </p>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground">Applied On</p>
+                <p className="text-xs text-muted-foreground">
+                  Applied On
+                </p>
                 <p className="font-medium mt-1 flex items-center gap-1">
                   <Calendar className="h-3 w-3 text-muted-foreground" />
                   {formatDate(selectedApplication.createdAt)}
@@ -126,37 +132,58 @@ export default function AdminJobApplicationModal({
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs text-muted-foreground">Position</p>
-                  <p className="font-medium mt-1">{selectedApplication.jobId.title}</p>
+                  <p className="text-xs text-muted-foreground">
+                    Position
+                  </p>
+                  <p className="font-medium mt-1">
+                    {selectedApplication.jobId.title}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Department</p>
-                  <p className="font-medium mt-1">{selectedApplication.jobId.department}</p>
+                  <p className="text-xs text-muted-foreground">
+                    Department
+                  </p>
+                  <p className="font-medium mt-1">
+                    {selectedApplication.jobId.department}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Location</p>
+                  <p className="text-xs text-muted-foreground">
+                    Location
+                  </p>
                   <p className="font-medium mt-1 flex items-center gap-1">
                     <MapPin className="h-3 w-3 text-muted-foreground" />
                     {selectedApplication.jobId.location}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Employment Type</p>
+                  <p className="text-xs text-muted-foreground">
+                    Employment Type
+                  </p>
                   <Badge variant="secondary" className="mt-1">
                     {selectedApplication.jobId.employmentType}
                   </Badge>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Salary Range</p>
+                  <p className="text-xs text-muted-foreground">
+                    Salary Range
+                  </p>
                   <p className="font-medium mt-1 flex items-center gap-1">
                     <DollarSign className="h-3 w-3 text-muted-foreground" />
-                    {formatPrice(selectedApplication.jobId.salaryRange.min)} -{" "}
-                    {formatPrice(selectedApplication.jobId.salaryRange.max)}/
-                    {selectedApplication.jobId.salaryRange.period}
+                    {formatPrice(
+                      selectedApplication.jobId.salaryRange.min,
+                    )}{" "}
+                    -{" "}
+                    {formatPrice(
+                      selectedApplication.jobId.salaryRange.max,
+                    )}
+                    /{selectedApplication.jobId.salaryRange.period}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Experience</p>
+                  <p className="text-xs text-muted-foreground">
+                    Experience
+                  </p>
                   <p className="font-medium mt-1">
                     {selectedApplication.jobId.experienceLevel} •{" "}
                     {selectedApplication.jobId.experienceRequired}
@@ -182,7 +209,9 @@ export default function AdminJobApplicationModal({
                 Download Resume
               </Button>
               <Button
-                onClick={() => window.open(selectedApplication.resume, "_blank")}
+                onClick={() =>
+                  window.open(selectedApplication.resume, "_blank")
+                }
                 variant="outline"
                 className="gap-2"
               >
@@ -215,8 +244,9 @@ export default function AdminJobApplicationModal({
             <h3 className="text-sm font-medium text-muted-foreground">
               Cover Letter
             </h3>
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm whitespace-pre-wrap leading-relaxed">
+
+            <div className="rounded-lg border bg-muted/30 p-4 max-h-60 overflow-y-auto overflow-x-hidden">
+              <p className="text-sm leading-relaxed whitespace-pre-wrap break-all">
                 {selectedApplication.coverLetter}
               </p>
             </div>
@@ -225,11 +255,17 @@ export default function AdminJobApplicationModal({
           {/* Metadata */}
           <div className="grid grid-cols-2 gap-4 pt-4 border-t">
             <div>
-              <p className="text-xs text-muted-foreground">Application ID</p>
-              <p className="text-xs font-mono mt-1">{selectedApplication._id}</p>
+              <p className="text-xs text-muted-foreground">
+                Application ID
+              </p>
+              <p className="text-xs font-mono mt-1">
+                {selectedApplication._id}
+              </p>
             </div>
             <div>
-              <p className="text-xs text-muted-foreground">Last Updated</p>
+              <p className="text-xs text-muted-foreground">
+                Last Updated
+              </p>
               <p className="text-sm font-medium flex items-center mt-1">
                 <Clock className="h-3 w-3 mr-1 text-muted-foreground" />
                 {formatDate(selectedApplication.updatedAt)}
@@ -247,7 +283,9 @@ export default function AdminJobApplicationModal({
               Close
             </Button>
             <Button
-              onClick={() => (window.location.href = `mailto:${selectedApplication.email}`)}
+              onClick={() =>
+                (window.location.href = `mailto:${selectedApplication.email}`)
+              }
               className="text-white gap-2"
             >
               <Mail className="h-4 w-4" />
