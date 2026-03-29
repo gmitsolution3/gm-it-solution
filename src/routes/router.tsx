@@ -30,6 +30,8 @@ import AdminJobPosting from "@/pages/admin/AdminJobPosting";
 import AdminJobApplications from "@/pages/admin/AdminJobApplications";
 import Register from "@/pages/Register";
 import LoginPage from "./../pages/Login";
+import AdminUsers from "./../pages/admin/AdminUsers";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -100,7 +102,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin-dashboard",
-    element: <AdminDashboardLayout />,
+    element: (
+      <AdminRoute>
+        <AdminDashboardLayout />
+      </AdminRoute>
+    ),
     children: [
       {
         index: true,
@@ -141,6 +147,10 @@ export const router = createBrowserRouter([
       {
         path: "job-postings/applications/:id",
         element: <AdminJobApplications />,
+      },
+      {
+        path: "users",
+        element: <AdminUsers />,
       },
     ],
   },

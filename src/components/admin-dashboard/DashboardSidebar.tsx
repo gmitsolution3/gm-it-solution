@@ -33,6 +33,8 @@ import {
 import { Link } from "react-router";
 
 import Logo from "@/assets/logo.png";
+import { useAuth } from "@/context/auth/authContext";
+import { toast } from "react-toastify";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -98,6 +100,13 @@ const menuItems = [
 ];
 
 export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    toast.success("Logged out successfully!");
+    logout();
+  };
+
   return (
     <TooltipProvider delayDuration={0}>
       <aside
@@ -163,14 +172,15 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
                 </Avatar>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-sidebar-foreground truncate">
-                    John Doe
+                    {user.displayName || "John Doe"}
                   </p>
                   <p className="text-xs text-sidebar-foreground/60 truncate">
-                    admin@gmit.com
+                    {user.email || "admin@gmail.com"}
                   </p>
                 </div>
               </div>
               <Button
+                onClick={handleLogout}
                 variant="ghost"
                 className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               >
@@ -190,15 +200,16 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
                   </Avatar>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>John Doe</p>
+                  <p>{user.displayName || "John Doe"}</p>
                   <p className="text-xs text-muted-foreground">
-                    admin@gmit.com
+                    {user.email || "admin@gmail.com"}
                   </p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
+                    onClick={handleLogout}
                     variant="ghost"
                     size="icon"
                     className="text-sidebar-foreground hover:bg-sidebar-accent"

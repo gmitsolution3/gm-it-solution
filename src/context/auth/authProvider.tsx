@@ -29,7 +29,9 @@ export const AuthProvider = ({ children }) => {
             role: userData?.data?.role,
             db_id: userData?.data?._id,
           });
-
+          setLoading(false);
+        } else {
+          setUser(currentUser);
           setLoading(false);
         }
       },
