@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { 
-  Menu, 
-  Search, 
-  Bell, 
-  Moon, 
+import {
+  Menu,
+  Search,
+  Bell,
+  Moon,
   Sun,
   Maximize2,
   Minimize2,
   UserCircle,
   Settings,
-  LogOut
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,7 +21,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
@@ -29,10 +33,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useAuth } from "@/context/auth/authContext";
 
 export const Header = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const { user } = useAuth();
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -48,7 +55,7 @@ export const Header = () => {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
+    document.documentElement.classList.toggle("dark");
   };
 
   return (
@@ -71,7 +78,11 @@ export const Header = () => {
           {/* Fullscreen Toggle */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={toggleFullscreen}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleFullscreen}
+              >
                 {isFullscreen ? (
                   <Minimize2 className="h-5 w-5" />
                 ) : (
@@ -80,14 +91,18 @@ export const Header = () => {
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              {isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+              {isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
             </TooltipContent>
           </Tooltip>
 
           {/* Dark Mode Toggle */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleDarkMode}
+              >
                 {isDarkMode ? (
                   <Sun className="h-5 w-5" />
                 ) : (
@@ -96,14 +111,18 @@ export const Header = () => {
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              {isDarkMode ? "Light Mode" : "Dark Mode"}
             </TooltipContent>
           </Tooltip>
 
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative"
+              >
                 <Bell className="h-5 w-5" />
                 <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center">
                   3
@@ -115,9 +134,14 @@ export const Header = () => {
               <DropdownMenuSeparator />
               <div className="max-h-96 overflow-y-auto">
                 {[1, 2, 3].map((i) => (
-                  <DropdownMenuItem key={i} className="cursor-pointer">
+                  <DropdownMenuItem
+                    key={i}
+                    className="cursor-pointer"
+                  >
                     <div className="flex flex-col gap-1">
-                      <p className="text-sm font-medium">New message from User {i}</p>
+                      <p className="text-sm font-medium">
+                        New message from User {i}
+                      </p>
                       <p className="text-xs text-muted-foreground">
                         5 minutes ago
                       </p>
@@ -136,17 +160,28 @@ export const Header = () => {
         {/* Profile Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+            <Button
+              variant="ghost"
+              className="relative h-10 w-10 rounded-full"
+            >
               <Avatar className="h-10 w-10 border-2 border-primary/20">
                 <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback className="bg-primary/10 text-primary">JD</AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary">
+                  JD
+                </AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuContent
+            className="w-56"
+            align="end"
+            forceMount
+          >
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">John Doe</p>
+                <p className="text-sm font-medium leading-none">
+                  John Doe
+                </p>
                 <p className="text-xs leading-none text-muted-foreground">
                   john.doe@gmit.com
                 </p>

@@ -26,8 +26,10 @@ import AdminTeamMembers from "@/pages/admin/AdminTeamMembers";
 import AdminLeadershipMessage from "@/pages/admin/AdminLeadershipMessage";
 import AdminBlogs from "@/pages/admin/AdminBlogs";
 import BlogDetail from "@/pages/BlogDetail";
-import AdminJobPosting from "./../pages/admin/AdminJobPosting";
-import AdminJobApplications from './../pages/admin/AdminJobApplications';
+import AdminJobPosting from "@/pages/admin/AdminJobPosting";
+import AdminJobApplications from "@/pages/admin/AdminJobApplications";
+import Register from "@/pages/Register";
+import LoginPage from "./../pages/Login";
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +87,14 @@ export const router = createBrowserRouter([
       {
         path: "/carrier/:id",
         element: <CarrierDetail />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
     ],
   },
