@@ -41,8 +41,6 @@ import {
 import Swal from "sweetalert2";
 import AdminPortfolioTableLoader from "@/components/loaders/AdminPortfolioTableLoder";
 import { formatDate, getInitials } from "@/utils";
-
-// Define the User interface (omitting __v)
 interface IUser {
   _id: string;
   email: string;

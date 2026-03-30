@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from "react-router";
 
 import { useAuth } from "@/context/auth/authContext";
+import AuthLoader from "@/components/loaders/AuthLoader";
 
 type Props = {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ const AdminRoute = ({ children }: Props) => {
   const location = useLocation();
 
   if (loading) {
-    return <div>Checking authentication...</div>;
+    return <AuthLoader />;
   }
 
   if (!user) {
