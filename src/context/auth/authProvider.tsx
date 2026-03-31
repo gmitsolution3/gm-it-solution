@@ -10,7 +10,6 @@ import {
 import { auth } from "../../../firebase";
 import { AuthContext } from "./authContext";
 import { axiosInstance } from "@/lib/axios";
-import AuthLoader from "@/components/loaders/AuthLoader";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -77,7 +76,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {loading ? <AuthLoader /> : children}
+      {children}
     </AuthContext.Provider>
   );
 };
