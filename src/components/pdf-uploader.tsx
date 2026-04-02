@@ -9,12 +9,15 @@ interface PdfUploaderProps {
   maxSize?: number; // in MB
 }
 
+const uploadEndpointUrl = import.meta.env.DEV ? `${import.meta.env.VITE_BACKEND_API_DEV_URL}/upload` : `${import.meta.env.VITE_BACKEND_API_URL}/upload`;
+
 export const PdfUploader = ({
   value,
   onChange,
-  uploadEndpoint = `${import.meta.env.VITE_BACKEND_API_DEV_URL}/upload`,
+  uploadEndpoint = uploadEndpointUrl,
   maxSize = 10, // 10MB default for PDFs
 }: PdfUploaderProps) => {
+
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
