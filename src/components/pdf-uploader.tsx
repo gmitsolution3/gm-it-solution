@@ -65,11 +65,6 @@ export const PdfUploader = ({
       const xhr = new XMLHttpRequest();
       xhr.open("POST", uploadEndpoint);
 
-      const token = localStorage.getItem("accessToken");
-      if (token) {
-        xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-      }
-
       xhr.upload.onprogress = (event) => {
         if (event.lengthComputable) {
           const percent = Math.round(
@@ -87,11 +82,6 @@ export const PdfUploader = ({
           onChange(url);
           setUploading(false);
         } else {
-          console.error(
-            "UPLOAD ERROR:",
-            xhr.status,
-            xhr.responseText,
-          );
           setError("Upload failed. Please try again.");
           setFileName(null);
           setUploading(false);
@@ -99,16 +89,17 @@ export const PdfUploader = ({
       };
 
       xhr.onerror = (e) => {
-        console.error("XHR ERROR EVENT:", e);
-        console.error("STATUS:", xhr.status);
-        console.error("READY STATE:", xhr.readyState);
-        console.error("RESPONSE:", xhr.responseText);
+        if (xhr.status === 0) {
+          setError(
+            "Upload failed. File may be too large or request was blocked.",
+          );
+        } else {
+          setError("Upload failed. Please check your connection.");
+        }
 
-        setError("Upload failed. Please check your connection.");
         setFileName(null);
         setUploading(false);
       };
-      
 
       xhr.send(formData);
     } catch (err) {
