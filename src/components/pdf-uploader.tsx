@@ -92,7 +92,8 @@ export const PdfUploader = ({
         }
       };
 
-      xhr.onerror = () => {
+      xhr.onerror = (e) => {
+        console.log(e)
         setError("Upload failed. Please check your connection.");
         setFileName(null);
         setUploading(false);
