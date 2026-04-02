@@ -250,7 +250,7 @@ export default function JobApplySection({ id, isDeadlinePassed }: JobApplySectio
                 <PdfUploader
                   value={resumeValue}
                   onChange={handleResumeChange}
-                  maxSize={5}
+                  maxSize={4}
                 />
                 {errors.resume && (
                   <p className="text-xs text-destructive mt-1">

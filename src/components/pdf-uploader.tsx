@@ -15,7 +15,7 @@ export const PdfUploader = ({
   value,
   onChange,
   uploadEndpoint = uploadEndpointUrl,
-  maxSize = 10, // 10MB default for PDFs
+  maxSize = 4, // 4MB default for PDFs
 }: PdfUploaderProps) => {
 
   const [uploading, setUploading] = useState(false);
