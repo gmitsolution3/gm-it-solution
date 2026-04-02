@@ -91,7 +91,7 @@ export const PdfUploader = ({
       xhr.onerror = (e) => {
         if (xhr.status === 0) {
           setError(
-            "Upload failed. File may be too large or request was blocked.",
+            `Upload failed. File may be too large. Please upload file smaller than ${maxSize}MB.`,
           );
         } else {
           setError("Upload failed. Please check your connection.");
