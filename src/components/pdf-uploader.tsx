@@ -9,7 +9,9 @@ interface PdfUploaderProps {
   maxSize?: number; // in MB
 }
 
-const uploadEndpointUrl = import.meta.env.DEV ? `${import.meta.env.VITE_BACKEND_API_DEV_URL}/upload` : `${import.meta.env.VITE_BACKEND_API_URL}/upload`;
+const uploadEndpointUrl = import.meta.env.DEV
+  ? `${import.meta.env.VITE_BACKEND_API_DEV_URL}/upload`
+  : `${import.meta.env.VITE_BACKEND_API_URL}/upload`;
 
 export const PdfUploader = ({
   value,
@@ -17,7 +19,6 @@ export const PdfUploader = ({
   uploadEndpoint = uploadEndpointUrl,
   maxSize = 4, // 4MB default for PDFs
 }: PdfUploaderProps) => {
-
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -86,6 +87,11 @@ export const PdfUploader = ({
           onChange(url);
           setUploading(false);
         } else {
+          console.error(
+            "UPLOAD ERROR:",
+            xhr.status,
+            xhr.responseText,
+          );
           setError("Upload failed. Please try again.");
           setFileName(null);
           setUploading(false);
@@ -93,11 +99,16 @@ export const PdfUploader = ({
       };
 
       xhr.onerror = (e) => {
-        console.log(e)
+        console.error("XHR ERROR EVENT:", e);
+        console.error("STATUS:", xhr.status);
+        console.error("READY STATE:", xhr.readyState);
+        console.error("RESPONSE:", xhr.responseText);
+
         setError("Upload failed. Please check your connection.");
         setFileName(null);
         setUploading(false);
       };
+      
 
       xhr.send(formData);
     } catch (err) {
