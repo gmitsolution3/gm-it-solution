@@ -300,7 +300,7 @@ export const Footer = () => {
                 Powered by{" "}
                 <a
                   className="text-blue-400"
-                  href="https://www.facebook.com/profile.php?id=61578361911412"
+                  href="https://www.gmgroupbd.com"
                   target="_blank"
                 >
                   GM Group
