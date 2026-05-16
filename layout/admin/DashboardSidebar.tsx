@@ -19,9 +19,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-// import useLogout from "@/hooks/useLogout";
-// import { useSession } from "@/lib/auth-context";
-// import { getAvatarInitial } from "@/utils";
+import useLogout from "@/hooks/useLogout";
+import { useSession } from "@/lib/auth-context";
+import { getUserInitials } from "@/utils";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,19 +36,19 @@ export function DashboardSidebar() {
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
 
-  // const { session } = useSession();
+  const { session } = useSession();
 
-  // const user = session?.user;
+  const user = session?.user;
 
-  // const { handleLogout } = useLogout();
+  const { handleLogout } = useLogout();
 
   return (
-    <Sidebar
-      collapsible="icon"
-      className="border-r"
-    >
+    <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b p-4">
-        <Link href="/" className="flex justify-center items-center gap-3">
+        <Link
+          href="/"
+          className="flex justify-center items-center gap-3"
+        >
           <div className="flex justify-center items-center gap-3">
             <Image
               src="/logo.png"
@@ -166,24 +166,24 @@ export function DashboardSidebar() {
       <SidebarFooter className="border-t p-4">
         <div className="flex items-center gap-3">
           <Avatar className="h-10 w-10 shrink-0">
-            {/* <AvatarImage src={user?.image} />
+            <AvatarImage src={user?.image} />
             <AvatarFallback className="bg-primary text-primary-foreground">
-              {getAvatarInitial(session)}
-            </AvatarFallback> */}
+              {getUserInitials(user?.name || "")}
+            </AvatarFallback>
           </Avatar>
           {!isCollapsed && (
             <div className="flex flex-1 flex-col overflow-hidden">
-              {/* <span className="truncate text-sm font-medium text-white">
+              <span className="truncate text-sm font-medium text-white">
                 {user?.name}
               </span>
               <span className="truncate text-xs text-muted-foreground">
                 {user?.role}
-              </span> */}
-            </div> 
+              </span>
+            </div>
           )}
           {!isCollapsed && (
             <button
-              // onClick={handleLogout}
+              onClick={handleLogout}
               className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <LogOut className="h-4 w-4" />

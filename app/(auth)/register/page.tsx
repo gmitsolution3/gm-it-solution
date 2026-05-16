@@ -313,7 +313,7 @@ export default function RegisterPage() {
           {/* Submit Button */}
           <Button
             type="submit"
-            className="w-full"
+            className="w-full p-5 text-white"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -335,7 +335,7 @@ export default function RegisterPage() {
               href="/login"
               className="text-primary hover:text-primary/90 underline-offset-4 hover:underline font-medium"
             >
-              Sign in
+              Log in
             </Link>
           </p>
         </div>
