@@ -16,7 +16,7 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "Services", path: "/services" },
   { name: "Portfolio", path: "/portfolio" },
-  { name: "About Us", path: "/about" },
+  { name: "About Us", path: "/about-us" },
   { name: "Blog", path: "/blog" },
   { name: "Contact", path: "/contact" },
 ];
@@ -48,6 +48,7 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     let ticking = false;
+    setIsScrolled(window.scrollY > 20);
 
     const handleScroll = () => {
       if (!ticking) {
