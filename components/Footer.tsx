@@ -62,7 +62,7 @@ const services = [
 const socialLinks = [
   {
     icon: Linkedin,
-    href: "#",
+    href: "https://www.linkedin.com/company/gmitsolution",
     label: "LinkedIn",
   },
   {
@@ -72,12 +72,12 @@ const socialLinks = [
   },
   {
     icon: Facebook,
-    href: "#",
+    href: "https://www.facebook.com/gmitsolution.net",
     label: "Facebook",
   },
   {
     icon: Instagram,
-    href: "#",
+    href: "https://www.instagram.com/gmitsolution",
     label: "Instagram",
   },
 ];

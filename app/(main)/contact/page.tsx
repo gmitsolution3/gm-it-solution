@@ -140,7 +140,7 @@ const Contact = () => {
                   variant="secondary"
                   size="lg"
                   asChild
-                  className="rounded-none relative overflow-hidden"
+                  className="rounded-none relative overflow-hidden gap-x-2"
                 >
                   <a
                     href="https://wa.me/15551234567"
