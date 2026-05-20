@@ -2,6 +2,8 @@
 
 import TableLoader from "@/components/admin-dashboard/loaders/TableLoader";
 import CreateSliderModal from "@/components/admin-dashboard/modals/CreateSliderModal";
+import EditSliderModal from "@/components/admin-dashboard/modals/EditSliderModal";
+import ViewSliderModal from "@/components/admin-dashboard/modals/ViewSliderModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -23,6 +25,7 @@ import {
 } from "@/components/ui/table";
 import { useDelete } from "@/hooks/swr/useDelete";
 import { useFetch } from "@/hooks/swr/useFetch";
+import { ISlider } from "@/types";
 import { formatDate } from "@/utils";
 import {
   ColumnDef,
@@ -38,12 +41,9 @@ import {
   MessageCircle,
   MoreHorizontal,
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import Swal from "sweetalert2";
-// import AdminEditSliderModal from "@/components/modals/AdminEditSliderModal";
-// import AdminSliderDetailModal from "@/components/modals/AdminSliderDetailModal";
-import { ISlider } from "@/types";
-import Image from "next/image";
 
 export default function AdminSlidersPage() {
   const { data, isLoading, refetch } = useFetch<{ data: ISlider[] }>(
@@ -387,25 +387,22 @@ export default function AdminSlidersPage() {
         />
       )}
 
-      {/* Modals - commented until conversion */}
-      {/* 
+      {isDetailModalOpen && selectedSlider && (
+        <ViewSliderModal
+          isModalOpen={isDetailModalOpen}
+          setIsModalOpen={setIsDetailModalOpen}
+          selectedSlider={selectedSlider}
+        />
+      )}
 
       {isEditModalOpen && sliderToEdit && (
-        <AdminEditSliderModal
+        <EditSliderModal
           isModalOpen={isEditModalOpen}
           setIsModalOpen={setIsEditModalOpen}
           sliderData={sliderToEdit}
           onSuccess={refetch}
         />
       )}
-
-      {isDetailModalOpen && selectedSlider && (
-        <AdminSliderDetailModal
-          isModalOpen={isDetailModalOpen}
-          setIsModalOpen={setIsDetailModalOpen}
-          selectedSlider={selectedSlider}
-        />
-      )} */}
     </>
   );
 }

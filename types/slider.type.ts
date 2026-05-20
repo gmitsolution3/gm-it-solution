@@ -8,4 +8,5 @@ export interface ISlider {
   image: string;
   createdAt: string;
   updatedAt: string;
+  imagePublicId: string;
 }
