@@ -1,16 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useFetch } from "@/hooks/swr/useFetch";
-import { useDelete } from "@/hooks/swr/useDelete";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import TableLoader from "@/components/admin-dashboard/loaders/TableLoader";
+import CreateServiceModal from "@/components/admin-dashboard/modals/CreateServiceModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -23,24 +14,33 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useDelete } from "@/hooks/swr/useDelete";
+import { useFetch } from "@/hooks/swr/useFetch";
+import { IService } from "@/types";
+import { formatDate } from "@/utils";
+import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import {
-  Eye,
-  MoreHorizontal,
   Calendar,
   Code2,
-  ListChecks,
+  Eye,
   ImageIcon,
+  ListChecks,
+  MoreHorizontal,
 } from "lucide-react";
+import { useState } from "react";
 import Swal from "sweetalert2";
-import TableLoader from "@/components/admin-dashboard/loaders/TableLoader";
-import { formatDate } from "@/utils";
-import { IService } from "@/types";
-// import CreateServiceModal from "@/components/admin-dashboard/modals/CreateServiceModal";
 // import EditServiceModal from "@/components/admin-dashboard/modals/EditServiceModal";
 // import ViewServiceModal from "@/components/admin-dashboard/modals/ViewServiceModal";
 import Image from "next/image";
@@ -418,14 +418,16 @@ export default function AdminServicesPage() {
         </Card>
       </section>
 
-      {/* Modals - commented until conversion */}
-      {/* {isCreateModalOpen && (
+      {isCreateModalOpen && (
         <CreateServiceModal
           isModalOpen={isCreateModalOpen}
           setIsModalOpen={setIsCreateModalOpen}
           onSuccess={refetch}
         />
       )}
+
+      {/* Modals - commented until conversion */}
+      {/* 
 
       {isEditModalOpen && serviceToEdit && (
         <EditServiceModal
