@@ -47,11 +47,9 @@ export default async function RootLayout({
         poppins.variable,
         "font-sans",
       )}
+      suppressHydrationWarning
     >
-      <body
-        suppressHydrationWarning
-        className="min-h-full flex flex-col"
-      >
+      <body className="min-h-full flex flex-col">
         <TooltipProvider>
           <AuthProvider session={session}>
             <ThemeProvider>{children}</ThemeProvider>
