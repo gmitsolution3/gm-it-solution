@@ -26,10 +26,8 @@ import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  courseManagement,
   mainMenuItems,
   settingsItems,
-  userManagement,
 } from "./menu-items";
 
 export function DashboardSidebar() {
@@ -71,56 +69,6 @@ export function DashboardSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {mainMenuItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title}>
-                    <NavLink
-                      href={item.url}
-                      exact={item.url === "/admin-dashboard"}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-white transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                    >
-                      <item.icon className="h-5 w-5 shrink-0" />
-                      {!isCollapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {/* Course Management */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            {!isCollapsed && "Course Management"}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {courseManagement.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title}>
-                    <NavLink
-                      href={item.url}
-                      exact={item.url === "/admin-dashboard"}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-white transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                    >
-                      <item.icon className="h-5 w-5 shrink-0" />
-                      {!isCollapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {/* User Management */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            {!isCollapsed && "User Management"}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {userManagement.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
                     <NavLink

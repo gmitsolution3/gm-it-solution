@@ -1,14 +1,15 @@
 import { DashboardMenu } from "@/utils";
 import {
-  BringToFront,
-  Calendar,
-  FileText,
-  GraduationCap,
+  ClipboardCheck,
+  FileStack,
+  GalleryVerticalEnd,
+  Images,
   LayoutDashboard,
   LayoutList,
-  PackageOpen,
+  LibraryBig,
+  MessagesSquare,
   Settings,
-  UserCircle,
+  UserRoundSearch,
   Users,
 } from "lucide-react";
 
@@ -22,74 +23,58 @@ export const mainMenuItems = [
     icon: LayoutDashboard,
   },
   {
-    title: "Consultation Management",
-    url: dashboardMenu.defineUrl("/consultation-management"),
-    icon: Calendar,
-  },
-  // { title: "Notifications", url: "/patients", icon: Users },
-];
-
-export const courseManagement = [
-  {
-    title: "Category Management",
-    url: dashboardMenu.defineUrl("/category-management"),
-    icon: BringToFront,
+    title: "Sliders",
+    url: dashboardMenu.defineUrl("/sliders"),
+    icon: Images,
   },
   {
-    title: "Courses Management",
-    url: dashboardMenu.defineUrl("/course-management"),
-    icon: GraduationCap,
+    title: "Services",
+    url: dashboardMenu.defineUrl("/services"),
+    icon: ClipboardCheck,
   },
   {
-    title: "Batch Management",
-    url: dashboardMenu.defineUrl("/batch-management"),
+    title: "portfolios",
+    url: dashboardMenu.defineUrl("/portfolio"),
+    icon: GalleryVerticalEnd,
+  },
+  {
+    title: "Case Studies",
+    url: dashboardMenu.defineUrl("/case-study"),
+    icon: LibraryBig,
+  },
+  {
+    title: "Leadership Messages",
+    url: dashboardMenu.defineUrl(
+      "/leadership-messages",
+    ),
+    icon: MessagesSquare,
+  },
+  {
+    title: "Team Members",
+    url: dashboardMenu.defineUrl("/team-members"),
+    icon: Users,
+  },
+  {
+    title: "Blogs",
+    url: dashboardMenu.defineUrl("/blogs"),
     icon: LayoutList,
   },
   {
-    title: "Published Course",
-    url: dashboardMenu.defineUrl("/published-courses"),
-    icon: FileText,
+    title: "Job Postings",
+    url: dashboardMenu.defineUrl("/job-postings"),
+    icon: FileStack,
   },
-  {
-    title: "Draft Course",
-    url: dashboardMenu.defineUrl("/draft-courses"),
-    icon: PackageOpen,
-  },
-  // {
-  //   title: "Course Curriculmn",
-  //   url: dashboardMenu.defineUrl("/records"),
-  //   icon: FileText,
-  // },
-];
-
-export const userManagement = [
-  {
-    title: "User Management",
-    url: dashboardMenu.defineUrl("/user-management"),
-    icon: Users,
-  },
-  {
-    title: "Students",
-    url: dashboardMenu.defineUrl("/students"),
-    icon: Users,
-  },
-  /* {
-    title: "Instructors",
-    url: dashboardMenu.defineUrl("/instructors"),
-    icon: Users,
-  },
-  {
-    title: "Admin",
-    url: dashboardMenu.defineUrl("/all-courses"),
-    icon: Users,
-  }, */
 ];
 
 export const settingsItems = [
   {
-    title: "Profile",
-    url: dashboardMenu.defineUrl("/profile"),
-    icon: UserCircle,
+    title: "Users",
+    url: dashboardMenu.defineUrl("/users"),
+    icon: UserRoundSearch,
   },
-  // { title: "Settings", url: "/settings", icon: Settings },
+  {
+    title: "Settings",
+    url: dashboardMenu.defineUrl("/settings"),
+    icon: Settings,
+  },
 ];
