@@ -1,6 +1,7 @@
 "use client";
 
-import AdminPortfolioTableLoader from "@/components/admin-dashboard/loaders/AdminPortfolioTableLoader";
+import TableLoader from "@/components/admin-dashboard/loaders/TableLoader";
+import CreateSliderModal from "@/components/admin-dashboard/modals/CreateSliderModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -39,13 +40,13 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import Swal from "sweetalert2";
-// import AdminCreateSliderModal from "@/components/modals/AdminCreateSliderModal";
 // import AdminEditSliderModal from "@/components/modals/AdminEditSliderModal";
 // import AdminSliderDetailModal from "@/components/modals/AdminSliderDetailModal";
 import { ISlider } from "@/types";
+import Image from "next/image";
 
-export default function AdminSliders() {
-  const { data, isLoading } = useFetch<{ data: ISlider[] }>(
+export default function AdminSlidersPage() {
+  const { data, isLoading, refetch } = useFetch<{ data: ISlider[] }>(
     "/sliders",
   );
 
@@ -131,15 +132,12 @@ export default function AdminSliders() {
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 w-16 h-12 rounded-lg bg-primary/10 flex items-center justify-center overflow-hidden">
             {row.original.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
                 src={row.original.image}
                 alt={row.original.title}
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    "https://via.placeholder.com/64x48?text=Image";
-                }}
+                height={200}
+                width={200}
               />
             ) : (
               <span className="text-lg font-semibold text-primary">
@@ -270,7 +268,7 @@ export default function AdminSliders() {
   });
 
   if (isLoading) {
-    return <AdminPortfolioTableLoader />;
+    return <TableLoader />;
   }
 
   return (
@@ -287,7 +285,7 @@ export default function AdminSliders() {
             </p>
           </div>
           <Button
-            className="w-full sm:w-auto shadow-sm text-white"
+            className="w-full sm:w-auto shadow-sm text-white border-0"
             onClick={() => setIsCreateModalOpen(true)}
             disabled={isDeleting}
           >
@@ -381,14 +379,16 @@ export default function AdminSliders() {
         </Card>
       </section>
 
-      {/* Modals - commented until conversion */}
-      {/* {isCreateModalOpen && (
-        <AdminCreateSliderModal
+      {isCreateModalOpen && (
+        <CreateSliderModal
           isModalOpen={isCreateModalOpen}
           setIsModalOpen={setIsCreateModalOpen}
           onSuccess={refetch}
         />
       )}
+
+      {/* Modals - commented until conversion */}
+      {/* 
 
       {isEditModalOpen && sliderToEdit && (
         <AdminEditSliderModal

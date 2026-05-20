@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function AdminPortfolioTableLoader() {
+export default function TableLoader() {
   return (
     <section className="container mx-auto px-5 lg:px-0 py-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
