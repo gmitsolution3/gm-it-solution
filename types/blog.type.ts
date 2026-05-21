@@ -11,4 +11,5 @@ export interface IBlog {
   featured: boolean;
   createdAt: string;
   updatedAt: string;
+  imagePublicId: string;
 }
