@@ -34,12 +34,12 @@ export const mainMenuItems = [
   },
   {
     title: "portfolios",
-    url: dashboardMenu.defineUrl("/portfolio"),
+    url: dashboardMenu.defineUrl("/portfolios"),
     icon: GalleryVerticalEnd,
   },
   {
     title: "Case Studies",
-    url: dashboardMenu.defineUrl("/case-study"),
+    url: dashboardMenu.defineUrl("/case-studies"),
     icon: LibraryBig,
   },
   {
