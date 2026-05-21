@@ -6,4 +6,5 @@ export interface ITeamMember {
   linkedin: string;
   createdAt?: string;
   updatedAt?: string;
+  imagePublicId: string;
 }
