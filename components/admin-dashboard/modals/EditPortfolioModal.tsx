@@ -233,7 +233,7 @@ export default function EditPortfolioModal({
                     defaultValue={form.watch("category")}
                     value={form.watch("category")}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>

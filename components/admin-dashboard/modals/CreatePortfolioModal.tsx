@@ -1,3 +1,4 @@
+// components/admin-dashboard/modals/CreatePortfolioModal.tsx
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -21,6 +22,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Loader2, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { usePost } from "@/hooks/swr/usePost";
@@ -28,15 +36,24 @@ import Swal from "sweetalert2";
 import { ImageUploader } from "@/components/image-uploader";
 import Image from "next/image";
 
+// Predefined categories
+const categories = [
+  "Web Development",
+  "Mobile App",
+  "UI/UX Design",
+  "Branding",
+  "Marketing",
+  "Service",
+  "E-commerce",
+  "Other",
+];
+
 const formSchema = z.object({
   title: z
     .string()
     .min(3, "Title must be at least 3 characters")
     .max(100, "Title must not exceed 100 characters"),
-  category: z
-    .string()
-    .min(1, "Please enter a category")
-    .max(50, "Category must not exceed 50 characters"),
+  category: z.string().min(1, "Please select a category"),
   description: z
     .string()
     .min(10, "Description must be at least 10 characters")
@@ -188,18 +205,30 @@ export default function CreatePortfolioModal({
               </Field>
             </FieldSet>
 
-            {/* Category */}
+            {/* Category - Changed to Select dropdown */}
             <FieldSet className="col-span-2 sm:col-span-1">
               <Field>
                 <FieldLabel>Category</FieldLabel>
                 <FieldContent>
-                  <Input
-                    placeholder="e.g., Web Development, Mobile App, Design"
-                    {...form.register("category")}
-                  />
+                  <Select
+                    onValueChange={(value) => form.setValue("category", value)}
+                    value={form.watch("category")}
+                    
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FieldContent>
                 <FieldDescription>
-                  Enter the category or type of project
+                  Choose the type of project
                 </FieldDescription>
                 <FieldError>{form.formState.errors.category?.message}</FieldError>
               </Field>
