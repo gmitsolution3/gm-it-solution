@@ -7,4 +7,5 @@ export interface IPortfolioItem {
   url: string;
   createdAt: string;
   updatedAt: string;
+  imagePublicId: string;
 }
