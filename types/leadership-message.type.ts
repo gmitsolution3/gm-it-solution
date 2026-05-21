@@ -7,4 +7,5 @@ export interface ILeadershipMessage {
   videoUrl: string;
   createdAt: string;
   updatedAt: string;
+  imagePublicId: string;
 }
