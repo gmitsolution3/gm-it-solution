@@ -8,4 +8,6 @@ export interface IService {
   image: string;
   createdAt: string;
   updatedAt: string;
+  iconPublicId: string;
+  imagePublicId: string;
 }

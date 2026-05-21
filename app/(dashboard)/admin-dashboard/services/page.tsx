@@ -2,6 +2,8 @@
 
 import TableLoader from "@/components/admin-dashboard/loaders/TableLoader";
 import CreateServiceModal from "@/components/admin-dashboard/modals/CreateServiceModal";
+import EditServiceModal from "@/components/admin-dashboard/modals/EditServiceModal";
+import ViewServiceModal from "@/components/admin-dashboard/modals/ViewServiceModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -39,22 +41,20 @@ import {
   ListChecks,
   MoreHorizontal,
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import Swal from "sweetalert2";
-// import EditServiceModal from "@/components/admin-dashboard/modals/EditServiceModal";
-// import ViewServiceModal from "@/components/admin-dashboard/modals/ViewServiceModal";
-import Image from "next/image";
 
 export default function AdminServicesPage() {
   const { data, isLoading, refetch } = useFetch<{ data: IService[] }>(
-    "/services"
+    "/services",
   );
 
   const { mutate: deleteService, isLoading: isDeleting } = useDelete(
     "/services",
     {
       revalidateKey: "/services",
-    }
+    },
   );
 
   const services: IService[] = data?.data || [];
@@ -426,8 +426,13 @@ export default function AdminServicesPage() {
         />
       )}
 
-      {/* Modals - commented until conversion */}
-      {/* 
+      {isDetailModalOpen && selectedService && (
+        <ViewServiceModal
+          isModalOpen={isDetailModalOpen}
+          setIsModalOpen={setIsDetailModalOpen}
+          selectedService={selectedService}
+        />
+      )}
 
       {isEditModalOpen && serviceToEdit && (
         <EditServiceModal
@@ -437,14 +442,6 @@ export default function AdminServicesPage() {
           onSuccess={refetch}
         />
       )}
-
-      {isDetailModalOpen && selectedService && (
-        <ViewServiceModal
-          isModalOpen={isDetailModalOpen}
-          setIsModalOpen={setIsDetailModalOpen}
-          selectedService={selectedService}
-        />
-      )} */}
     </>
   );
 }

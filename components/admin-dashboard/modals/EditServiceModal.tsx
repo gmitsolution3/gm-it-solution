@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -24,9 +24,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, X, Plus, ImageIcon } from "lucide-react";
-import { usePost } from "@/hooks/swr/usePost";
+import { usePatch } from "@/hooks/swr/usePatch";
 import Swal from "sweetalert2";
 import { ImageUploader } from "@/components/image-uploader";
+import { IService } from "@/types";
 import Image from "next/image";
 
 // Form validation schema
@@ -50,8 +51,11 @@ const formSchema = z.object({
     .array(z.string())
     .min(1, "At least one technology is required"),
   image: z
-    .string()
-    .url("Please enter a valid image URL")
+    .union([
+      z.string().url("Please enter a valid image URL"),
+      z.string().length(0),
+      z.undefined(),
+    ])
     .optional(),
   iconPublicId: z.string().optional(),
   imagePublicId: z.string().optional(),
@@ -59,18 +63,20 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-interface CreateServiceModalProps {
+interface EditServiceModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (open: boolean) => void;
+  serviceData: IService;
   onSuccess?: () => void;
 }
 
-export default function CreateServiceModal({
+export default function EditServiceModal({
   isModalOpen,
   setIsModalOpen,
+  serviceData,
   onSuccess,
-}: CreateServiceModalProps) {
-  const { mutate: postData, isLoading } = usePost("/services", {
+}: EditServiceModalProps) {
+  const { mutate: updateData, isLoading } = usePatch(`/services`, {
     revalidateKey: "/services",
   });
 
@@ -95,6 +101,22 @@ export default function CreateServiceModal({
   const technologies = form.watch("technologies");
   const iconUrl = form.watch("icon");
   const title = form.watch("title");
+
+  // Reset form when serviceData changes or modal opens
+  useEffect(() => {
+    if (serviceData && isModalOpen) {
+      form.reset({
+        icon: serviceData.icon || "",
+        title: serviceData.title || "",
+        description: serviceData.description || "",
+        features: serviceData.features || [],
+        technologies: serviceData.technologies || [],
+        image: serviceData.image || "",
+        iconPublicId: serviceData.iconPublicId || "",
+        imagePublicId: serviceData.imagePublicId || "",
+      });
+    }
+  }, [serviceData, isModalOpen, form]);
 
   const addFeature = () => {
     if (featureInput.trim()) {
@@ -138,7 +160,10 @@ export default function CreateServiceModal({
     try {
       // Remove publicId fields from the data sent to API
       const { iconPublicId, imagePublicId, ...submitData } = data;
-      const response = await postData(submitData);
+      const response = await updateData({
+        id: serviceData._id,
+        data: submitData,
+      });
 
       if (response.success) {
         setIsModalOpen(false);
@@ -147,7 +172,7 @@ export default function CreateServiceModal({
 
         await Swal.fire({
           title: "Success!",
-          text: "Service created successfully",
+          text: "Service updated successfully",
           icon: "success",
           timer: 2000,
           showConfirmButton: false,
@@ -155,13 +180,12 @@ export default function CreateServiceModal({
       } else {
         await Swal.fire({
           title: "Error",
-          text: response.message || "Failed to create service",
+          text: response.message || "Failed to update service",
           icon: "error",
         });
       }
     } catch (error) {
       console.log(error);
-      setIsModalOpen(false);
       await Swal.fire({
         title: "Error",
         text: "An unexpected error occurred",
@@ -192,10 +216,10 @@ export default function CreateServiceModal({
       <DialogContent className="!max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">
-            Create New Service
+            Edit Service
           </DialogTitle>
           <DialogDescription>
-            Add a new service offering to showcase what you provide.
+            Update the details of your service offering.
           </DialogDescription>
         </DialogHeader>
 
@@ -367,11 +391,11 @@ export default function CreateServiceModal({
             </Field>
           </FieldSet>
 
-          {/* Service Image */}
+          {/* Additional Image (Optional) */}
           <FieldSet>
             <Field>
               <div className="flex items-center justify-between mb-2">
-                <FieldLabel>Service Image</FieldLabel>
+                <FieldLabel>Additional Image (Optional)</FieldLabel>
                 {form.watch("image") && (
                   <Badge variant="outline" className="gap-1">
                     <ImageIcon className="h-3 w-3" />
@@ -387,7 +411,7 @@ export default function CreateServiceModal({
                 />
               </FieldContent>
               <FieldDescription>
-                Upload an additional showcase image for your service (required, max 5MB)
+                Upload an additional showcase image for your service (optional, max 5MB)
               </FieldDescription>
               <FieldError>{form.formState.errors.image?.message}</FieldError>
             </Field>
@@ -449,6 +473,45 @@ export default function CreateServiceModal({
             </div>
           )}
 
+          {/* Metadata - Show when editing */}
+          {serviceData && (
+            <div className="rounded-lg border bg-muted/30 p-4 space-y-2">
+              <h4 className="text-sm font-medium flex items-center gap-2">
+                <Badge variant="outline" className="text-xs">
+                  Metadata
+                </Badge>
+              </h4>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <span className="text-muted-foreground">
+                    Created:
+                  </span>{" "}
+                  <span className="font-mono">
+                    {new Date(
+                      serviceData.createdAt,
+                    ).toLocaleDateString()}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground">
+                    Last updated:
+                  </span>{" "}
+                  <span className="font-mono">
+                    {new Date(
+                      serviceData.updatedAt,
+                    ).toLocaleDateString()}
+                  </span>
+                </div>
+                <div className="col-span-2">
+                  <span className="text-muted-foreground">ID:</span>{" "}
+                  <span className="font-mono text-xs">
+                    {serviceData._id}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Form Actions */}
           <div className="flex justify-end gap-3 pt-4 border-t">
             <Button
@@ -468,7 +531,7 @@ export default function CreateServiceModal({
               {isLoading && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}
-              Create Service
+              Update Service
             </Button>
           </div>
         </form>
