@@ -5,3 +5,4 @@ export * from "./getEmbedUrl";
 export * from "./formatDate";
 export * from "./formatSalary";
 export * from "./deleteImage";
+export * from "./formatPrice";

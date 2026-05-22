@@ -275,7 +275,7 @@ export default function AdminCareersPage() {
               <DropdownMenuItem
                 onSelect={() =>
                   router.push(
-                    `/admin/careers/applications/${row.original._id}`,
+                    `/admin-dashboard/job-postings/view-applications/${row.original._id}`,
                   )
                 }
                 className="hover:text-white!"
