@@ -44,7 +44,7 @@ import { formatDate, formatSalary } from "@/utils";
 import { IJobPosting } from "@/types";
 import ViewJobModal from "@/components/admin-dashboard/modals/ViewJobModal";
 import CreateJobModal from "@/components/admin-dashboard/modals/CreateJobModal";
-// import EditJobModal from "@/components/admin-dashboard/modals/EditJobModal";
+import EditJobModal from "@/components/admin-dashboard/modals/EditJobModal";
 import { axiosInstance } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 
@@ -440,11 +440,6 @@ export default function AdminCareersPage() {
         />
       )}
 
-      {/* Modals - commented until conversion */}
-      {/* 
-
-      
-
       {isEditModalOpen && jobToEdit && (
         <EditJobModal
           isModalOpen={isEditModalOpen}
@@ -452,7 +447,7 @@ export default function AdminCareersPage() {
           jobData={jobToEdit}
           onSuccess={refetch}
         />
-      )} */}
+      )}
     </>
   );
 }
