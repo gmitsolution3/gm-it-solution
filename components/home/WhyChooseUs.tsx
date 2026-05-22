@@ -1,18 +1,14 @@
 "use client";
-
-import { memo } from "react";
-import Link from "next/link";
-
 import { motion } from "framer-motion";
-
 import {
   Award,
   Clock,
+  Shield,
   Target,
   Users,
   Zap,
-  Shield,
 } from "lucide-react";
+import Link from "next/link";
 
 const features = [
   {
@@ -53,7 +49,7 @@ const features = [
   },
 ];
 
-const WhyChooseUsComponent = () => {
+export default function WhyChooseUs() {
   return (
     <section className="py-24 relative overflow-hidden bg-muted/20">
       {/* Simple background - nothing fancy */}
@@ -71,8 +67,8 @@ const WhyChooseUsComponent = () => {
           </h2>
 
           <p className="text-base text-muted-foreground">
-            Look, there are a lot of agencies out there.
-            Here's why people stick with us.
+            Look, there are a lot of agencies out there. Here's why
+            people stick with us.
           </p>
         </div>
 
@@ -82,10 +78,7 @@ const WhyChooseUsComponent = () => {
             const Icon = feature.icon;
 
             return (
-              <div
-                key={feature.title}
-                className="group relative"
-              >
+              <div key={feature.title} className="group relative">
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.2 }}
@@ -107,9 +100,7 @@ const WhyChooseUsComponent = () => {
 
                   {/* Tiny detail */}
                   <div className="absolute top-4 right-4 text-4xl text-primary/5 font-bold">
-                    {(index + 1)
-                      .toString()
-                      .padStart(2, "0")}
+                    {(index + 1).toString().padStart(2, "0")}
                   </div>
                 </motion.div>
               </div>
@@ -120,7 +111,6 @@ const WhyChooseUsComponent = () => {
         {/* Footer */}
         <p className="text-center text-sm text-muted-foreground mt-12">
           Still reading?{" "}
-
           <Link
             href="/contact"
             className="text-primary hover:text-primary/80 font-medium underline-offset-2 hover:underline"
@@ -131,9 +121,4 @@ const WhyChooseUsComponent = () => {
       </div>
     </section>
   );
-};
-
-const WhyChooseUs = memo(
-  WhyChooseUsComponent,
-);
-export default WhyChooseUs;
+}

@@ -7,8 +7,7 @@ export async function getSliders(): Promise<ISlider[]> {
       // Revalidate every 60 seconds (ISR). Adjust as needed:
       // - next: { revalidate: 0 }  → always fresh (SSR)
       // - next: { tags: ["sliders"] } → on-demand revalidation
-      // next: { revalidate: 60 },
-      cache: "no-store", // Disable caching to always fetch fresh data
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) return [];
