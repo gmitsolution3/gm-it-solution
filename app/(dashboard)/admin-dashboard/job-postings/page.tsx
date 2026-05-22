@@ -236,7 +236,7 @@ export default function AdminCareersPage() {
     {
       id: "actions",
       header: "",
-      size: 100,
+      size: 200,
       cell: ({ row }) => (
         <div className="flex items-center gap-1">
           <Button
@@ -250,6 +250,7 @@ export default function AdminCareersPage() {
           </Button>
           <div className="flex items-center gap-2">
             <Switch
+              id={row.original._id}
               checked={row.original.isActive}
               disabled={togglingId === row.original._id}
               onCheckedChange={() => handleToggleStatus(row.original)}
