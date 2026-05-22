@@ -1,10 +1,8 @@
 "use client";
 
-import { memo, useMemo, useState } from "react";
-
-import Image from "next/image";
-
 import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import TestimonialCard from "./TestimonialCard";
 
 const testimonials = [
   {
@@ -45,57 +43,10 @@ const testimonials = [
   },
 ];
 
-const TestimonialCard = memo(
-  ({
-    testimonial,
-  }: {
-    testimonial: (typeof testimonials)[0];
-  }) => {
-    return (
-      <div className="flex-shrink-0 w-[400px]">
-        <div className="p-8 rounded-none bg-card/80 backdrop-blur-xl border border-border">
-          <p className="text-lg text-card-foreground/80 leading-relaxed mb-8">
-            "{testimonial.content}"
-          </p>
+export default function Testimonials() {
+  const [isHoveredTop, setIsHoveredTop] = useState(false);
 
-          <div className="flex items-center gap-4">
-            <div className="relative w-14 h-14 rounded-full overflow-hidden border border-border flex-shrink-0">
-              <Image
-                src={testimonial.avatar}
-                alt={testimonial.name}
-                fill
-                sizes="56px"
-                className="object-cover"
-              />
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-card-foreground">
-                {testimonial.name}
-              </h4>
-
-              <p className="text-sm text-muted-foreground">
-                {testimonial.role}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  },
-);
-
-TestimonialCard.displayName =
-  "TestimonialCard";
-
-const TestimonialsComponent = () => {
-  const [isHoveredTop, setIsHoveredTop] =
-    useState(false);
-
-  const [
-    isHoveredBottom,
-    setIsHoveredBottom,
-  ] = useState(false);
+  const [isHoveredBottom, setIsHoveredBottom] = useState(false);
 
   // Duplicate for seamless infinite loop
   const duplicated = useMemo(
@@ -104,9 +55,7 @@ const TestimonialsComponent = () => {
   );
 
   const duplicatedReversed = useMemo(() => {
-    const reversed = [
-      ...testimonials,
-    ].reverse();
+    const reversed = [...testimonials].reverse();
 
     return [...reversed, ...reversed];
   }, []);
@@ -121,16 +70,12 @@ const TestimonialsComponent = () => {
           </span>
 
           <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4 text-foreground">
-            What Our{" "}
-            <span className="text-primary">
-              Clients Say
-            </span>
+            What Our <span className="text-primary">Clients Say</span>
           </h2>
 
           <p className="text-muted-foreground">
-            Don't just take our word for it.
-            Here’s what our satisfied clients
-            have to say.
+            Don't just take our word for it. Here’s what our satisfied
+            clients have to say.
           </p>
         </div>
 
@@ -145,75 +90,50 @@ const TestimonialsComponent = () => {
           {/* TOP ROW */}
           <motion.div
             className="flex gap-6 w-max"
-            onHoverStart={() =>
-              setIsHoveredTop(true)
-            }
-            onHoverEnd={() =>
-              setIsHoveredTop(false)
-            }
+            onHoverStart={() => setIsHoveredTop(true)}
+            onHoverEnd={() => setIsHoveredTop(false)}
             animate={{
               x: ["-50%", "0%"],
             }}
             transition={{
               repeat: Infinity,
               repeatType: "loop",
-              duration: isHoveredTop
-                ? 40
-                : 20,
+              duration: isHoveredTop ? 40 : 20,
               ease: "linear",
             }}
           >
-            {duplicated.map(
-              (testimonial, index) => (
-                <TestimonialCard
-                  key={`top-${testimonial.id}-${index}`}
-                  testimonial={
-                    testimonial
-                  }
-                />
-              ),
-            )}
+            {duplicated.map((testimonial, index) => (
+              <TestimonialCard
+                key={`top-${testimonial.id}-${index}`}
+                testimonial={testimonial}
+              />
+            ))}
           </motion.div>
 
           {/* BOTTOM ROW */}
           <motion.div
             className="flex gap-6 w-max"
-            onHoverStart={() =>
-              setIsHoveredBottom(true)
-            }
-            onHoverEnd={() =>
-              setIsHoveredBottom(false)
-            }
+            onHoverStart={() => setIsHoveredBottom(true)}
+            onHoverEnd={() => setIsHoveredBottom(false)}
             animate={{
               x: ["0%", "-50%"],
             }}
             transition={{
               repeat: Infinity,
               repeatType: "loop",
-              duration: isHoveredBottom
-                ? 40
-                : 20,
+              duration: isHoveredBottom ? 40 : 20,
               ease: "linear",
             }}
           >
-            {duplicatedReversed.map(
-              (testimonial, index) => (
-                <TestimonialCard
-                  key={`bottom-${testimonial.id}-${index}`}
-                  testimonial={
-                    testimonial
-                  }
-                />
-              ),
-            )}
+            {duplicatedReversed.map((testimonial, index) => (
+              <TestimonialCard
+                key={`bottom-${testimonial.id}-${index}`}
+                testimonial={testimonial}
+              />
+            ))}
           </motion.div>
         </div>
       </div>
     </section>
   );
-};
-
-const Testimonials = memo(
-  TestimonialsComponent,
-);
-export default Testimonials;
+}
