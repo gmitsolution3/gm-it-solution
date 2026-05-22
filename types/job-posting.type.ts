@@ -29,3 +29,32 @@ export interface IJobPosting {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IJobApplication {
+  _id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  jobId: {
+    _id: string;
+    title: string;
+    department: string;
+    location: string;
+    employmentType: string;
+    workplaceType: string;
+    experienceLevel: string;
+    experienceRequired: string;
+    salaryRange: {
+      min: number;
+      max: number;
+      currency: string;
+      period: string;
+    };
+    openings: number;
+  };
+  coverLetter: string;
+  portfolioUrl?: string;
+  resume: string;
+  createdAt: string;
+  updatedAt: string;
+}

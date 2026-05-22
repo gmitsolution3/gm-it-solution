@@ -29,6 +29,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useFetch } from "@/hooks/swr/useFetch";
+import { IJobApplication } from "@/types";
 import { formatDate, formatPrice, getUserInitials } from "@/utils";
 import {
   ColumnDef,
@@ -48,35 +49,6 @@ import {
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-
-interface IJobApplication {
-  _id: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  jobId: {
-    _id: string;
-    title: string;
-    department: string;
-    location: string;
-    employmentType: string;
-    workplaceType: string;
-    experienceLevel: string;
-    experienceRequired: string;
-    salaryRange: {
-      min: number;
-      max: number;
-      currency: string;
-      period: string;
-    };
-    openings: number;
-  };
-  coverLetter: string;
-  portfolioUrl?: string;
-  resume: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 export default function AdminJobApplicationsPage() {
   const params = useParams();
