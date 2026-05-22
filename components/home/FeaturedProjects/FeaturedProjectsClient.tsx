@@ -1,0 +1,229 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+
+import { motion, Variants } from "framer-motion";
+import { ArrowRight, Eye, FolderOpen } from "lucide-react";
+
+import { IPortfolioItem } from "@/types";
+import CTAButton from "@/components/CTAButton";
+
+interface FeaturedProjectsClientProps {
+  portfolios: IPortfolioItem[];
+}
+
+const getRevealVariant = (direction: "left" | "right"): Variants => ({
+  hidden: {
+    opacity: 0,
+    x: direction === "left" ? -120 : 120,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+});
+
+const sectionBg = (
+  <>
+    <div className="absolute inset-0 bg-muted/30" />
+    <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2" />
+    <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]" />
+  </>
+);
+
+const SectionHeader = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+    className="text-center max-w-3xl mx-auto mb-16"
+  >
+    <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+      Portfolio
+    </span>
+
+    <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-4">
+      Featured <span className="gradient-text">Products</span>
+    </h2>
+
+    <p className="text-base text-muted-foreground">
+      Explore our recent work and see how we've helped businesses
+      achieve their digital goals.
+    </p>
+  </motion.div>
+);
+
+const FeaturedProjectsClient = ({
+  portfolios,
+}: FeaturedProjectsClientProps) => {
+  if (!portfolios.length) {
+    return (
+      <section className="py-24 relative overflow-hidden">
+        {sectionBg}
+
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <SectionHeader />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col items-center justify-center py-16 px-4 rounded-2xl backdrop-blur-sm"
+          >
+            <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+              <FolderOpen className="w-12 h-12 text-primary/60" />
+            </div>
+
+            <h3 className="text-2xl font-semibold text-foreground mb-3">
+              No Featured Projects Yet
+            </h3>
+
+            <p className="text-muted-foreground text-center max-w-md mb-8">
+              We're currently curating our best work. Check back soon
+              to see our featured projects and case studies.
+            </p>
+
+            <div className="flex gap-4">
+              <CTAButton href="/portfolio">
+                Browse All Projects
+              </CTAButton>
+              <CTAButton href="/contact">Start a Project</CTAButton>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="py-24 relative overflow-hidden">
+      {sectionBg}
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <SectionHeader />
+
+        {/* Projects */}
+        <div className="space-y-16 lg:space-y-28">
+          {portfolios.map((project, index) => {
+            const direction = index % 2 === 0 ? "left" : "right";
+
+            return (
+              <motion.div
+                key={project._id}
+                variants={getRevealVariant(direction)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                className="relative"
+              >
+                <Link
+                  href={project.url}
+                  target="_blank"
+                  className="block group"
+                >
+                  <div className="relative border border-border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-colors duration-500 rounded-2xl overflow-hidden">
+                    <div
+                      className={`flex flex-col ${
+                        index % 2 === 0
+                          ? "lg:flex-row"
+                          : "lg:flex-row-reverse"
+                      }`}
+                    >
+                      {/* Image */}
+                      <div className="lg:w-1/2 relative overflow-hidden">
+                        <div className="aspect-[4/3] lg:aspect-auto lg:h-[500px] overflow-hidden relative">
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-700" />
+
+                          <div className="absolute inset-0 overflow-hidden">
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              fill
+                              priority={index === 0}
+                              sizes="(max-width: 1024px) 100vw, 50vw"
+                              className="object-cover object-top transition-transform duration-[8000ms] ease-out group-hover:-translate-y-1/2"
+                            />
+                          </div>
+
+                          <motion.div
+                            className="absolute top-4 right-4 z-20"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                          >
+                            <span className="px-4 py-2 text-xs font-bold uppercase bg-black/20 text-white rounded-full shadow-lg backdrop-blur-sm">
+                              {project.category}
+                            </span>
+                          </motion.div>
+
+                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <div className="flex flex-col items-center">
+                              <span className="text-[10px] text-white/80 uppercase tracking-wider mb-1">
+                                Scroll
+                              </span>
+
+                              <div className="w-5 h-8 border-2 border-white/30 rounded-full flex justify-center">
+                                <div className="w-1 h-2 bg-white/60 rounded-full mt-1 animate-bounce" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="lg:w-1/2 p-8 lg:p-12 flex items-center">
+                        <div className="space-y-6">
+                          <div className="flex items-center gap-3">
+                            <span className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent opacity-50">
+                              {(index + 1)
+                                .toString()
+                                .padStart(2, "0")}
+                            </span>
+
+                            <div className="w-12 h-[2px] bg-gradient-to-r from-primary to-accent" />
+
+                            <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                              {project.category}
+                            </span>
+                          </div>
+
+                          <h3 className="text-3xl lg:text-4xl font-bold uppercase leading-tight text-foreground">
+                            {project.title}
+                          </h3>
+
+                          <p className="text-muted-foreground text-lg leading-relaxed">
+                            {project.description}
+                          </p>
+
+                          <div className="pt-4">
+                            <div className="inline-flex items-center gap-4 text-primary font-mono text-sm tracking-wider">
+                              <Eye className="w-5 h-5" />
+                              <span>Live Site</span>
+                              <ArrowRight className="w-4 h-4" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <CTAButton href="/portfolio">View All Products</CTAButton>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FeaturedProjectsClient;
